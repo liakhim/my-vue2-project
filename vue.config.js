@@ -1,13 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: './', // Используйте относительные пути
+  publicPath: '/',
   outputDir: 'dist',
-  assetsDir: 'static',
-
-  configureWebpack: {
-    output: {
-      publicPath: '/'
-    }
-  }
+  assetsDir: 'static'
 })

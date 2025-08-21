@@ -1,7 +1,7 @@
 <template>
   <div
       id="app"
-      :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px' }"
+      :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px', minHeight: '100vh' }"
   >
     <Cover msg="Qwerty" />
   </div>
@@ -24,25 +24,26 @@ export default {
     if (window.Telegram && window.Telegram.WebApp) {
       this.tg = window.Telegram.WebApp
 
-      // Разворачиваем на максимально доступный экран
+      // Сразу разворачиваем fullscreen
       this.tg.expand()
+      this.tg.isExpanded = true
 
-      // Получаем безопасные зоны iPhone
+      // Забираем safe area
       this.safeAreaTop = this.tg.viewportInsetTop
       this.safeAreaBottom = this.tg.viewportInsetBottom
 
-      // Слушаем изменения viewport
+      // Слушаем изменения viewport и повторно разворачиваем
       this.tg.onEvent('viewportChanged', () => {
         this.safeAreaTop = this.tg.viewportInsetTop
         this.safeAreaBottom = this.tg.viewportInsetBottom
 
-        // Всегда максимум
         this.tg.expand()
+        this.tg.isExpanded = true
       })
 
-      // Отключаем кнопки Telegram, чтобы не мешали
-      if (this.tg.MainButton) this.tg.MainButton.hide()
-      if (this.tg.BackButton) this.tg.BackButton.hide()
+      // Скрываем кнопки Telegram
+      this.tg.MainButton?.hide()
+      this.tg.BackButton?.hide()
     }
   }
 }
@@ -55,9 +56,15 @@ export default {
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden; /* блокируем стандартный скролл iOS */
+}
+
 #app {
   width: 100%;
   height: 100%;
-  overflow: auto; /* контент можно скроллить, WebApp не закроется */
+  overflow: auto; /* контент внутри #app можно скроллить */
+  -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
 }
 </style>

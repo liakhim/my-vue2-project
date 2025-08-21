@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <div class="custom-header" v-if="showCustomHeader">
+      <div class="header-title">🎮 My Game</div>
+      <button @click="closeApp" class="header-close-btn">✕</button>
+    </div>
     <HelloWorld msg="Qwerty"/>
   </div>
 </template>

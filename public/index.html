@@ -7,12 +7,31 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // КРИТИЧЕСКИ ВАЖНО: настраиваем Telegram WebApp ДО загрузки Vue
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.Telegram && window.Telegram.WebApp) {
+                const tg = window.Telegram.WebApp;
+
+                // Немедленно настраиваем WebApp
+                tg.expand();
+                tg.enableClosingConfirmation();
+                tg.disableVerticalSwipes();
+                tg.disableHorizontalSwipes();
+                tg.hideHeader();
+                tg.setHeaderColor('secondary_bg_color');
+                tg.BackButton.hide();
+                tg.setBackgroundColor('#ffffff');
+
+                console.log('Telegram WebApp pre-configured');
+            }
+        });
+    </script>
 </head>
 <body>
 <noscript>
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 </noscript>
 <div id="app"></div>
-<!-- built files will be auto injected -->
 </body>
 </html>

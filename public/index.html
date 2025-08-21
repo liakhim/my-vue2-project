@@ -7,52 +7,45 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        /* ТОЛЬКО ЭТОТ СТИЛЬ ДОБАВЬТЕ В HEAD */
+        .tg-head {
+            display: none !important;
+        }
+    </style>
     <script>
-        // ЖЕСТКОЕ УДАЛЕНИЕ СИСТЕМНОГО HEADER
-        function destroyTelegramHeader() {
-            const tg = window.Telegram?.WebApp;
-            if (!tg) return;
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.Telegram?.WebApp) {
+                const tg = window.Telegram.WebApp;
+                tg.expand();
+                tg.enableClosingConfirmation();
+                tg.disableVerticalSwipes();
+                tg.disableHorizontalSwipes();
+                tg.hideHeader();
+                tg.setHeaderColor('secondary_bg_color');
+                tg.BackButton.hide();
+                tg.setBackgroundColor('#ffffff');
 
-            // 1. Официальные методы
-            tg.hideHeader();
-            tg.setHeaderColor('secondary_bg_color');
-            tg.expand();
+                // Постоянно скрываем header
+                setInterval(() => {
+                    tg.hideHeader();
+                    hideHeaderWithCSS();
+                }, 100);
+            }
 
-            // 2. Принудительное скрытие через DOM (работает всегда)
-            setTimeout(() => {
-                // Удаляем все элементы Telegram вверху страницы
-                const allElements = document.querySelectorAll('*');
-                allElements.forEach(element => {
-                    const style = window.getComputedStyle(element);
-                    const rect = element.getBoundingClientRect();
-
-                    // Находим и уничтожаем системный header
-                    if (rect.height <= 60 && rect.top === 0 && rect.width === window.innerWidth) {
-                        if (style.backgroundColor !== 'rgba(0, 0, 0, 0)' ||
-                            style.zIndex > 1000 ||
-                            element.tagName === 'HEADER') {
-                            element.style.display = 'none';
-                            element.style.opacity = '0';
-                            element.style.height = '0';
-                            element.style.minHeight = '0';
-                            element.style.visibility = 'hidden';
-                        }
+            function hideHeaderWithCSS() {
+                // Аккуратно скрываем только системный header
+                const elements = document.querySelectorAll('*');
+                elements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top === 0 && rect.height > 0 && rect.height < 100 &&
+                        rect.width === window.innerWidth &&
+                        window.getComputedStyle(el).position === 'fixed') {
+                        el.classList.add('tg-head');
                     }
                 });
-
-                // 3. Жесткий сброс стилей body/html
-                document.documentElement.style.paddingTop = '0px !important';
-                document.body.style.paddingTop = '0px !important';
-                document.documentElement.style.marginTop = '0px !important';
-                document.body.style.marginTop = '0px !important';
-
-            }, 100);
-        }
-
-        // Запускаем при загрузке
-        document.addEventListener('DOMContentLoaded', destroyTelegramHeader);
-        window.addEventListener('load', destroyTelegramHeader);
-        setInterval(destroyTelegramHeader, 1000); // Постоянная защита
+            }
+        });
     </script>
 </head>
 <body>

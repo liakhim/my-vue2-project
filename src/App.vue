@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="custom-header" v-if="showCustomHeader">
+    <div class="custom-header">
       <div class="header-title">🎮 My Game</div>
       <button @click="closeApp" class="header-close-btn">✕</button>
     </div>
@@ -18,49 +18,93 @@ export default {
   },
   data() {
     return {
-      showCustomHeader: false,
       tg: null
     }
   },
   mounted() {
-    this.initializeTelegramWebApp();
+    this.initTelegramWebApp();
   },
   methods: {
-    initializeTelegramWebApp() {
+    initTelegramWebApp() {
       // Проверяем, что мы в Telegram Web App
-      if (window.Telegram && window.Telegram.WebApp) {
+      if (window.Telegram?.WebApp) {
         this.tg = window.Telegram.WebApp;
 
-        // Скрываем системный header
+        console.log('Telegram WebApp detected, initializing...');
+
+        // Основные настройки
+        this.tg.expand(); // Растягиваем на весь экран
+        this.tg.enableClosingConfirmation(); // Запрещаем закрытие по скроллу
+
+        // Скрываем стандартный header Telegram
         this.tg.setHeaderColor('secondary_bg_color');
         this.tg.hideHeader();
 
-        // Растягиваем на весь экран
-        this.tg.expand();
+        // Отключаем ненужные жесты
+        this.tg.disableVerticalSwipes();
+        this.tg.disableHorizontalSwipes();
 
-        // Отключаем закрытие по скроллу вниз
-        this.tg.enableClosingConfirmation();
+        // Настраиваем BackButton
+        this.tg.BackButton.hide();
 
-        // Показываем наш кастомный header
-        this.showCustomHeader = true;
+        // Блокируем стандартное поведение браузера
+        this.preventPullToRefresh();
 
-        // Настраиваем поведение приложения
-        this.tg.disableVerticalSwipes(); // Отключаем вертикальные свайпы
-        this.tg.BackButton.hide(); // Скрываем кнопку "Назад"
-
-        console.log('Telegram Web App initialized');
+        console.log('WebApp initialized successfully');
       } else {
-        console.log('Not in Telegram Web App environment');
-        this.showCustomHeader = true; // Показываем header для тестирования вне Telegram
+        console.log('Not in Telegram WebApp - running in browser mode');
       }
     },
+
+    preventPullToRefresh() {
+      // Блокируем pull-to-refresh и другие жесты
+      document.addEventListener('touchstart', this.handleTouchStart, { passive: false });
+      document.addEventListener('touchmove', this.handleTouchMove, { passive: false });
+      document.addEventListener('touchend', this.handleTouchEnd, { passive: false });
+
+      // Блокируем скролл за пределы
+      document.addEventListener('scroll', this.preventOverscroll, { passive: false });
+    },
+
+    handleTouchStart(e) {
+      this.startY = e.touches[0].clientY;
+    },
+
+    handleTouchMove(e) {
+      const currentY = e.touches[0].clientY;
+
+      // Предотвращаем pull-to-refresh
+      if (currentY - this.startY > 50 && window.scrollY === 0) {
+        e.preventDefault();
+      }
+    },
+
+    handleTouchEnd() {
+      this.startY = null;
+    },
+
+    preventOverscroll(e) {
+      // Предотвращаем скролл за пределы контента
+      if (window.scrollY < 0 || window.scrollY > document.body.scrollHeight - window.innerHeight) {
+        e.preventDefault();
+        window.scrollTo(0, Math.max(0, Math.min(window.scrollY, document.body.scrollHeight - window.innerHeight)));
+      }
+    },
+
     closeApp() {
       if (this.tg) {
         this.tg.close();
       } else {
-        console.log('App would close here');
+        alert('App would close here');
       }
     }
+  },
+  beforeUnmount() {
+    // Убираем обработчики при уничтожении компонента
+    document.removeEventListener('touchstart', this.handleTouchStart);
+    document.removeEventListener('touchmove', this.handleTouchMove);
+    document.removeEventListener('touchend', this.handleTouchEnd);
+    document.removeEventListener('scroll', this.preventOverscroll);
   }
 }
 </script>

@@ -18,42 +18,26 @@ export default {
   },
   data() {
     return {
-      tg: null,
-      isFullScreen: true,
-      safeAreaTop: 0,
-      safeAreaBottom: 0
-    }
-  },
-
-  computed: {
-    headerStyle() {
-      return {
-        paddingTop: `env(safe-area-inset-top, ${this.safeAreaTop}px)`,
-        height: `calc(48px + env(safe-area-inset-top, ${this.safeAreaTop}px))`
-      };
-    },
-    contentStyle() {
-      return {
-        paddingTop: `calc(48px + env(safe-area-inset-top, ${this.safeAreaTop}px))`,
-        paddingBottom: `env(safe-area-inset-bottom, ${this.safeAreaBottom}px)`
-      };
+      tg: null
     }
   },
 
   mounted() {
     this.initTelegramWebApp();
-    this.calculateSafeAreas();
   },
 
   methods: {
-    initTelegramWebApp() {
+    async initTelegramWebApp() {
+      // Ждем загрузки Telegram Web App API
+      await this.waitForTelegramAPI();
+
       if (window.Telegram && window.Telegram.WebApp) {
         this.tg = window.Telegram.WebApp;
 
-        // Ключевой момент: скрываем системный header
-        this.hideSystemHeader();
+        // Ключевой момент: правильное скрытие header
+        this.hideTelegramHeader();
 
-        // Настройки полноэкранного режима
+        // Настройка полноэкранного режима
         this.setupFullscreenMode();
 
       } else {
@@ -61,62 +45,59 @@ export default {
       }
     },
 
-    hideSystemHeader() {
+    waitForTelegramAPI() {
+      return new Promise((resolve) => {
+        if (window.Telegram && window.Telegram.WebApp) {
+          resolve();
+        } else {
+          setTimeout(() => resolve(), 100);
+        }
+      });
+    },
+
+    hideTelegramHeader() {
       if (!this.tg) return;
 
-      // 1. Основной способ - скрываем header
-      this.tg.setHeaderColor('secondary_bg_color');
+      // 1. Основной способ - используем специальный цвет
+      this.tg.setHeaderColor('bg_color');
 
-      // 2. Альтернативный способ - делаем прозрачным
-      setTimeout(() => {
-        this.tg.setHeaderColor('#00000000'); // Полностью прозрачный
-      }, 100);
+      // 2. Делаем header невидимым
+      this.tg.setHeaderColor('#00000000'); // Полная прозрачность
 
-      // 3. Дополнительно: скрываем кнопку назад
+      // 3. Скрываем кнопку назад
       this.tg.BackButton.hide();
 
-      // 4. Принудительно расширяем на весь экран
-      this.tg.expand();
+      // 4. Убираем заголовок
+      this.tg.MainButton.hide();
+
+      // 5. Дополнительные методы (если доступны)
+      if (this.tg.HapticFeedback) {
+        this.tg.HapticFeedback.impactOccurred('light');
+      }
     },
 
     setupFullscreenMode() {
       if (!this.tg) return;
 
+      // Расширяем на весь экран
       this.tg.expand();
+
+      // Блокируем закрытие свайпом
       this.tg.enableClosingConfirmation();
       this.tg.disableVerticalSwipes();
 
-      // Устанавливаем цвет фона такой же как у приложения
+      // Устанавливаем цвет фона
       this.tg.setBackgroundColor('#667eea');
 
-      // Следим за изменениями
-      this.tg.onEvent('viewportChanged', this.handleViewportChange);
-    },
+      // Обработчик изменений
+      this.tg.onEvent('viewportChanged', (data) => {
+        if (!data.is_expanded) {
+          setTimeout(() => this.tg.expand(), 50);
+        }
+      });
 
-    handleViewportChange(data) {
-      if (!data.is_expanded) {
-        setTimeout(() => {
-          this.tg.expand();
-        }, 50);
-      }
-    },
-
-    calculateSafeAreas() {
-      // Рассчитываем безопасные зоны для разных устройств
-      this.safeAreaTop = this.getSafeAreaTop();
-      this.safeAreaBottom = this.getSafeAreaBottom();
-    },
-
-    getSafeAreaTop() {
-      // Для iOS с notch ~44px, для других ~0px
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      return isIOS ? 44 : 0;
-    },
-
-    getSafeAreaBottom() {
-      // Для iPhone X+ ~34px
-      const isIPhoneX = /iPhone X|iPhone 1[1-9]|iPhone 1[0-9]/.test(navigator.userAgent);
-      return isIPhoneX ? 34 : 0;
+      // Готовность
+      this.tg.ready();
     },
 
     showGame() {
@@ -126,12 +107,16 @@ export default {
           message: "Приготовьтесь к gameplay...",
           buttons: [{ type: "ok" }]
         });
+      } else {
+        alert('Игра начинается!');
       }
     },
 
     closeApp() {
       if (this.tg) {
         this.tg.close();
+      } else {
+        alert('Приложение будет закрыто');
       }
     }
   }

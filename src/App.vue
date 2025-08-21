@@ -1,9 +1,5 @@
 <template>
-  <div id="app">
-    <div class="custom-header" v-if="showCustomHeader">
-      <div class="header-title">🎮 My Game</div>
-      <button @click="closeApp" class="header-close-btn">✕</button>
-    </div>
+  <div id="app" :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px' }">
     <HelloWorld msg="Qwerty"/>
   </div>
 </template>
@@ -19,121 +15,30 @@ export default {
   data() {
     return {
       tg: null,
-      isFullScreen: true,
       safeAreaTop: 0,
       safeAreaBottom: 0
     }
   },
-
-  computed: {
-    headerStyle() {
-      return {
-        paddingTop: `env(safe-area-inset-top, ${this.safeAreaTop}px)`,
-        height: `calc(48px + env(safe-area-inset-top, ${this.safeAreaTop}px))`
-      };
-    },
-    contentStyle() {
-      return {
-        paddingTop: `calc(48px + env(safe-area-inset-top, ${this.safeAreaTop}px))`,
-        paddingBottom: `env(safe-area-inset-bottom, ${this.safeAreaBottom}px)`
-      };
-    }
-  },
-
   mounted() {
-    this.initTelegramWebApp();
-    this.calculateSafeAreas();
-  },
+    // Telegram WebApp объект уже доступен как window.Telegram.WebApp
+    this.tg = window.Telegram.WebApp;
 
-  methods: {
-    initTelegramWebApp() {
-      if (window.Telegram && window.Telegram.WebApp) {
-        this.tg = window.Telegram.WebApp;
+    // Разворачиваем WebApp на весь экран
+    this.tg.expand();
 
-        // Ключевой момент: скрываем системный header
-        this.hideSystemHeader();
+    // Получаем размеры safe area для iPhone
+    this.safeAreaTop = this.tg.viewportInsetTop;
+    this.safeAreaBottom = this.tg.viewportInsetBottom;
 
-        // Настройки полноэкранного режима
-        this.setupFullscreenMode();
+    // Запрещаем закрытие WebApp при скролле
+    this.tg.MainButton.hide();
+    this.tg.BackButton.hide();
 
-      } else {
-        console.log('Development mode - not in Telegram');
-      }
-    },
-
-    hideSystemHeader() {
-      if (!this.tg) return;
-
-      // 1. Основной способ - скрываем header
-      this.tg.setHeaderColor('secondary_bg_color');
-
-      // 2. Альтернативный способ - делаем прозрачным
-      setTimeout(() => {
-        this.tg.setHeaderColor('#00000000'); // Полностью прозрачный
-      }, 100);
-
-      // 3. Дополнительно: скрываем кнопку назад
-      this.tg.BackButton.hide();
-
-      // 4. Принудительно расширяем на весь экран
-      this.tg.expand();
-    },
-
-    setupFullscreenMode() {
-      if (!this.tg) return;
-
-      this.tg.expand();
-      this.tg.enableClosingConfirmation();
-      this.tg.disableVerticalSwipes();
-
-      // Устанавливаем цвет фона такой же как у приложения
-      this.tg.setBackgroundColor('#667eea');
-
-      // Следим за изменениями
-      this.tg.onEvent('viewportChanged', this.handleViewportChange);
-    },
-
-    handleViewportChange(data) {
-      if (!data.is_expanded) {
-        setTimeout(() => {
-          this.tg.expand();
-        }, 50);
-      }
-    },
-
-    calculateSafeAreas() {
-      // Рассчитываем безопасные зоны для разных устройств
-      this.safeAreaTop = this.getSafeAreaTop();
-      this.safeAreaBottom = this.getSafeAreaBottom();
-    },
-
-    getSafeAreaTop() {
-      // Для iOS с notch ~44px, для других ~0px
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      return isIOS ? 44 : 0;
-    },
-
-    getSafeAreaBottom() {
-      // Для iPhone X+ ~34px
-      const isIPhoneX = /iPhone X|iPhone 1[1-9]|iPhone 1[0-9]/.test(navigator.userAgent);
-      return isIPhoneX ? 34 : 0;
-    },
-
-    showGame() {
-      if (this.tg) {
-        this.tg.showPopup({
-          title: "Игра началась!",
-          message: "Приготовьтесь к gameplay...",
-          buttons: [{ type: "ok" }]
-        });
-      }
-    },
-
-    closeApp() {
-      if (this.tg) {
-        this.tg.close();
-      }
-    }
+    // Можно слушать изменение размеров
+    this.tg.onEvent('viewportChanged', () => {
+      this.safeAreaTop = this.tg.viewportInsetTop;
+      this.safeAreaBottom = this.tg.viewportInsetBottom;
+    });
   }
 }
 </script>
@@ -157,5 +62,10 @@ export default {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 </style>

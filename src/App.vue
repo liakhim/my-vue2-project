@@ -158,12 +158,6 @@ export default {
   margin: 0;
   box-sizing: border-box;
 }
-body {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
 .telegram-webapp {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -180,7 +174,6 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 48px;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(20px);
   display: flex;
@@ -216,10 +209,8 @@ body {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Контент занимает ВЕСЬ экран */
+/* Контент */
 .content {
-  padding: 0;
-  margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -227,10 +218,6 @@ body {
   align-items: center;
   text-align: center;
   box-sizing: border-box;
-}
-
-.fullscreen-content {
-  padding-top: 48px; /* Отступ под кастомный header */
 }
 
 h1 {
@@ -269,37 +256,8 @@ p {
   transform: scale(1.05);
 }
 
-/* Убираем все стандартные отступы Telegram */
-:deep() .tg-head {
-  display: none !important;
-}
-
-:deep() .tg-header {
-  height: 0 !important;
-  min-height: 0 !important;
-  opacity: 0 !important;
-}
-
-:deep() body {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  overflow: hidden !important;
-}
-
-/* Для iOS Safari */
-@supports (-webkit-touch-callout: none) {
-  .telegram-webapp {
-    min-height: -webkit-fill-available;
-  }
-
-  .content {
-    min-height: -webkit-fill-available;
-  }
-}
-
 @media (max-width: 480px) {
   .custom-header {
-    height: 44px;
     padding: 0 12px;
   }
 
@@ -315,54 +273,35 @@ p {
     padding: 12px 25px;
     font-size: 16px;
   }
-
-  .fullscreen-content {
-    padding-top: 44px;
-  }
 }
+</style>
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  height: 100vh;
-  overflow: hidden;
-}
-/* Глобальные стили для переопределения Telegram */
+<style>
+/* Глобальные переопределения для Telegram */
 body {
   margin: 0 !important;
   padding: 0 !important;
-  overflow: hidden !important;
 }
 
-/* Скрываем стандартный header Telegram */
+/* Прячем системные элементы Telegram */
 .tg-head {
   display: none !important;
+  opacity: 0 !important;
+  height: 0 !important;
 }
 
-.tg-header {
+/* Убираем отступы которые добавляет Telegram */
+.tgweb-container {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Для принудительного скрытия header */
+header {
   display: none !important;
 }
 
-/* Убираем безопасные зоны */
-@supports(padding: max(0px)) {
-  .telegram-webapp {
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  .custom-header {
-    padding-left: calc(16px + env(safe-area-inset-left));
-    padding-right: calc(16px + env(safe-area-inset-right));
-    padding-top: env(safe-area-inset-top);
-    height: calc(48px + env(safe-area-inset-top));
-  }
-
-  .fullscreen-content {
-    padding-top: calc(48px + env(safe-area-inset-top));
-  }
+[class*="header"] {
+  display: none !important;
 }
 </style>

@@ -24,10 +24,10 @@ export default {
     if (window.Telegram && window.Telegram.WebApp) {
       this.tg = window.Telegram.WebApp
 
-      // Разворачиваем на максимум доступного размера
+      // Разворачиваем на максимально доступный экран
       this.tg.expand()
 
-      // Получаем безопасные зоны
+      // Получаем безопасные зоны iPhone
       this.safeAreaTop = this.tg.viewportInsetTop
       this.safeAreaBottom = this.tg.viewportInsetBottom
 
@@ -36,11 +36,11 @@ export default {
         this.safeAreaTop = this.tg.viewportInsetTop
         this.safeAreaBottom = this.tg.viewportInsetBottom
 
-        // Сохраняем максимально возможный размер
+        // Всегда максимум
         this.tg.expand()
       })
 
-      // Скрываем кнопки Telegram, если мешают
+      // Отключаем кнопки Telegram, чтобы не мешали
       if (this.tg.MainButton) this.tg.MainButton.hide()
       if (this.tg.BackButton) this.tg.BackButton.hide()
     }
@@ -58,6 +58,6 @@ export default {
 #app {
   width: 100%;
   height: 100%;
-  overflow: auto; /* для скролла контента */
+  overflow: auto; /* контент можно скроллить, WebApp не закроется */
 }
 </style>

@@ -8,17 +8,17 @@
 
     <!-- Контент -->
     <div class="content">
-      <HelloWorld msg="Привет!"/>
+      <Cover msg="Привет!"/>
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Cover from './components/Cover.vue'
 
 export default {
   name: 'App',
-  components: { HelloWorld },
+  components: { Cover },
   data() {
     return { tg: null }
   },

@@ -22,93 +22,112 @@ export default {
     }
   },
   mounted() {
-    // Задержка для гарантированной инициализации Telegram WebApp
-    setTimeout(() => {
+    // Ждем полной загрузки Telegram WebApp
+    if (window.Telegram?.WebApp) {
       this.initTelegramWebApp();
-    }, 100);
+    } else {
+      // Если WebApp не загрузился, пробуем с интервалом
+      const checkInterval = setInterval(() => {
+        if (window.Telegram?.WebApp) {
+          clearInterval(checkInterval);
+          this.initTelegramWebApp();
+        }
+      }, 100);
+
+      // На всякий случай таймаут
+      setTimeout(() => {
+        clearInterval(checkInterval);
+        if (window.Telegram?.WebApp) {
+          this.initTelegramWebApp();
+        }
+      }, 2000);
+    }
   },
   methods: {
     initTelegramWebApp() {
-      // Проверяем наличие Telegram WebApp API
-      if (window.Telegram && window.Telegram.WebApp) {
-        this.tg = window.Telegram.WebApp;
-        console.log('Telegram WebApp initialized', this.tg);
+      this.tg = window.Telegram.WebApp;
+      console.log('Telegram WebApp version:', this.tg.version);
 
-        // ОСНОВНЫЕ НАСТРОЙКИ - ВАЖНЫЙ ПОРЯДОК!
+      // КРИТИЧЕСКИ ВАЖНЫЙ ПОРЯДОК ДЕЙСТВИЙ:
 
-        // 1. Сначала расширяем на весь экран
-        this.tg.expand();
+      // 1. Первым делом - расширяем на весь экран
+      this.tg.expand();
 
-        // 2. Немедленно скрываем header Telegram
-        this.tg.hideHeader();
-        this.tg.setHeaderColor('secondary_bg_color');
+      // 2. Немедленно скрываем системный header
+      this.tg.hideHeader();
+      this.tg.setHeaderColor('secondary_bg_color');
 
-        // 3. Запрещаем закрытие
-        this.tg.enableClosingConfirmation();
-        this.tg.disableVerticalSwipes();
-        this.tg.disableHorizontalSwipes();
+      // 3. Запрещаем закрытие любыми жестами
+      this.tg.enableClosingConfirmation();
+      this.tg.disableVerticalSwipes();
+      this.tg.disableHorizontalSwipes();
 
-        // 4. Скрываем кнопку назад
-        this.tg.BackButton.hide();
+      // 4. Скрываем кнопку "Назад"
+      this.tg.BackButton.hide();
 
-        // 5. Настраиваем основной цвет
-        this.tg.setBackgroundColor('#ffffff');
+      // 5. Устанавливаем цвет фона
+      this.tg.setBackgroundColor('#ffffff');
 
-        // 6. Принудительно применяем настройки
-        this.forceFullscreen();
+      // 6. Принудительно применяем полноэкранный режим
+      this.applyForcedFullscreen();
 
-        console.log('WebApp configured successfully');
-      } else {
-        console.warn('Not in Telegram WebApp environment');
-        this.simulateFullscreen();
+      // 7. Вешаем обработчики на события
+      this.tg.onEvent('viewportChanged', this.handleViewportChange);
+
+      console.log('WebApp fully initialized');
+    },
+
+    applyForcedFullscreen() {
+      // Жесткие стили для гарантии полноэкранного режима
+      const style = document.documentElement.style;
+      style.height = '100vh';
+      style.width = '100vw';
+      style.overflow = 'hidden';
+      style.position = 'fixed';
+      style.top = '0';
+      style.left = '0';
+
+      document.body.style.height = '100vh';
+      document.body.style.width = '100vw';
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.margin = '0';
+      document.body.style.padding = '0';
+
+      // Блокируем все возможные жесты
+      this.blockAllGestures();
+    },
+
+    blockAllGestures() {
+      // Полная блокировка всех жестов
+      document.addEventListener('touchstart', this.blockEvent, { passive: false });
+      document.addEventListener('touchmove', this.blockEvent, { passive: false });
+      document.addEventListener('touchend', this.blockEvent, { passive: false });
+      document.addEventListener('scroll', this.blockEvent, { passive: false });
+      document.addEventListener('wheel', this.blockEvent, { passive: false });
+      document.addEventListener('contextmenu', this.blockEvent);
+
+      // CSS блокировка
+      document.body.style.overscrollBehavior = 'none';
+      document.body.style.touchAction = 'none';
+    },
+
+    blockEvent(e) {
+      // Блокируем все события, которые могут закрыть приложение
+      if (e.type === 'touchmove' || e.type === 'scroll') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
       }
     },
 
-    forceFullscreen() {
-      // Принудительные стили для полноэкранного режима
-      document.documentElement.style.height = '100%';
-      document.body.style.height = '100%';
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-
-      // Блокировка жестов
-      this.preventPullToRefresh();
-    },
-
-    simulateFullscreen() {
-      // Режим для браузера (тестирование)
-      document.documentElement.style.height = '100%';
-      document.body.style.height = '100%';
-      document.body.style.overflow = 'hidden';
-    },
-
-    preventPullToRefresh() {
-      // Эффективная блокировка pull-to-refresh
-      let lastTouchY = 0;
-      const body = document.body;
-
-      body.addEventListener('touchstart', (e) => {
-        lastTouchY = e.touches[0].clientY;
-      }, { passive: false });
-
-      body.addEventListener('touchmove', (e) => {
-        const touchY = e.touches[0].clientY;
-        const deltaY = touchY - lastTouchY;
-
-        // Блокируем скролл вниз в начале страницы
-        if (window.scrollY <= 0 && deltaY > 0) {
-          e.preventDefault();
-        }
-
-        lastTouchY = touchY;
-      }, { passive: false });
-
-      // Блокировка контекстного меню
-      body.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        return false;
-      });
+    handleViewportChange(e) {
+      console.log('Viewport changed:', e);
+      // При изменении viewport снова применяем настройки
+      if (this.tg) {
+        this.tg.expand();
+        this.tg.hideHeader();
+      }
     },
 
     closeApp() {
@@ -118,73 +137,64 @@ export default {
         alert('App would close here');
       }
     }
+  },
+  beforeUnmount() {
+    // Убираем обработчики
+    if (this.tg) {
+      this.tg.offEvent('viewportChanged', this.handleViewportChange);
+    }
   }
 }
 </script>
 
 <style lang="scss">
-@font-face {
-  font-family: "Jem";
-  src: url("./assets/fonts/jem/jeM.otf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Papyrus";
-  src: url("./assets/fonts/papyrus/Papyrus-02.otf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ЖЕСТКИЙ СБРОС СТИЛЕЙ */
+/* АБСОЛЮТНЫЙ СБРОС ВСЕХ СТИЛЕЙ */
 html, body {
   margin: 0 !important;
   padding: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
+  width: 100vw !important;
+  height: 100vh !important;
   overflow: hidden !important;
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 * {
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
 }
 
 #app {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  background: var(--tg-theme-bg-color, #ffffff);
-  color: var(--tg-theme-text-color, #000000);
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: var(--tg-theme-bg-color, #ffffff) !important;
+  color: var(--tg-theme-text-color, #000000) !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .custom-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 48px;
-  background: var(--tg-theme-secondary-bg-color, #f0f0f0);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  z-index: 10000; /* Очень высокий z-index */
-  border-bottom: 1px solid var(--tg-theme-hint-color, #cccccc);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 48px !important;
+  background: var(--tg-theme-secondary-bg-color, #f0f0f0) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 16px !important;
+  z-index: 10000 !important;
+  border-bottom: 1px solid var(--tg-theme-hint-color, #cccccc) !important;
 
   .header-title {
     font-family: "Jem", sans-serif;
@@ -216,11 +226,10 @@ html, body {
   }
 }
 
-// Компенсируем отступ для контента под фиксированным header
 .HelloWorld {
-  padding-top: 48px;
-  height: 100vh;
-  overflow: hidden;
-  width: 100vw;
+  padding-top: 48px !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+  width: 100vw !important;
 }
 </style>

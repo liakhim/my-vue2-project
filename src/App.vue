@@ -20,13 +20,29 @@ export default {
     return {
       tg: null,
       isFullScreen: true,
-      isExpanded: true,
-      showCustomHeader: false
+      safeAreaTop: 0,
+      safeAreaBottom: 0
+    }
+  },
+
+  computed: {
+    headerStyle() {
+      return {
+        paddingTop: `env(safe-area-inset-top, ${this.safeAreaTop}px)`,
+        height: `calc(48px + env(safe-area-inset-top, ${this.safeAreaTop}px))`
+      };
+    },
+    contentStyle() {
+      return {
+        paddingTop: `calc(48px + env(safe-area-inset-top, ${this.safeAreaTop}px))`,
+        paddingBottom: `env(safe-area-inset-bottom, ${this.safeAreaBottom}px)`
+      };
     }
   },
 
   mounted() {
     this.initTelegramWebApp();
+    this.calculateSafeAreas();
   },
 
   methods: {
@@ -34,123 +50,89 @@ export default {
       if (window.Telegram && window.Telegram.WebApp) {
         this.tg = window.Telegram.WebApp;
 
-        // Скрываем стандартный header Telegram
-        this.hideTelegramHeader();
+        // Ключевой момент: скрываем системный header
+        this.hideSystemHeader();
 
-        // Настройки для полноэкранного режима
+        // Настройки полноэкранного режима
         this.setupFullscreenMode();
 
-        // Блокировка закрытия свайпом
-        this.preventSwipeToClose();
-
-        // Показываем наш кастомный header
-        this.showCustomHeader = true;
-
       } else {
-        // Режим разработки
         console.log('Development mode - not in Telegram');
-        this.showCustomHeader = true;
       }
     },
 
-    hideTelegramHeader() {
+    hideSystemHeader() {
       if (!this.tg) return;
 
-      // Полностью скрываем стандартный header Telegram
-      this.tg.setHeaderColor('secondary_bg_color'); // Прозрачный
+      // 1. Основной способ - скрываем header
+      this.tg.setHeaderColor('secondary_bg_color');
 
-      // Альтернативный способ - через CSS injection
-      const style = document.createElement('style');
-      style.textContent = `
-        .tg-head {
-          display: none !important;
-        }
-        .tg-header {
-          height: 0 !important;
-          min-height: 0 !important;
-        }
-        body {
-          margin-top: 0 !important;
-          padding-top: 0 !important;
-        }
-      `;
-      document.head.appendChild(style);
+      // 2. Альтернативный способ - делаем прозрачным
+      setTimeout(() => {
+        this.tg.setHeaderColor('#00000000'); // Полностью прозрачный
+      }, 100);
+
+      // 3. Дополнительно: скрываем кнопку назад
+      this.tg.BackButton.hide();
+
+      // 4. Принудительно расширяем на весь экран
+      this.tg.expand();
     },
 
     setupFullscreenMode() {
       if (!this.tg) return;
 
-      // Включаем полноэкранный режим БЕЗ отступов
       this.tg.expand();
       this.tg.enableClosingConfirmation();
       this.tg.disableVerticalSwipes();
 
-      // Убираем все отступы
-      this.tg.setBackgroundColor('#667eea'); // Цвет как у фона
+      // Устанавливаем цвет фона такой же как у приложения
+      this.tg.setBackgroundColor('#667eea');
 
-      // Следим за изменениями размера
+      // Следим за изменениями
       this.tg.onEvent('viewportChanged', this.handleViewportChange);
     },
 
     handleViewportChange(data) {
-      if (!data.is_expanded && this.isExpanded) {
-        // Немедленно возвращаем полноэкранный режим
+      if (!data.is_expanded) {
         setTimeout(() => {
           this.tg.expand();
         }, 50);
       }
-      this.isExpanded = data.is_expanded;
     },
 
-    preventSwipeToClose() {
-      // Агрессивное блокирование свайпов
-      let startY = 0;
-      let isBlocking = false;
+    calculateSafeAreas() {
+      // Рассчитываем безопасные зоны для разных устройств
+      this.safeAreaTop = this.getSafeAreaTop();
+      this.safeAreaBottom = this.getSafeAreaBottom();
+    },
 
-      document.addEventListener('touchstart', (e) => {
-        startY = e.touches[0].clientY;
-        isBlocking = startY < 50; // Блокируем только в самом верху
-      }, { passive: false });
+    getSafeAreaTop() {
+      // Для iOS с notch ~44px, для других ~0px
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      return isIOS ? 44 : 0;
+    },
 
-      document.addEventListener('touchmove', (e) => {
-        if (!isBlocking) return;
-
-        const currentY = e.touches[0].clientY;
-        const diff = currentY - startY;
-
-        // Блокируем любой свайп сверху вниз в верхней части
-        if (diff > 10) {
-          e.preventDefault();
-          e.stopPropagation();
-          return false;
-        }
-      }, { passive: false });
-
-      // Блокируем overscroll
-      document.documentElement.style.overscrollBehavior = 'none';
-      document.body.style.overscrollBehavior = 'none';
+    getSafeAreaBottom() {
+      // Для iPhone X+ ~34px
+      const isIPhoneX = /iPhone X|iPhone 1[1-9]|iPhone 1[0-9]/.test(navigator.userAgent);
+      return isIPhoneX ? 34 : 0;
     },
 
     showGame() {
-      this.tg.showPopup({
-        title: "Игра началась!",
-        message: "Приготовьтесь к gameplay...",
-        buttons: [{ type: "ok" }]
-      });
+      if (this.tg) {
+        this.tg.showPopup({
+          title: "Игра началась!",
+          message: "Приготовьтесь к gameplay...",
+          buttons: [{ type: "ok" }]
+        });
+      }
     },
 
     closeApp() {
       if (this.tg) {
         this.tg.close();
-      } else {
-        alert('Приложение будет закрыто');
       }
-    }
-  },
-
-  beforeDestroy() {
-    if (this.tg) {
-      this.tg.offEvent('viewportChanged', this.handleViewportChange);
     }
   }
 }

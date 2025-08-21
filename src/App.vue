@@ -18,7 +18,8 @@ export default {
   },
   data() {
     return {
-      tg: null
+      tg: null,
+      startY: 0
     }
   },
   mounted() {
@@ -50,6 +51,14 @@ export default {
         // Блокируем стандартное поведение браузера
         this.preventPullToRefresh();
 
+        // Устанавливаем цвет фона для соответствия теме
+        this.tg.setBackgroundColor('#ffffff');
+
+        // Отключаем вибрацию при наведении (если есть)
+        if (this.tg.HapticFeedback) {
+          this.tg.HapticFeedback.impactOccurred('light');
+        }
+
         console.log('WebApp initialized successfully');
       } else {
         console.log('Not in Telegram WebApp - running in browser mode');
@@ -57,13 +66,19 @@ export default {
     },
 
     preventPullToRefresh() {
-      // Блокируем pull-to-refresh и другие жесты
+      // Более эффективная блокировка pull-to-refresh
+      document.body.style.overscrollBehavior = 'none';
+
+      // Блокируем жесты касания
       document.addEventListener('touchstart', this.handleTouchStart, { passive: false });
       document.addEventListener('touchmove', this.handleTouchMove, { passive: false });
       document.addEventListener('touchend', this.handleTouchEnd, { passive: false });
 
       // Блокируем скролл за пределы
-      document.addEventListener('scroll', this.preventOverscroll, { passive: false });
+      window.addEventListener('scroll', this.preventOverscroll, { passive: false });
+
+      // Блокируем контекстное меню
+      document.addEventListener('contextmenu', this.preventContextMenu);
     },
 
     handleTouchStart(e) {
@@ -71,24 +86,29 @@ export default {
     },
 
     handleTouchMove(e) {
-      const currentY = e.touches[0].clientY;
-
-      // Предотвращаем pull-to-refresh
-      if (currentY - this.startY > 50 && window.scrollY === 0) {
+      // Полностью блокируем любые жесты, которые могут закрыть приложение
+      if (window.scrollY === 0 && e.touches[0].clientY - this.startY > 0) {
         e.preventDefault();
+        return false;
       }
     },
 
     handleTouchEnd() {
-      this.startY = null;
+      this.startY = 0;
     },
 
     preventOverscroll(e) {
-      // Предотвращаем скролл за пределы контента
-      if (window.scrollY < 0 || window.scrollY > document.body.scrollHeight - window.innerHeight) {
+      // Жесткая блокировка любого выхода за границы скролла
+      if (window.scrollY < 0) {
+        window.scrollTo(0, 0);
         e.preventDefault();
-        window.scrollTo(0, Math.max(0, Math.min(window.scrollY, document.body.scrollHeight - window.innerHeight)));
+        return false;
       }
+    },
+
+    preventContextMenu(e) {
+      e.preventDefault();
+      return false;
     },
 
     closeApp() {
@@ -104,7 +124,8 @@ export default {
     document.removeEventListener('touchstart', this.handleTouchStart);
     document.removeEventListener('touchmove', this.handleTouchMove);
     document.removeEventListener('touchend', this.handleTouchEnd);
-    document.removeEventListener('scroll', this.preventOverscroll);
+    window.removeEventListener('scroll', this.preventOverscroll);
+    document.removeEventListener('contextmenu', this.preventContextMenu);
   }
 }
 </script>
@@ -129,12 +150,28 @@ export default {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; // Убираем подсветку при тапе
+  -webkit-touch-callout: none; // Отключаем меню при долгом тапе
+  -webkit-user-select: none; // Запрещаем выделение текста
+  user-select: none;
+}
+
+html, body {
+  overscroll-behavior: none; // Блокируем overscroll на уровне документа
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
 }
 
 #app {
   height: 100vh;
+  width: 100vw;
   background: var(--tg-theme-bg-color, #ffffff);
   color: var(--tg-theme-text-color, #000000);
+  position: fixed;
+  overflow: hidden;
+  touch-action: none; // Блокируем стандартные жесты браузера
 }
 
 .custom-header {
@@ -186,5 +223,6 @@ export default {
   padding-top: 48px;
   height: 100vh;
   overflow: hidden;
+  width: 100vw;
 }
 </style>

@@ -26,9 +26,30 @@ export default {
     if (window.Telegram?.WebApp) {
       this.tg = window.Telegram.WebApp;
       console.log('Telegram WebApp ready');
+
+      // Дополнительное скрытие header'а после полной загрузки
+      this.hideHeaderWithRetry();
     }
   },
   methods: {
+    hideHeaderWithRetry() {
+      if (!this.tg) return;
+
+      // Многократные попытки скрыть header
+      this.tg.hideHeader();
+
+      setTimeout(() => {
+        this.tg.hideHeader();
+      }, 50);
+
+      setTimeout(() => {
+        this.tg.hideHeader();
+      }, 100);
+
+      setTimeout(() => {
+        this.tg.hideHeader();
+      }, 200);
+    },
     closeApp() {
       if (this.tg) {
         this.tg.close();

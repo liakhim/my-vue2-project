@@ -18,12 +18,25 @@
                 tg.enableClosingConfirmation();
                 tg.disableVerticalSwipes();
                 tg.disableHorizontalSwipes();
+
+                // СНАЧАЛА скрываем header, ПОТОМ настраиваем цвет
                 tg.hideHeader();
                 tg.setHeaderColor('secondary_bg_color');
+
                 tg.BackButton.hide();
                 tg.setBackgroundColor('#ffffff');
 
                 console.log('Telegram WebApp pre-configured');
+
+                // ДОПОЛНИТЕЛЬНО: принудительно скрываем header после задержки
+                setTimeout(() => {
+                    tg.hideHeader();
+                }, 100);
+
+                // Слушаем события изменения viewport
+                tg.onEvent('viewportChanged', function() {
+                    tg.hideHeader();
+                });
             }
         });
     </script>

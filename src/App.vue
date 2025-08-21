@@ -16,7 +16,8 @@ export default {
     return {
       tg: null,
       isFullScreen: true,
-      isExpanded: true
+      isExpanded: true,
+      showCustomHeader: false
     }
   },
 
@@ -25,6 +26,29 @@ export default {
   },
 
   methods: {
+    initTelegramWebApp() {
+      if (window.Telegram && window.Telegram.WebApp) {
+        this.tg = window.Telegram.WebApp;
+
+        // Скрываем стандартный header Telegram
+        this.hideTelegramHeader();
+
+        // Настройки для полноэкранного режима
+        this.setupFullscreenMode();
+
+        // Блокировка закрытия свайпом
+        this.preventSwipeToClose();
+
+        // Показываем наш кастомный header
+        this.showCustomHeader = true;
+
+      } else {
+        // Режим разработки
+        console.log('Development mode - not in Telegram');
+        this.showCustomHeader = true;
+      }
+    },
+
     hideTelegramHeader() {
       if (!this.tg) return;
 
@@ -48,30 +72,6 @@ export default {
       `;
       document.head.appendChild(style);
     },
-    initTelegramWebApp() {
-      // Проверяем что мы в Telegram Web App
-      if (window.Telegram && window.Telegram.WebApp) {
-        this.tg = window.Telegram.WebApp;
-
-        this.hideTelegramHeader();
-
-        // Настройки для полноэкранного режима
-        this.setupFullscreenMode();
-
-        // Блокировка закрытия свайпом
-        this.preventSwipeToClose();
-
-        // Инициализация
-        this.tg.ready();
-        this.tg.setHeaderColor('#2e2e2e');
-        this.tg.setBackgroundColor('#667eea');
-
-      } else {
-        // Режим разработки (вне Telegram)
-        console.log('Development mode - not in Telegram');
-        this.isFullScreen = false;
-      }
-    },
 
     setupFullscreenMode() {
       if (!this.tg) return;
@@ -94,47 +94,37 @@ export default {
         setTimeout(() => {
           this.tg.expand();
         }, 50);
-
-        // Показываем предупреждение
-        this.tg.showPopup({
-          title: "Закрытие",
-          message: "Для закрытия используйте кнопку в приложении",
-          buttons: [{ type: "ok" }]
-        });
       }
       this.isExpanded = data.is_expanded;
     },
 
     preventSwipeToClose() {
-      // Блокируем свайпы в верхней части экрана
+      // Агрессивное блокирование свайпов
       let startY = 0;
+      let isBlocking = false;
 
       document.addEventListener('touchstart', (e) => {
         startY = e.touches[0].clientY;
-      }, { passive: true });
+        isBlocking = startY < 50; // Блокируем только в самом верху
+      }, { passive: false });
 
       document.addEventListener('touchmove', (e) => {
+        if (!isBlocking) return;
+
         const currentY = e.touches[0].clientY;
         const diff = currentY - startY;
 
-        // Блокируем свайп сверху вниз в верхней части экрана
-        if (diff > 30 && startY < 100 && window.scrollY === 0) {
+        // Блокируем любой свайп сверху вниз в верхней части
+        if (diff > 10) {
           e.preventDefault();
+          e.stopPropagation();
           return false;
         }
       }, { passive: false });
-    },
 
-    setupCloseButton() {
-      // Используем MainButton Telegram для закрытия
-      this.tg.MainButton.setText('Закрыть');
-      this.tg.MainButton.setParams({
-        color: '#ff3b30',
-        text_color: '#ffffff'
-      });
-      this.tg.MainButton.show();
-
-      this.tg.MainButton.onClick(this.closeApp);
+      // Блокируем overscroll
+      document.documentElement.style.overscrollBehavior = 'none';
+      document.body.style.overscrollBehavior = 'none';
     },
 
     showGame() {
@@ -149,23 +139,14 @@ export default {
       if (this.tg) {
         this.tg.close();
       } else {
-        alert('Приложение будет закрыто в Telegram');
-      }
-    },
-
-    expandToFullscreen() {
-      if (this.tg) {
-        this.tg.expand();
-        this.isFullScreen = true;
+        alert('Приложение будет закрыто');
       }
     }
   },
 
   beforeDestroy() {
-    // Очистка обработчиков
     if (this.tg) {
       this.tg.offEvent('viewportChanged', this.handleViewportChange);
-      this.tg.MainButton.offClick(this.closeApp);
     }
   }
 }

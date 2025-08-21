@@ -45,7 +45,7 @@ export default {
   },
 
   methods: {
-    handleScroll(e) {
+    handleScroll() {
       if (window.scrollY === 0) {
         // Предотвращаем overscroll вверху
         document.body.style.overflow = 'hidden';

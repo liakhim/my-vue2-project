@@ -1,26 +1,26 @@
 <template>
   <div id="app">
-    <!-- ВАЖНО: никакого фиксированного кастомного header сверху.
-         Системный header рисует Telegram, а твой контент — ниже. -->
     <div class="content">
-      <HelloWorld msg="Qwerty" />
+      <h1>🎮 My Vue WebApp</h1>
+      <p>Здесь твой контент. Системный header сверху остаётся.</p>
+      <ul>
+        <li v-for="n in 30" :key="n">Элемент {{ n }}</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import Cover from './components/Cover.vue'
-
 export default {
-  name: 'App',
-  components: { HelloWorld: Cover },
+  name: "App",
   data() {
-    return { tg: null }
+    return {
+      tg: null
+    }
   },
   mounted() {
     if (window.Telegram?.WebApp) {
       this.tg = window.Telegram.WebApp
-      // Дополнительной настройки тут не требуется — всё в index.html
     }
   }
 }
@@ -32,7 +32,7 @@ html, body {
   padding: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* отключаем системный скролл страницы */
+  overflow: hidden;
 }
 
 #app {
@@ -43,9 +43,10 @@ html, body {
   color: var(--tg-theme-text-color, #000000);
 }
 
+/* скролл для контента */
 .content {
   flex: 1;
-  overflow-y: auto;              /* скролл только у контента */
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 16px;
 }

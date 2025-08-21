@@ -1,87 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
     <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-    >
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-
-    <!-- Официальный SDK -->
+    />
+    <title>My WebApp</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
     <script>
-        // ===== ИНИЦИАЛИЗАЦИЯ ТЕЛЕГРАМА =====
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!window.Telegram || !Telegram.WebApp) {
-                console.warn('[TG] Не внутри Telegram. setHeaderColor не сработает.');
-                return;
-            }
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!window.Telegram?.WebApp) return;
+            const tg = window.Telegram.WebApp;
 
-            const tg = Telegram.WebApp;
+            tg.ready(); // говорим Telegram, что WebApp загружен
+            tg.expand(); // fullscreen
+            tg.disableVerticalSwipes(); // отключаем закрытие свайпом вниз
 
-            // Объявим хелперы с безопасной проверкой версии
-            const supports = {
-                setHeaderColor: typeof tg.setHeaderColor === 'function',
-                isVersionAtLeast: typeof tg.isVersionAtLeast === 'function',
-            };
+            // красим системный header (как BotFather)
+            tg.setHeaderColor("secondary_bg_color");
 
-            // Важно: сообщаем клиенту, что Mini App готов
-            tg.ready();
-
-            // Разворачиваем и отключаем сворачивание по свайпу вниз
-            tg.expand();
-            if (typeof tg.disableVerticalSwipes === 'function') tg.disableVerticalSwipes();
-
-            // Цвет системного header — используем КЛЮЧ темы (работает шире, чем RGB)
-            // bg_color | secondary_bg_color
-            function applyHeaderColor() {
-                try {
-                    // Если метод есть и версия >= 6.1 — задаём цвет по ключу темы
-                    if (supports.setHeaderColor && (!supports.isVersionAtLeast || tg.isVersionAtLeast(6.1))) {
-                        tg.setHeaderColor('secondary_bg_color'); // можно 'bg_color'
-
-                        // Для наглядной проверки можешь временно включить HEX в яркий цвет:
-                        // if (!supports.isVersionAtLeast || tg.isVersionAtLeast(6.9)) tg.setHeaderColor('#ff3b30'); // iOS-red
-                    } else {
-                        console.warn('[TG] setHeaderColor недоступен или старая версия WebApp API.');
-                    }
-                } catch (e) {
-                    console.error('[TG] setHeaderColor error:', e);
-                }
-            }
-
-            // Применяем сразу и при изменении темы/вьюпорта
-            applyHeaderColor();
-            tg.onEvent('themeChanged', applyHeaderColor);
-            tg.onEvent('viewportChanged', applyHeaderColor);
-
-            // (Опционально) Кнопка «Назад» как у BotFather
+            // кнопка "Назад"
             tg.BackButton.show();
-            tg.BackButton.onClick(() => {
-                // своя логика: навигация в приложении или закрытие
-                tg.close();
+            tg.BackButton.onClick(() => tg.close());
+
+            // MainButton
+            tg.MainButton.setText("Сохранить");
+            tg.MainButton.show();
+            tg.MainButton.onClick(() => {
+                alert("MainButton нажата!");
             });
-
-            // (Опционально) Настроить MainButton (как системную CTA)
-            // tg.MainButton.setText('Продолжить');
-            // tg.MainButton.show();
-            // tg.MainButton.onClick(() => { /* ... */ });
-
-            // Диагностика на экран
-            console.log('[TG] platform=', tg.platform, 'version=', tg.version, 'theme=', tg.themeParams);
         });
     </script>
 </head>
 <body>
-<noscript>
-    <strong>
-        We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
-    </strong>
-</noscript>
 <div id="app"></div>
 </body>
 </html>

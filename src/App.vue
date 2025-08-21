@@ -1,105 +1,106 @@
 <template>
-  <div>
-    <!-- "Скрытый" системный header, стилизуем под UNICORN -->
-    <div
-        class="telegram-header"
-        :style="{ backgroundColor: headerColor, color: textColor }"
-    >
-      <!-- Кнопка назад -->
-      <button class="back-btn" @click="onBack">
-        ←
-      </button>
-
-      <!-- Заголовок -->
-      <span class="header-title">Мое приложение</span>
-
-      <!-- Иконка справа (например, профиль или info) -->
-      <img class="header-icon" src="/logo.png" alt="Logo" />
+  <div id="app">
+    <!-- Кастомный header -->
+    <div class="custom-header">
+      <div class="header-title">🎮 My Game</div>
+      <button @click="closeApp" class="header-close-btn">✕</button>
     </div>
 
-    <!-- Основной контент приложения -->
-    <div class="app-content">
-      <h1>Добро пожаловать в мини-приложение!</h1>
-      <button @click="openWebApp">Открыть Web App</button>
+    <!-- Основное содержимое -->
+    <div class="content">
+      <HelloWorld msg="Привет!" />
     </div>
   </div>
 </template>
 
 <script>
+import HelloWorld from './components/Cover.vue';
+
 export default {
+  name: 'App',
+  components: { HelloWorld },
   data() {
     return {
-      tg: window.Telegram.WebApp,
-      headerColor: "#ffffff",
-      textColor: "#000000",
-    };
+      tg: null
+    }
   },
   mounted() {
-    // Применяем тему пользователя
-    this.applyTheme(this.tg.themeParams);
-
-    // Подписка на смену темы
-    this.tg.onEvent("themeChanged", (theme) => {
-      this.applyTheme(theme);
-    });
-
-    // Сообщаем Telegram, что WebApp полностью загружен
-    this.tg.ready();
+    if (window.Telegram?.WebApp) {
+      this.tg = window.Telegram.WebApp;
+      // Устанавливаем расширение на весь экран
+      this.tg.expand();
+    }
   },
   methods: {
-    applyTheme(theme) {
-      this.headerColor = theme.bg_color || "#ffffff";
-      this.textColor = theme.text_color || "#000000";
-    },
-    onBack() {
-      // Возвращаемся назад через Telegram
-      this.tg.close();
-    },
-    openWebApp() {
-      alert("Здесь можно открыть внутреннюю WebApp ссылку");
-    },
-  },
-};
+    closeApp() {
+      if (this.tg) {
+        this.tg.close();
+      }
+    }
+  }
+}
 </script>
 
 <style>
-.telegram-header {
-  position: sticky;
-  top: 0;
+/* Контейнер */
+#app {
   width: 100%;
-  height: 52px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
+}
+
+/* Кастомный header */
+.custom-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: var(--tg-theme-secondary-bg-color, #f0f0f0);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
-  font-weight: 600;
-  font-size: 18px;
+  padding: 0 16px;
   z-index: 1000;
-  transition: background-color 0.3s, color 0.3s;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.back-btn {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: inherit;
+  border-bottom: 1px solid var(--tg-theme-hint-color, #cccccc);
+  box-sizing: border-box;
 }
 
 .header-title {
-  flex: 1;
-  text-align: center;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--tg-theme-text-color, #000000);
 }
 
-.header-icon {
-  width: 28px;
-  height: 28px;
+.header-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--tg-theme-text-color, #000000);
 }
 
-.app-content {
-  padding: 16px;
+.header-close-btn:active {
+  transform: scale(0.95);
+}
+
+/* Контент приложения */
+.content {
+  position: absolute;
+  top: 50px; /* высота header */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  width: 100%;
 }
 </style>

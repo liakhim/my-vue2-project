@@ -18,97 +18,97 @@ export default {
   },
   data() {
     return {
-      tg: null,
-      startY: 0
+      tg: null
     }
   },
   mounted() {
-    this.initTelegramWebApp();
+    // Задержка для гарантированной инициализации Telegram WebApp
+    setTimeout(() => {
+      this.initTelegramWebApp();
+    }, 100);
   },
   methods: {
     initTelegramWebApp() {
-      // Проверяем, что мы в Telegram Web App
-      if (window.Telegram?.WebApp) {
+      // Проверяем наличие Telegram WebApp API
+      if (window.Telegram && window.Telegram.WebApp) {
         this.tg = window.Telegram.WebApp;
+        console.log('Telegram WebApp initialized', this.tg);
 
-        console.log('Telegram WebApp detected, initializing...');
+        // ОСНОВНЫЕ НАСТРОЙКИ - ВАЖНЫЙ ПОРЯДОК!
 
-        // Основные настройки
-        this.tg.expand(); // Растягиваем на весь экран
-        this.tg.enableClosingConfirmation(); // Запрещаем закрытие по скроллу
+        // 1. Сначала расширяем на весь экран
+        this.tg.expand();
 
-        // Скрываем стандартный header Telegram
-        this.tg.setHeaderColor('secondary_bg_color');
+        // 2. Немедленно скрываем header Telegram
         this.tg.hideHeader();
+        this.tg.setHeaderColor('secondary_bg_color');
 
-        // Отключаем ненужные жесты
+        // 3. Запрещаем закрытие
+        this.tg.enableClosingConfirmation();
         this.tg.disableVerticalSwipes();
         this.tg.disableHorizontalSwipes();
 
-        // Настраиваем BackButton
+        // 4. Скрываем кнопку назад
         this.tg.BackButton.hide();
 
-        // Блокируем стандартное поведение браузера
-        this.preventPullToRefresh();
-
-        // Устанавливаем цвет фона для соответствия теме
+        // 5. Настраиваем основной цвет
         this.tg.setBackgroundColor('#ffffff');
 
-        // Отключаем вибрацию при наведении (если есть)
-        if (this.tg.HapticFeedback) {
-          this.tg.HapticFeedback.impactOccurred('light');
-        }
+        // 6. Принудительно применяем настройки
+        this.forceFullscreen();
 
-        console.log('WebApp initialized successfully');
+        console.log('WebApp configured successfully');
       } else {
-        console.log('Not in Telegram WebApp - running in browser mode');
+        console.warn('Not in Telegram WebApp environment');
+        this.simulateFullscreen();
       }
+    },
+
+    forceFullscreen() {
+      // Принудительные стили для полноэкранного режима
+      document.documentElement.style.height = '100%';
+      document.body.style.height = '100%';
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+
+      // Блокировка жестов
+      this.preventPullToRefresh();
+    },
+
+    simulateFullscreen() {
+      // Режим для браузера (тестирование)
+      document.documentElement.style.height = '100%';
+      document.body.style.height = '100%';
+      document.body.style.overflow = 'hidden';
     },
 
     preventPullToRefresh() {
-      // Более эффективная блокировка pull-to-refresh
-      document.body.style.overscrollBehavior = 'none';
+      // Эффективная блокировка pull-to-refresh
+      let lastTouchY = 0;
+      const body = document.body;
 
-      // Блокируем жесты касания
-      document.addEventListener('touchstart', this.handleTouchStart, { passive: false });
-      document.addEventListener('touchmove', this.handleTouchMove, { passive: false });
-      document.addEventListener('touchend', this.handleTouchEnd, { passive: false });
+      body.addEventListener('touchstart', (e) => {
+        lastTouchY = e.touches[0].clientY;
+      }, { passive: false });
 
-      // Блокируем скролл за пределы
-      window.addEventListener('scroll', this.preventOverscroll, { passive: false });
+      body.addEventListener('touchmove', (e) => {
+        const touchY = e.touches[0].clientY;
+        const deltaY = touchY - lastTouchY;
 
-      // Блокируем контекстное меню
-      document.addEventListener('contextmenu', this.preventContextMenu);
-    },
+        // Блокируем скролл вниз в начале страницы
+        if (window.scrollY <= 0 && deltaY > 0) {
+          e.preventDefault();
+        }
 
-    handleTouchStart(e) {
-      this.startY = e.touches[0].clientY;
-    },
+        lastTouchY = touchY;
+      }, { passive: false });
 
-    handleTouchMove(e) {
-      // Полностью блокируем любые жесты, которые могут закрыть приложение
-      if (window.scrollY === 0 && e.touches[0].clientY - this.startY > 0) {
+      // Блокировка контекстного меню
+      body.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         return false;
-      }
-    },
-
-    handleTouchEnd() {
-      this.startY = 0;
-    },
-
-    preventOverscroll(e) {
-      // Жесткая блокировка любого выхода за границы скролла
-      if (window.scrollY < 0) {
-        window.scrollTo(0, 0);
-        e.preventDefault();
-        return false;
-      }
-    },
-
-    preventContextMenu(e) {
-      e.preventDefault();
-      return false;
+      });
     },
 
     closeApp() {
@@ -118,14 +118,6 @@ export default {
         alert('App would close here');
       }
     }
-  },
-  beforeUnmount() {
-    // Убираем обработчики при уничтожении компонента
-    document.removeEventListener('touchstart', this.handleTouchStart);
-    document.removeEventListener('touchmove', this.handleTouchMove);
-    document.removeEventListener('touchend', this.handleTouchEnd);
-    window.removeEventListener('scroll', this.preventOverscroll);
-    document.removeEventListener('contextmenu', this.preventContextMenu);
   }
 }
 </script>
@@ -146,32 +138,38 @@ export default {
   font-display: swap;
 }
 
+/* ЖЕСТКИЙ СБРОС СТИЛЕЙ */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  -webkit-overflow-scrolling: touch;
+}
+
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent; // Убираем подсветку при тапе
-  -webkit-touch-callout: none; // Отключаем меню при долгом тапе
-  -webkit-user-select: none; // Запрещаем выделение текста
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 
-html, body {
-  overscroll-behavior: none; // Блокируем overscroll на уровне документа
-  height: 100%;
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
-}
-
 #app {
-  height: 100vh;
-  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
   background: var(--tg-theme-bg-color, #ffffff);
   color: var(--tg-theme-text-color, #000000);
-  position: fixed;
   overflow: hidden;
-  touch-action: none; // Блокируем стандартные жесты браузера
+  margin: 0;
+  padding: 0;
 }
 
 .custom-header {
@@ -185,7 +183,7 @@ html, body {
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  z-index: 1000;
+  z-index: 10000; /* Очень высокий z-index */
   border-bottom: 1px solid var(--tg-theme-hint-color, #cccccc);
 
   .header-title {

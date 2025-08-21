@@ -2,32 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>My Telegram WebApp</title>
+    <title>Telegram WebApp</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (window.Telegram?.WebApp) {
-                const tg = window.Telegram.WebApp;
-
-                // Основные настройки WebApp
-                tg.expand();
-                tg.enableClosingConfirmation();
-                tg.MainButton.hide();
-                tg.BackButton.hide();
-
-                // Определяем высоту системного header
-                function updateHeaderPadding() {
-                    const safeAreaTop = tg.isInline ? 0 : (window.visualViewport ? window.visualViewport.offsetTop : 0);
-                    document.documentElement.style.paddingTop = `${safeAreaTop + 48}px`; // 48px — ваш кастомный header
-                }
-
-                updateHeaderPadding();
-                window.addEventListener('resize', updateHeaderPadding);
-            }
-        });
-    </script>
     <style>
         html, body {
             margin: 0;
@@ -43,10 +20,34 @@
             position: relative;
             background-color: var(--tg-theme-bg-color, #ffffff);
             color: var(--tg-theme-text-color, #000000);
+            padding-top: env(safe-area-inset-top); /* магия iOS */
         }
     </style>
 </head>
 <body>
 <div id="app"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.Telegram?.WebApp) {
+            const tg = window.Telegram.WebApp;
+
+            // Растягиваем WebApp на весь экран
+            tg.expand();
+
+            // Настройка кнопок Telegram
+            tg.MainButton.hide();
+            tg.BackButton.hide();
+
+            // Функция “маскировки” header
+            function fixHeaderPadding() {
+                const safeTop = tg.isInline ? 0 : (window.visualViewport ? window.visualViewport.offsetTop : 0);
+                document.getElementById('app').style.paddingTop = `${safeTop}px`;
+            }
+
+            fixHeaderPadding();
+            window.addEventListener('resize', fixHeaderPadding);
+        }
+    });
+</script>
 </body>
 </html>

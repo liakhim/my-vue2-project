@@ -1,33 +1,29 @@
 <template>
   <div id="app">
-    <!-- Кастомный header -->
+    <!-- Кастомный header, который визуально “заменяет” системный -->
     <div class="custom-header">
-      <div class="header-title">🎮 My Game</div>
+      <div class="header-title">🚀 My WebApp</div>
       <button @click="closeApp" class="header-close-btn">✕</button>
     </div>
 
     <!-- Контент -->
     <div class="content">
-      <HelloWorld msg="Qwerty"/>
+      <HelloWorld msg="Привет!"/>
     </div>
   </div>
 </template>
 
 <script>
-import Cover from './components/Cover.vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: { HelloWorld: Cover },
+  components: { HelloWorld },
   data() {
-    return {
-      tg: null
-    }
+    return { tg: null }
   },
   mounted() {
-    if (window.Telegram?.WebApp) {
-      this.tg = window.Telegram.WebApp;
-    }
+    if (window.Telegram?.WebApp) this.tg = window.Telegram.WebApp;
   },
   methods: {
     closeApp() {
@@ -40,7 +36,7 @@ export default {
 <style>
 .custom-header {
   position: fixed;
-  top: 0;
+  top: env(safe-area-inset-top); /* “магия” iOS */
   left: 0;
   right: 0;
   height: 48px;
@@ -56,7 +52,7 @@ export default {
 .header-title {
   font-size: 18px;
   font-weight: bold;
-  color: var(--tg-theme-text-color, #000000);
+  color: var(--tg-theme-text-color, #000);
 }
 
 .header-close-btn {
@@ -65,21 +61,16 @@ export default {
   font-size: 20px;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--tg-theme-text-color, #000000);
-}
-
-.header-close-btn:active {
-  transform: scale(0.95);
+  color: var(--tg-theme-text-color, #000);
 }
 
 .content {
-  padding-top: 48px; /* Высота кастомного header */
-  height: calc(100vh - 48px);
+  padding-top: calc(48px + env(safe-area-inset-top));
+  height: calc(100vh - 48px - env(safe-area-inset-top));
   overflow-y: auto;
 }
 </style>

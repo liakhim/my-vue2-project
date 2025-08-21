@@ -1,6 +1,6 @@
 <template>
   <div id="app" :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px' }">
-    <HelloWorld msg="Qwerty"/>
+    <Cover msg="Qwerty"/>
   </div>
 </template>
 
@@ -9,9 +9,7 @@ import Cover from './components/Cover.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld: Cover
-  },
+  components: { Cover },
   data() {
     return {
       tg: null,
@@ -20,47 +18,33 @@ export default {
     }
   },
   mounted() {
-    // Telegram WebApp объект уже доступен как window.Telegram.WebApp
     this.tg = window.Telegram.WebApp;
 
-    // Разворачиваем WebApp на весь экран
+    // Разворачиваем на весь экран
     this.tg.expand();
 
-    // Получаем размеры safe area для iPhone
+    // Забираем безопасные зоны iPhone
     this.safeAreaTop = this.tg.viewportInsetTop;
     this.safeAreaBottom = this.tg.viewportInsetBottom;
 
     // Запрещаем закрытие WebApp при скролле
-    this.tg.MainButton.hide();
-    this.tg.BackButton.hide();
+    this.tg.MainButton.hide();  // скрываем кнопку Telegram, если нужно
+    this.tg.BackButton.hide();  // скрываем кнопку назад
 
-    // Можно слушать изменение размеров
+    // Слушаем изменения viewport и обновляем safe area
     this.tg.onEvent('viewportChanged', () => {
       this.safeAreaTop = this.tg.viewportInsetTop;
       this.safeAreaBottom = this.tg.viewportInsetBottom;
+      this.tg.expand(); // сохраняем fullscreen при изменении
     });
   }
 }
 </script>
 
 <style lang="scss">
-@font-face {
-  font-family: "Jem";
-  src: url("./assets/fonts/jem/jeM.otf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Papyrus";
-  src: url("./assets/fonts/papyrus/Papyrus-02.otf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 #app {

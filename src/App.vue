@@ -12,54 +12,135 @@ export default {
   components: {
     HelloWorld: Cover
   },
-  mounted() {
-    // Проверяем, что мы в Telegram Web App
-    if (window.Telegram && window.Telegram.WebApp) {
-      let tg = window.Telegram.WebApp;
-
-      // Устанавливаем начальные настройки
-      tg.expand();
-      tg.enableClosingConfirmation();
-      tg.disableVerticalSwipes();
-
-      // Перехватываем все попытки изменения размера
-      let isExpanded = true;
-
-      tg.onEvent('viewportChanged', (data) => {
-        if (!data.is_expanded && isExpanded) {
-          // Немедленно возвращаем полноэкранный режим
-          tg.expand();
-          // Показываем сообщение (опционально)
-          tg.showPopup({
-            title: "Закрытие",
-            message: "Для закрытия используйте крестик в правом верхнем углу",
-            buttons: [{ type: "ok" }]
-          });
-        }
-        isExpanded = data.is_expanded;
-      });
-
-      // Блокируем нативный скролл вверху
-      document.addEventListener('scroll', this.handleScroll);
+  data() {
+    return {
+      tg: null,
+      isFullScreen: true,
+      isExpanded: true
     }
   },
 
+  mounted() {
+    this.initTelegramWebApp();
+  },
+
   methods: {
-    handleScroll() {
-      if (window.scrollY === 0) {
-        // Предотвращаем overscroll вверху
-        document.body.style.overflow = 'hidden';
+    initTelegramWebApp() {
+      // Проверяем что мы в Telegram Web App
+      if (window.Telegram && window.Telegram.WebApp) {
+        this.tg = window.Telegram.WebApp;
+
+        // Настройки для полноэкранного режима
+        this.setupFullscreenMode();
+
+        // Блокировка закрытия свайпом
+        this.preventSwipeToClose();
+
+        // Инициализация
+        this.tg.ready();
+        this.tg.setHeaderColor('#2e2e2e');
+        this.tg.setBackgroundColor('#667eea');
+
+      } else {
+        // Режим разработки (вне Telegram)
+        console.log('Development mode - not in Telegram');
+        this.isFullScreen = false;
+      }
+    },
+
+    setupFullscreenMode() {
+      if (!this.tg) return;
+
+      // Включаем полноэкранный режим
+      this.tg.expand();
+      this.tg.enableClosingConfirmation();
+      this.tg.disableVerticalSwipes();
+
+      // Следим за изменениями размера
+      this.tg.onEvent('viewportChanged', this.handleViewportChange);
+
+      // Настраиваем кнопку закрытия
+      this.setupCloseButton();
+    },
+
+    handleViewportChange(data) {
+      if (!data.is_expanded && this.isExpanded) {
+        // Немедленно возвращаем полноэкранный режим
         setTimeout(() => {
-          document.body.style.overflow = 'auto';
-        }, 100);
+          this.tg.expand();
+        }, 50);
+
+        // Показываем предупреждение
+        this.tg.showPopup({
+          title: "Закрытие",
+          message: "Для закрытия используйте кнопку в приложении",
+          buttons: [{ type: "ok" }]
+        });
+      }
+      this.isExpanded = data.is_expanded;
+    },
+
+    preventSwipeToClose() {
+      // Блокируем свайпы в верхней части экрана
+      let startY = 0;
+
+      document.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+
+      document.addEventListener('touchmove', (e) => {
+        const currentY = e.touches[0].clientY;
+        const diff = currentY - startY;
+
+        // Блокируем свайп сверху вниз в верхней части экрана
+        if (diff > 30 && startY < 100 && window.scrollY === 0) {
+          e.preventDefault();
+          return false;
+        }
+      }, { passive: false });
+    },
+
+    setupCloseButton() {
+      // Используем MainButton Telegram для закрытия
+      this.tg.MainButton.setText('Закрыть');
+      this.tg.MainButton.setParams({
+        color: '#ff3b30',
+        text_color: '#ffffff'
+      });
+      this.tg.MainButton.show();
+
+      this.tg.MainButton.onClick(this.closeApp);
+    },
+
+    showGame() {
+      this.tg.showPopup({
+        title: "Игра началась!",
+        message: "Приготовьтесь к gameplay...",
+        buttons: [{ type: "ok" }]
+      });
+    },
+
+    closeApp() {
+      if (this.tg) {
+        this.tg.close();
+      } else {
+        alert('Приложение будет закрыто в Telegram');
+      }
+    },
+
+    expandToFullscreen() {
+      if (this.tg) {
+        this.tg.expand();
+        this.isFullScreen = true;
       }
     }
   },
 
   beforeDestroy() {
-    // Очищаем обработчики при уничтожении компонента
-    if (window.Telegram && window.Telegram.WebApp) {
-      document.removeEventListener('scroll', this.handleScroll);
+    // Очистка обработчиков
+    if (this.tg) {
+      this.tg.offEvent('viewportChanged', this.handleViewportChange);
+      this.tg.MainButton.offClick(this.closeApp);
     }
   }
 }

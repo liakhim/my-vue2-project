@@ -11,6 +11,56 @@ export default {
   name: 'App',
   components: {
     HelloWorld: Cover
+  },
+  mounted() {
+    // Проверяем, что мы в Telegram Web App
+    if (window.Telegram && window.Telegram.WebApp) {
+      let tg = window.Telegram.WebApp;
+
+      // Устанавливаем начальные настройки
+      tg.expand();
+      tg.enableClosingConfirmation();
+      tg.disableVerticalSwipes();
+
+      // Перехватываем все попытки изменения размера
+      let isExpanded = true;
+
+      tg.onEvent('viewportChanged', (data) => {
+        if (!data.is_expanded && isExpanded) {
+          // Немедленно возвращаем полноэкранный режим
+          tg.expand();
+          // Показываем сообщение (опционально)
+          tg.showPopup({
+            title: "Закрытие",
+            message: "Для закрытия используйте крестик в правом верхнем углу",
+            buttons: [{ type: "ok" }]
+          });
+        }
+        isExpanded = data.is_expanded;
+      });
+
+      // Блокируем нативный скролл вверху
+      document.addEventListener('scroll', this.handleScroll);
+    }
+  },
+
+  methods: {
+    handleScroll(e) {
+      if (window.scrollY === 0) {
+        // Предотвращаем overscroll вверху
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+          document.body.style.overflow = 'auto';
+        }, 100);
+      }
+    }
+  },
+
+  beforeDestroy() {
+    // Очищаем обработчики при уничтожении компонента
+    if (window.Telegram && window.Telegram.WebApp) {
+      document.removeEventListener('scroll', this.handleScroll);
+    }
   }
 }
 </script>

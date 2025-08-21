@@ -1,7 +1,7 @@
 <template>
   <div
       id="app"
-      :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px', minHeight: '100vh' }"
+      :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px', height: '100vh', overflow: 'hidden' }"
   >
     <Cover msg="Qwerty" />
   </div>
@@ -17,35 +17,40 @@ export default {
     return {
       tg: null,
       safeAreaTop: 0,
-      safeAreaBottom: 0
+      safeAreaBottom: 0,
     }
   },
   mounted() {
     if (window.Telegram && window.Telegram.WebApp) {
       this.tg = window.Telegram.WebApp
 
-      // Сразу разворачиваем fullscreen
+      // Разворачиваем на весь экран
       this.tg.expand()
-      this.tg.isExpanded = true
 
-      // Забираем safe area
+      // Забираем безопасные зоны iPhone
       this.safeAreaTop = this.tg.viewportInsetTop
       this.safeAreaBottom = this.tg.viewportInsetBottom
 
-      // Слушаем изменения viewport и повторно разворачиваем
+      // Слушаем изменения viewport и фиксируем fullscreen
       this.tg.onEvent('viewportChanged', () => {
         this.safeAreaTop = this.tg.viewportInsetTop
         this.safeAreaBottom = this.tg.viewportInsetBottom
 
-        this.tg.expand()
-        this.tg.isExpanded = true
+        // Принудительное разворачивание при любом скролле
+        if (!this.tg.isExpanded) {
+          this.tg.expand()
+        }
       })
 
-      // Скрываем кнопки Telegram
-      this.tg.MainButton?.hide()
-      this.tg.BackButton?.hide()
+      // Скрываем кнопки Telegram, чтобы они не мешали
+      if (this.tg.MainButton) this.tg.MainButton.hide()
+      if (this.tg.BackButton) this.tg.BackButton.hide()
+
+      // Принудительно фиксируем высоту body
+      document.body.style.height = '100vh'
+      document.body.style.overflow = 'hidden'
     }
-  }
+  },
 }
 </script>
 
@@ -56,15 +61,7 @@ export default {
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden; /* блокируем стандартный скролл iOS */
-}
-
 #app {
   width: 100%;
-  height: 100%;
-  overflow: auto; /* контент внутри #app можно скроллить */
-  -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
 }
 </style>

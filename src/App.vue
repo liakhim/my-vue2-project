@@ -25,10 +25,35 @@ export default {
   },
 
   methods: {
+    hideTelegramHeader() {
+      if (!this.tg) return;
+
+      // Полностью скрываем стандартный header Telegram
+      this.tg.setHeaderColor('secondary_bg_color'); // Прозрачный
+
+      // Альтернативный способ - через CSS injection
+      const style = document.createElement('style');
+      style.textContent = `
+        .tg-head {
+          display: none !important;
+        }
+        .tg-header {
+          height: 0 !important;
+          min-height: 0 !important;
+        }
+        body {
+          margin-top: 0 !important;
+          padding-top: 0 !important;
+        }
+      `;
+      document.head.appendChild(style);
+    },
     initTelegramWebApp() {
       // Проверяем что мы в Telegram Web App
       if (window.Telegram && window.Telegram.WebApp) {
         this.tg = window.Telegram.WebApp;
+
+        this.hideTelegramHeader();
 
         // Настройки для полноэкранного режима
         this.setupFullscreenMode();
@@ -51,16 +76,16 @@ export default {
     setupFullscreenMode() {
       if (!this.tg) return;
 
-      // Включаем полноэкранный режим
+      // Включаем полноэкранный режим БЕЗ отступов
       this.tg.expand();
       this.tg.enableClosingConfirmation();
       this.tg.disableVerticalSwipes();
 
+      // Убираем все отступы
+      this.tg.setBackgroundColor('#667eea'); // Цвет как у фона
+
       // Следим за изменениями размера
       this.tg.onEvent('viewportChanged', this.handleViewportChange);
-
-      // Настраиваем кнопку закрытия
-      this.setupCloseButton();
     },
 
     handleViewportChange(data) {

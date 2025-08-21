@@ -17,13 +17,19 @@
 
                 tg.expand();
                 tg.disableVerticalSwipes();
-                tg.BackButton.hide();
-                tg.MainButton.hide();
-                tg.hideHeader();
 
-                // Перехватываем события и снова скрываем header при изменении
-                tg.onEvent("viewportChanged", () => tg.hideHeader());
-                window.addEventListener("resize", () => tg.hideHeader());
+                // Цвет системного header
+                tg.setHeaderColor("secondary_bg_color"); // можно "bg_color" или свой цвет #hex
+
+                // Кнопка "Назад" — если нужна
+                tg.BackButton.show();
+                tg.BackButton.onClick(() => {
+                    tg.close(); // или твоя логика возврата
+                });
+
+                // Можно настроить MainButton (пример)
+                tg.MainButton.setText("ОК");
+                tg.MainButton.onClick(() => alert("MainButton нажата!"));
             }
         });
     </script>

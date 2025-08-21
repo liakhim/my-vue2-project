@@ -3,54 +3,36 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    >
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        /* ТОЛЬКО ЭТОТ СТИЛЬ ДОБАВЬТЕ В HEAD */
-        .tg-head {
-            display: none !important;
-        }
-    </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener("DOMContentLoaded", function () {
             if (window.Telegram?.WebApp) {
                 const tg = window.Telegram.WebApp;
+
                 tg.expand();
-                tg.enableClosingConfirmation();
                 tg.disableVerticalSwipes();
-                tg.disableHorizontalSwipes();
-                tg.hideHeader();
-                tg.setHeaderColor('secondary_bg_color');
                 tg.BackButton.hide();
-                tg.setBackgroundColor('#ffffff');
+                tg.MainButton.hide();
+                tg.hideHeader();
 
-                // Постоянно скрываем header
-                setInterval(() => {
-                    tg.hideHeader();
-                    hideHeaderWithCSS();
-                }, 100);
-            }
-
-            function hideHeaderWithCSS() {
-                // Аккуратно скрываем только системный header
-                const elements = document.querySelectorAll('*');
-                elements.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top === 0 && rect.height > 0 && rect.height < 100 &&
-                        rect.width === window.innerWidth &&
-                        window.getComputedStyle(el).position === 'fixed') {
-                        el.classList.add('tg-head');
-                    }
-                });
+                // Перехватываем события и снова скрываем header при изменении
+                tg.onEvent("viewportChanged", () => tg.hideHeader());
+                window.addEventListener("resize", () => tg.hideHeader());
             }
         });
     </script>
 </head>
 <body>
 <noscript>
-    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    <strong>
+        We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+    </strong>
 </noscript>
 <div id="app"></div>
 </body>

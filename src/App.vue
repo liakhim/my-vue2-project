@@ -1,10 +1,15 @@
 <template>
   <div id="app">
+    <!-- Кастомный header -->
     <div class="custom-header">
       <div class="header-title">🎮 My Game</div>
       <button @click="closeApp" class="header-close-btn">✕</button>
     </div>
-    <HelloWorld msg="Qwerty"/>
+
+    <!-- Контент со скроллом -->
+    <div class="content">
+      <HelloWorld msg="Qwerty" />
+    </div>
   </div>
 </template>
 
@@ -23,71 +28,37 @@ export default {
   },
   mounted() {
     if (window.Telegram?.WebApp) {
-      this.tg = window.Telegram.WebApp;
-      // Просто получаем ссылку, все настройки уже в index.html
+      this.tg = window.Telegram.WebApp
     }
-
-    // Легкая проверка header'а каждые 500ms
-    this.checkHeaderInterval = setInterval(() => {
-      this.hideSystemHeader();
-    }, 500);
   },
   methods: {
-    hideSystemHeader() {
-      // Аккуратно скрываем ТОЛЬКО системный header
-      const elements = document.querySelectorAll('header, [style*="top: 0"], [style*="height: 4"]');
-      elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        // Проверяем, что это именно системный header (вверху экрана, фиксированный)
-        if (rect.top === 0 && rect.height > 0 && rect.height < 100) {
-          el.style.cssText = 'display: none !important; opacity: 0 !important; height: 0 !important;';
-        }
-      });
-
-      // Сбрасываем любые padding/margin сверху
-      if (document.documentElement.style.paddingTop !== '0px') {
-        document.documentElement.style.paddingTop = '0px';
-      }
-      if (document.body.style.paddingTop !== '0px') {
-        document.body.style.paddingTop = '0px';
-      }
-    },
-
     closeApp() {
       if (this.tg) {
-        this.tg.close();
+        this.tg.close()
       }
-    }
-  },
-  beforeUnmount() {
-    if (this.checkHeaderInterval) {
-      clearInterval(this.checkHeaderInterval);
     }
   }
 }
 </script>
 
 <style>
-/* БАЗОВЫЕ СТИЛИ БЕЗ !important */
 html, body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: hidden; /* отключаем системный скролл */
 }
 
 #app {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   background: var(--tg-theme-bg-color, #ffffff);
   color: var(--tg-theme-text-color, #000000);
-  overflow: hidden;
 }
 
+/* Кастомный header */
 .custom-header {
   position: fixed;
   top: 0;
@@ -104,7 +75,6 @@ html, body {
 }
 
 .header-title {
-  font-family: "Jem", sans-serif;
   font-size: 18px;
   font-weight: bold;
   color: var(--tg-theme-text-color, #000000);
@@ -128,10 +98,11 @@ html, body {
   transform: scale(0.95);
 }
 
-.HelloWorld {
-  padding-top: 48px;
-  height: calc(100vh - 48px);
-  overflow: hidden;
-  width: 100vw;
+/* Контент со скроллом */
+.content {
+  flex: 1;
+  padding-top: 48px; /* отступ под кастомный header */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* плавный скролл iOS */
 }
 </style>

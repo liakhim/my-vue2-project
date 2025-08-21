@@ -190,11 +190,13 @@ export default {
     position: relative;
     color: #fff;
     font-size: 40px;
+    line-height: 40px;
     max-width: 900px;
     margin: 20px auto 5px;
     font-family: Jem, sans-serif;
     @media (max-width: 690px) {
       margin-top: 20px;
+      line-height: 30px;
       font-size: 24px;
       max-width: 90vw;
     }
@@ -204,10 +206,12 @@ export default {
     position: relative;
     color: #fff;
     font-size: 22px;
+    line-height: 22px;
     margin-top: 20px;
     font-family: Papyrus, sans-serif;
     @media (max-width: 690px) {
       font-size: 16px;
+      line-height: 18px;
     }
   }
 }
@@ -263,6 +267,9 @@ export default {
       align-items: center;
       justify-content: center;
       transition: 0.6s;
+      @media (max-width: 690px) {
+        margin: 0 0 0 0;
+      }
       .card {
         width: 400px;
         height: 500px;

@@ -1,53 +1,73 @@
 <template>
-  <div id="app">
-    <div class="content">
-      <h1>🎮 My Vue WebApp</h1>
-      <p>Здесь твой контент. Системный header сверху остаётся.</p>
-      <ul>
-        <li v-for="n in 30" :key="n">Элемент {{ n }}</li>
-      </ul>
+  <div>
+    <!-- "Скрытый" системный header, маскируем его цветом -->
+    <div
+        class="telegram-header"
+        :style="{ backgroundColor: headerColor, color: textColor }"
+    >
+      <span class="header-title">Мое приложение</span>
+    </div>
+
+    <!-- Основной контент приложения -->
+    <div class="app-content">
+      <h1>Добро пожаловать в мини-приложение!</h1>
+      <button @click="openWebApp">Открыть Web App</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App",
   data() {
     return {
-      tg: null
-    }
+      tg: window.Telegram.WebApp,
+      headerColor: "#ffffff",
+      textColor: "#000000",
+    };
   },
   mounted() {
-    if (window.Telegram?.WebApp) {
-      this.tg = window.Telegram.WebApp
-    }
-  }
-}
+    // Установим заголовок и цвет, используя themeParams
+    const theme = this.tg.themeParams;
+    this.headerColor = theme.bg_color || "#ffffff";
+    this.textColor = theme.text_color || "#000000";
+
+    // Подписка на изменения темы
+    this.tg.onEvent("themeChanged", () => {
+      const theme = this.tg.themeParams;
+      this.headerColor = theme.bg_color || "#ffffff";
+      this.textColor = theme.text_color || "#000000";
+    });
+
+    // Сообщаем Telegram, что WebApp полностью загружен
+    this.tg.ready();
+  },
+  methods: {
+    openWebApp() {
+      alert("Тут можно открыть внутреннюю WebApp ссылку или действие");
+    },
+  },
+};
 </script>
 
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-#app {
+.telegram-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 48px; /* стандартная высота header в Telegram iOS */
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: var(--tg-theme-bg-color, #ffffff);
-  color: var(--tg-theme-text-color, #000000);
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  z-index: 1000; /* чтобы быть поверх системного header */
 }
 
-/* скролл для контента */
-.content {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+.header-title {
+  text-align: center;
+}
+
+.app-content {
   padding: 16px;
 }
 </style>

@@ -19,7 +19,7 @@
             <img src="../assets/front-puppy/cover-1.jpg" alt="">
           </div>
           <div class="name">
-            <p>Fluke story</p>
+            <p>Fluke</p>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
             <img src="../assets/chh/cover-2.jpg" alt="">
           </div>
           <div class="name">
-            <p>Monica story</p>
+            <p>Monica</p>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
             <img src="../assets/front-puppy/cover-1.jpg" alt="">
           </div>
           <div class="name">
-            <p>Fluke story</p>
+            <p>Fluke</p>
           </div>
         </div>
       </div>

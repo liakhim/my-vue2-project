@@ -95,6 +95,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  max-height: 100vh;
 }
 
 .title {

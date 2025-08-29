@@ -186,10 +186,11 @@ export default {
       align-items: center;
       justify-content: flex-start;
       .icon {
-        width: 35px;
-        min-width: 35px;
-        height: 35px;
-        min-height: 35px;
+        margin-top: 0;
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+        min-height: 32px;
         border-radius: 50%;
         overflow: hidden;
         display: flex;
@@ -223,7 +224,7 @@ export default {
 
     .mini-slider-slide-body {
       .icon {
-        margin: -1px 0 0 -2px;
+        margin: 0 0 0 -2px;
       }
       .name {
         p {

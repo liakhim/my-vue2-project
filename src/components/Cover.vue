@@ -78,11 +78,11 @@
 
     </div>
     <div class="button-box">
-      <button>
-        <span>Что умеет этот бот</span>
+      <button style="width: 100%;">
+        <span>Начать</span>
       </button>
-      <button>
-        <span>НАЧАТЬ</span>
+      <button style="background: #121714; color: #ffffff; padding: 15px; width: 50px; height: 50px;margin-left: 10px;">
+        <span style="color: #fff;">?</span>
       </button>
     </div>
   </div>
@@ -383,6 +383,7 @@ export default {
 }
 
 .button-box {
+  padding: 0 10px;
   position: relative;
   margin-top: 60px;
   display: flex;

@@ -220,7 +220,6 @@ export default {
   }
   .mini-slider-slide.active {
     border: 2px solid #38E07A;
-    transform: scale(1.1);
 
     .mini-slider-slide-body {
       .icon {

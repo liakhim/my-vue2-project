@@ -105,7 +105,7 @@ export default {
   @media (max-width: 690px) {
     width: 400px;
     height: 450px;
-    margin: 20px auto 0 auto;
+    margin: 0px auto 0 auto;
     .card {
       width: 300px;
       height: 300px;

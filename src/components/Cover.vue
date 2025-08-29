@@ -79,7 +79,10 @@
     </div>
     <div class="button-box">
       <button>
-        <span>НАЧАТЬ ПОЛЬЗОВАТЬСЯ</span>
+        <span>Что умеет этот бот</span>
+      </button>
+      <button>
+        <span>НАЧАТЬ</span>
       </button>
     </div>
   </div>

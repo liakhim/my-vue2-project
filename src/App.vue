@@ -19,32 +19,32 @@ export default {
       safeAreaBottom: 0
     }
   },
-  mounted() {
-    if (window.Telegram && window.Telegram.WebApp) {
-      this.tg = window.Telegram.WebApp
-
-      // Сразу разворачиваем fullscreen
-      this.tg.expand()
-      this.tg.isExpanded = true
-
-      // Забираем safe area
-      this.safeAreaTop = this.tg.viewportInsetTop
-      this.safeAreaBottom = this.tg.viewportInsetBottom
-
-      // Слушаем изменения viewport и повторно разворачиваем
-      this.tg.onEvent('viewportChanged', () => {
-        this.safeAreaTop = this.tg.viewportInsetTop
-        this.safeAreaBottom = this.tg.viewportInsetBottom
-
-        this.tg.expand()
-        this.tg.isExpanded = true
-      })
-
-      // Скрываем кнопки Telegram
-      this.tg.MainButton?.hide()
-      this.tg.BackButton?.hide()
-    }
-  }
+  // mounted() {
+  //   if (window.Telegram && window.Telegram.WebApp) {
+  //     this.tg = window.Telegram.WebApp
+  //
+  //     // Сразу разворачиваем fullscreen
+  //     this.tg.expand()
+  //     this.tg.isExpanded = true
+  //
+  //     // Забираем safe area
+  //     this.safeAreaTop = this.tg.viewportInsetTop
+  //     this.safeAreaBottom = this.tg.viewportInsetBottom
+  //
+  //     // Слушаем изменения viewport и повторно разворачиваем
+  //     this.tg.onEvent('viewportChanged', () => {
+  //       this.safeAreaTop = this.tg.viewportInsetTop
+  //       this.safeAreaBottom = this.tg.viewportInsetBottom
+  //
+  //       this.tg.expand()
+  //       this.tg.isExpanded = true
+  //     })
+  //
+  //     // Скрываем кнопки Telegram
+  //     this.tg.MainButton?.hide()
+  //     this.tg.BackButton?.hide()
+  //   }
+  // }
 }
 </script>
 

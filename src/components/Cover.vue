@@ -6,43 +6,13 @@
 <!--    </div>-->
     <div class="cards-wrapper">
       <div class="cards-box">
-        <div class="cards left-of-active">
-          <div v-for="(card, index) in cards"
-               :key="card.position"
-               class="card"
-               :style="{'z-index': index}"
-               :class="['card-' + card.position, {'displaced': (switchableCardId !== null && card.position === switchableCardId)}]">
-            <div class="card-window">
-              <img :src="require('../assets/front-puppy/'+ card.id +'.png')" alt="">
-            </div>
-          </div>
-        </div>
-        <div class="cards active">
-          <div v-for="(card, index) in cards"
-               :key="card.position"
-               class="card"
-               :style="{'z-index': index}"
-               :class="['card-' + card.position, {'displaced': (switchableCardId !== null && card.position === switchableCardId)}]">
-            <div class="card-window">
-              <img :src="require('../assets/front-puppy/'+ card.id +'.png')" alt="">
-            </div>
-          </div>
-        </div>
-        <div class="cards right-of-active">
-          <div v-for="(card, index) in cards"
-               :key="card.position"
-               class="card"
-               :style="{'z-index': index}"
-               :class="['card-' + card.position, {'displaced': (switchableCardId !== null && card.position === switchableCardId)}]">
-            <div class="card-window">
-              <img :src="require('../assets/front-puppy/'+ card.id +'.png')" alt="">
-            </div>
-          </div>
-        </div>
+        <Cards :offset="offset" card-state-class="left-of-active" collection="front-puppy" cards-length="7"/>
+        <Cards :offset="offset" card-state-class="active" collection="chh" cards-length="5"/>
+        <Cards :offset="offset" card-state-class="right-of-active" collection="front-puppy" cards-length="7"/>
       </div>
     </div>
     <div class="mini-slider-box">
-      <div class="mini-slider-slide left-of-active">
+      <div @click="activate(2)" class="mini-slider-slide" :class="{'active': offset=== 650}">
         <div class="mini-slider-slide-mask"></div>
         <div class="mini-slider-slide-body">
           <div class="icon">
@@ -53,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="mini-slider-slide active">
+      <div @click="activate(1)" class="mini-slider-slide" :class="{'active': offset=== 0}">
         <div class="mini-slider-slide-mask"></div>
         <div class="mini-slider-slide-body">
           <div class="icon">
@@ -64,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div class="mini-slider-slide right-of-active">
+      <div @click="activate(0)" class="mini-slider-slide" :class="{'active': offset=== -650}">
         <div class="mini-slider-slide-mask"></div>
         <div class="mini-slider-slide-body">
           <div class="icon">
@@ -89,74 +59,29 @@
 </template>
 
 <script>
+import Cards from "@/components/Cards.vue";
+
 export default {
   name: 'HelloWorld',
+  components: {Cards},
   data() {
     return {
-      cards: [
-        {
-          id: 0,
-          name: '0',
-          position: 0
-        },
-        {
-          id: 1,
-          name: '1',
-          position: 1
-        },
-        {
-          id: 2,
-          name: '2',
-          position: 2
-        },
-        {
-          id: 3,
-          name: '3',
-          position: 3
-        },
-        {
-          id: 4,
-          name: '4',
-          position: 4
-        },
-        {
-          id: 5,
-          name: '5',
-          position: 5
-        },
-        {
-          id: 6,
-          name: '6',
-          position: 6
-        }
-      ],
-      switchableCardId: null,
-      intervalId: null,
+      offset: -650
     }
-  },
-  props: {
-    msg: String
   },
   methods: {
-    rand() {
-      setTimeout(() => this.switchableCardId = this.cards[this.cards.length - 1].id)
-      setTimeout(() => {
-        let sliceCard = this.cards.pop();
-        this.cards.slice(this.cards.indexOf(sliceCard), 1)
-        console.log('sliceCard')
-        console.log(sliceCard)
-        this.cards.unshift(sliceCard)
-      }, 600)
-      setTimeout(() => this.switchableCardId = null, 700)
+    activate(collection) {
+      if (collection === 0) {
+        this.offset = -650
+      }
+      if (collection === 1) {
+        this.offset = 0
+      }
+      if (collection === 2) {
+        this.offset = 650
+      }
     }
-  },
-  beforeUnmount() {
-    clearInterval(this.intervalId);
-  },
-  mounted() {
-    this.intervalId = setInterval(this.rand, 2500);
-  },
-
+  }
 }
 </script>
 
@@ -164,6 +89,7 @@ export default {
 .main-page {
   width: 100vw;
   position: relative;
+  padding: 10px;
 }
 
 .title {
@@ -207,97 +133,6 @@ export default {
     justify-content: center;
     max-width: 700px;
     overflow: hidden;
-    .cards {
-      width: 650px;
-      min-width: 650px;
-      overflow: hidden;
-      position: relative;
-      height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.6s;
-      @media (max-width: 690px) {
-        margin: 0 0 0 0;
-      }
-      .card {
-        width: 400px;
-        height: 500px;
-        margin: auto;
-        position: absolute;
-        transition: 500ms;
-        &-window {
-          height: 100%;
-          img {
-            width: 100%;
-          }
-        }
-      }
-      .card.displaced {
-        transform: rotate(0deg) translateY(-600px)!important;
-      }
-      .card.card-0 {
-        transform: rotate(-5deg);
-        margin-left: -100px;
-      }
-      .card.card-1 {
-        transform: rotate(-15deg);
-        margin-left: 0;
-      }
-      .card.card-2 {
-        transform: rotate(-5deg);
-        margin-left: 30px;
-      }
-      .card.card-3 {
-        transform: rotate(4deg);
-        margin-left: 80px;
-        transition: 1s;
-      }
-      @media (max-width: 690px) {
-        width: 400px;
-        height: 450px;
-        margin: 20px auto 0 auto;
-        .card {
-          width: 300px;
-          height: 300px;
-          top: 50px;
-        }
-        .card.card-0 {
-          margin-left: -20px;
-        }
-        .card.card-1 {
-          margin-left: 0;
-        }
-        .card.card-2 {
-          margin-left: 15px;
-        }
-        .card.card-3 {
-          margin-left: 40px;
-        }
-      }
-    }
-    .cards-mask {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: #000;
-      z-index: 1000;
-    }
-    .cards.active {
-      .cards-mask {
-        background: transparent;
-      }
-    }
-    .cards-mask {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-    }
   }
 }
 
@@ -308,13 +143,14 @@ export default {
   overflow: hidden;
   display: flex;
   justify-content: center;
+  gap: 12px;
   .mini-slider-slide {
     width: auto;
     border-radius: 30px;
     padding: 0;
     position: relative;
     overflow: hidden;
-    margin: 2px 10px 0 10px;
+    margin: 2px 0 0 0;
     height: 36px;
     cursor: pointer;
     &:hover {
@@ -361,12 +197,6 @@ export default {
       }
     }
   }
-  .mini-slider-slide.left-of-active {
-    .mini-slider-slide-mask {
-      background: linear-gradient(to right, #000000 10%, #00000099 30%, transparent);
-      backdrop-filter: blur(2px);
-    }
-  }
   .mini-slider-slide.active {
     border: 2px solid #38E07A;
     transform: scale(1.1);
@@ -374,18 +204,14 @@ export default {
       background: transparent;
     }
   }
-  .mini-slider-slide.right-of-active {
-    .mini-slider-slide-mask {
-      background: linear-gradient(to right, transparent 10%, #00000099 70%, #000000 90%);
-      backdrop-filter: blur(2px);
-    }
-  }
 }
 
 .button-box {
-  padding: 0 10px;
+  max-width: 400px;
   position: relative;
   margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   align-items: center;
   justify-content: center;

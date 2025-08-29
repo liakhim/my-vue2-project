@@ -159,6 +159,7 @@ export default {
     margin: 2px 0 0 0;
     height: 36px;
     cursor: pointer;
+    border: 2px solid transparent;
     background: #121714;
     &:hover {
       .mini-slider-slide-body {
@@ -186,7 +187,9 @@ export default {
       justify-content: flex-start;
       .icon {
         width: 35px;
+        min-width: 35px;
         height: 35px;
+        min-height: 35px;
         border-radius: 50%;
         overflow: hidden;
         display: flex;

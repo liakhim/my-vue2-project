@@ -1,15 +1,11 @@
 <template>
   <div class="main-page">
-    <div class="background">
-      <img src="../assets/front-puppy/back.jpg" alt="">
-    </div>
     <div class="title">
       <h1>Сохраните воспоминания о том, как рос ваш самый преданный друг...</h1>
       <p>...а мы поможем это реализовать</p>
     </div>
     <div class="cards-wrapper">
       <div class="cards-box">
-        <div class="left-side"></div>
         <div class="cards left-of-active">
           <div v-for="(card, index) in cards"
                :key="card.position"
@@ -43,7 +39,6 @@
             </div>
           </div>
         </div>
-        <div class="right-side"></div>
       </div>
     </div>
     <div class="mini-slider-box">
@@ -83,8 +78,8 @@
 
     </div>
     <div class="button-box">
-      <button style="background: #38E07A; border-radius: 50px; padding: 20px 60px; cursor: pointer">
-        <span style="color: #121714; font-size: 18px; font-weight: 900">НАЧАТЬ ПОЛЬЗОВАТЬСЯ</span>
+      <button>
+        <span>НАЧАТЬ ПОЛЬЗОВАТЬСЯ</span>
       </button>
     </div>
   </div>
@@ -167,24 +162,7 @@ export default {
   width: 100vw;
   position: relative;
 }
-.background {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-  @media (max-width: 690px) {
-    margin-top: -10px;
-    img {
-      height: calc(100% + 10px);
-    }
-  }
-}
+
 .title {
   h1 {
     position: relative;
@@ -194,6 +172,7 @@ export default {
     max-width: 900px;
     margin: 20px auto 5px;
     font-family: Jem, sans-serif;
+    text-align: center;
     @media (max-width: 690px) {
       margin-top: 20px;
       line-height: 30px;
@@ -203,6 +182,7 @@ export default {
   }
 
   p {
+    text-align: center;
     position: relative;
     color: #fff;
     font-size: 22px;
@@ -222,40 +202,8 @@ export default {
     position: relative;
     display: flex;
     justify-content: center;
-    max-width: 1000px;
+    max-width: 700px;
     overflow: hidden;
-    .left-side {
-      width: 200px;
-      height: 100%;
-      position: absolute;
-      background: #00000080;
-      border-radius: 20px;
-      left: 0;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      mask: linear-gradient(to right,
-          black 0%,
-          black 1%,
-          rgba(0,0,0,0.0) 10%,
-          rgba(0,0,0,0.0) 20%,
-          transparent 100%
-      );
-    }
-    .right-side {
-      height: 100%;
-      border-radius: 20px;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      right: 0;
-      background: #00000080;
-      position: absolute;
-      mask: linear-gradient(to right,
-          transparent 0%,
-          rgba(0,0,0,0.0) 70%,
-          rgba(0,0,0,0.0) 92%,
-          black 99%,
-          black 100%
-      );
-      width: 200px;
-    }
     .cards {
       width: 650px;
       min-width: 650px;
@@ -435,8 +383,22 @@ export default {
 .button-box {
   position: relative;
   margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    background: #38E07A;
+    border-radius: 50px;
+    padding: 15px 40px;
+    cursor: pointer;
+    span {
+      color: #121714;
+      font-size: 14px;
+      font-weight: 900;
+    }
+  }
   @media (max-width: 690px) {
-    margin-top: 20px;
+    margin-top: 30px;
   }
 }
 

@@ -1,18 +1,17 @@
 <template>
-  <div
-      id="app"
-      :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px', minHeight: '100vh' }"
-  >
-    <Cover msg="Qwerty" />
+  <div id="app" :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px', minHeight: '100vh' }">
+    <div class="background">
+      <img src="./assets/front-puppy/back.jpg" alt="">
+    </div>
+    <div style="position:relative;">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import Cover from './components/Cover.vue'
-
 export default {
   name: 'App',
-  components: { Cover },
   data() {
     return {
       tg: null,
@@ -58,13 +57,33 @@ export default {
 
 html, body {
   height: 100%;
-  overflow: hidden; /* блокируем стандартный скролл iOS */
+  overflow: hidden;
 }
 
 #app {
   width: 100%;
   height: 100%;
-  overflow: auto; /* контент внутри #app можно скроллить */
-  -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.background {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: #000;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  @media (max-width: 690px) {
+    margin-top: -10px;
+    img {
+      height: calc(100% + 10px);
+    }
+  }
 }
 </style>

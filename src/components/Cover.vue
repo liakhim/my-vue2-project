@@ -159,7 +159,7 @@ export default {
     margin: 2px 0 0 0;
     height: 36px;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 2px solid #121714;
     background: #121714;
     &:hover {
       .mini-slider-slide-body {

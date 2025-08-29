@@ -49,7 +49,7 @@
     </div>
     <div class="button-box">
       <button style="width: 100%;">
-        <span>Начать</span>
+        <span>Начать пользоваться</span>
       </button>
       <button style="background: #121714; color: #ffffff; padding: 15px; width: 50px; height: 50px;margin-left: 10px;">
         <span style="color: #fff;">?</span>
@@ -153,7 +153,15 @@ export default {
     margin: 2px 0 0 0;
     height: 36px;
     cursor: pointer;
+    background: #121714;
     &:hover {
+      .mini-slider-slide-body {
+        .name {
+          p {
+            color: #38E07A;
+          }
+        }
+      }
       .mini-slider-slide-mask {
         backdrop-filter: none!important;
         background: none!important;
@@ -171,21 +179,24 @@ export default {
       align-items: center;
       justify-content: flex-start;
       .icon {
-        width: 38px;
-        height: 38px;
+        width: 35px;
+        height: 35px;
         border-radius: 50%;
         overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
+        border: 2px solid #38E07A;
         img {
           width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
       }
       .name {
         p {
           color: #fff;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: bold;
           padding: 3px 10px 3px 10px;
           font-family: Jem, sans-serif;
@@ -200,6 +211,17 @@ export default {
   .mini-slider-slide.active {
     border: 2px solid #38E07A;
     transform: scale(1.1);
+
+    .mini-slider-slide-body {
+      .icon {
+        margin: -1px 0 0 -2px;
+      }
+      .name {
+        p {
+          color: #fff;
+        }
+      }
+    }
     .mini-slider-slide-mask {
       background: transparent;
     }

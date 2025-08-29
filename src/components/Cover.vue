@@ -208,7 +208,6 @@ export default {
       width: 650px;
       min-width: 650px;
       overflow: hidden;
-      margin: 15px 0 0 0;
       position: relative;
       height: 600px;
       display: flex;

@@ -1,9 +1,9 @@
 <template>
   <div class="main-page">
-    <div class="title">
-      <h1>Сохраните воспоминания о том, как рос ваш самый преданный друг...</h1>
-      <p>...а мы поможем это реализовать</p>
-    </div>
+<!--    <div class="title">-->
+<!--      <h1>Сохраните воспоминания о том, как рос ваш самый преданный друг...</h1>-->
+<!--      <p>...а мы поможем это реализовать</p>-->
+<!--    </div>-->
     <div class="cards-wrapper">
       <div class="cards-box">
         <div class="cards left-of-active">

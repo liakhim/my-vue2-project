@@ -6,7 +6,7 @@
 <!--    </div>-->
     <div class="cards-wrapper">
       <div class="cards-box">
-        <Cards :offset="offset" card-state-class="left-of-active" collection="front-puppy" cards-length="7"/>
+        <Cards :offset="offset" card-state-class="left-of-active" collection="cat" cards-length="6"/>
         <Cards :offset="offset" card-state-class="active" collection="chh" cards-length="5"/>
         <Cards :offset="offset" card-state-class="right-of-active" collection="front-puppy" cards-length="7"/>
       </div>
@@ -16,10 +16,10 @@
         <div class="mini-slider-slide-mask"></div>
         <div class="mini-slider-slide-body">
           <div class="icon">
-            <img src="../assets/front-puppy/cover-1.jpg" alt="">
+            <img src="../assets/cat/cover-3.jpg" alt="">
           </div>
           <div class="name">
-            <p>Fluke</p>
+            <p>Vasiliy</p>
           </div>
         </div>
       </div>

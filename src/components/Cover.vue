@@ -397,7 +397,7 @@ export default {
     }
   }
   @media (max-width: 690px) {
-    margin-top: 30px;
+    margin-top: 15px;
   }
 }
 

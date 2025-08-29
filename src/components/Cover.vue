@@ -90,6 +90,11 @@ export default {
   width: 100vw;
   position: relative;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .title {

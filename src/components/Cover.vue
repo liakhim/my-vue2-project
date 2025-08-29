@@ -27,10 +27,10 @@
         <div class="mini-slider-slide-mask"></div>
         <div class="mini-slider-slide-body">
           <div class="icon">
-            <img src="../assets/front-puppy/cover-1.jpg" alt="">
+            <img src="../assets/chh/cover-2.jpg" alt="">
           </div>
           <div class="name">
-            <p>Fluke story</p>
+            <p>Monica story</p>
           </div>
         </div>
       </div>

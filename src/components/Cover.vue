@@ -140,6 +140,9 @@ export default {
     justify-content: center;
     max-width: 700px;
     overflow: hidden;
+    @media (max-width: 690px) {
+      max-width: 400px;
+    }
   }
 }
 

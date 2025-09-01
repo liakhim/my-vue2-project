@@ -6,9 +6,9 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae commodi dolor earum eligendi, hic nostrum quisquam voluptatem. Impedit, quasi, repellendus?</p>
       </div>
     </div>
-    <button @click="infoBlockStateOpen = !infoBlockStateOpen" class="info-block-button" style="cursor: pointer;position: relative;background: #121714; color: #ffffff; border-radius: 50px; padding: 15px; width: 50px; height: 50px;margin-left: 10px;">
-      <span v-if="!infoBlockStateOpen" style="color: #fff;">?</span>
-      <span v-else style="color: #fff;">x</span>
+    <button @click="infoBlockStateOpen = !infoBlockStateOpen" class="info-block-button">
+      <span v-if="!infoBlockStateOpen">?</span>
+      <span v-else>x</span>
     </button>
   </div>
 </template>
@@ -25,6 +25,22 @@ export default {
 <style lang="scss" scoped>
 .info-block-open-state {
   position: relative;
+}
+
+.info-block-button {
+  cursor: pointer;
+  position: relative;
+  background: #121714;
+  color: #ffffff;
+  border-radius: 50px;
+  border: none;
+  padding: 15px;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  span {
+    color: #fff;
+  }
 }
 .info-block-content {
   padding: 20px;

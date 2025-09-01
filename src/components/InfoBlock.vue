@@ -42,7 +42,7 @@ export default {
   align-items: flex-end;
   justify-content: flex-end;
   width: 320px;
-  height: 720px;
+  height: 620px;
   border-radius: 30px;
   box-shadow: 0 0 10px #38E07A70;
   position: absolute;

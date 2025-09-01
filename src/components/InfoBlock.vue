@@ -62,8 +62,20 @@ export default {
   border-radius: 30px;
   box-shadow: 0 0 10px #38E07A70;
   position: absolute;
-  right: 0px;
+  right: 0;
   bottom: 0;
   background: #121714;
+  animation: .4s stretching ease-in-out;
+  overflow: hidden;
+}
+@keyframes stretching {
+  0%, 20% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 320px;
+    height: 540px;
+  }
 }
 </style>

@@ -51,19 +51,20 @@
       <button style="width: 100%;">
         <span>Начать пользоваться</span>
       </button>
-      <button style="background: #121714; color: #ffffff; padding: 15px; width: 50px; height: 50px;margin-left: 10px;">
-        <span style="color: #fff;">?</span>
-      </button>
+      <div class="info-block-wrapper" style="position:relative;">
+        <InfoBlock/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Cards from "@/components/Cards.vue";
+import InfoBlock from "@/components/InfoBlock.vue";
 
 export default {
   name: 'HelloWorld',
-  components: {Cards},
+  components: {Cards, InfoBlock},
   data() {
     return {
       offset: -650

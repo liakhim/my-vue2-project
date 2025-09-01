@@ -41,12 +41,12 @@ export default {
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  width: 400px;
+  width: 360px;
   height: 780px;
   border-radius: 30px;
   box-shadow: 0 0 10px #38E07A70;
   position: absolute;
-  right: -40px;
+  right: 0px;
   bottom: 0;
   background: #121714;
 }

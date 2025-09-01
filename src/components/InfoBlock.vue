@@ -1,6 +1,6 @@
 <template>
   <div class="info-block">
-    <div v-if="infoBlockStateOpen" class="info-block-open-state">
+    <div :class="{'open': infoBlockStateOpen, 'hide': !infoBlockStateOpen}" class="info-block-open-state">
       <div class="info-block-content">
         <h2>Lorem ipsum dolor sit amet.</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae commodi dolor earum eligendi, hic nostrum quisquam voluptatem. Impedit, quasi, repellendus?</p>
@@ -53,29 +53,49 @@ export default {
   }
 }
 .info-block-open-state {
-  display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  width: 320px;
-  height: 540px;
+  width: 0;
+  height: 0;
   border-radius: 30px;
   box-shadow: 0 0 10px #38E07A70;
   position: absolute;
   right: 0;
   bottom: 0;
   background: #121714;
-  animation: .4s stretching ease-in-out;
   overflow: hidden;
+}
+.info-block-open-state.open {
+  animation: .4s stretching ease-in-out;
+  width: 320px;
+  height: 540px;
+}
+.info-block-open-state.hide {
+  animation: .4s hide ease-in-out;
 }
 @keyframes stretching {
   0%, 20% {
     width: 0;
     height: 0;
+    display: none;
   }
   100% {
     width: 320px;
     height: 540px;
+    display: flex;
+  }
+}
+@keyframes hide {
+  0%, 20% {
+    width: 320px;
+    height: 540px;
+    display: flex;
+  }
+  100% {
+    width: 0;
+    height: 0;
+    display: none;
   }
 }
 </style>

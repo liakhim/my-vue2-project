@@ -141,7 +141,7 @@ export default {
     max-width: 700px;
     overflow: hidden;
     @media (max-width: 690px) {
-      max-width: 400px;
+      max-width: 370px;
     }
   }
 }

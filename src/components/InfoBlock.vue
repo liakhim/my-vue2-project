@@ -155,7 +155,6 @@ export default {
   animation: .4s stretching ease-in-out;
   width: 364px;
   max-width: 364px;
-  min-width: 364px;
   height: 540px;
   .info-block-content {
     animation: ease-in-out 2s show-content;

@@ -62,6 +62,11 @@
           </div>
         </div>
       </div>
+      <div class="button-block">
+        <button style="width: 100%;">
+          <span>Начать настройку</span>
+        </button>
+      </div>
     </div>
     <button @click="infoBlockStateOpen = !infoBlockStateOpen" class="info-block-button">
 
@@ -97,7 +102,6 @@ export default {
 <style lang="scss" scoped>
 
 .steps-block {
-
   .step {
     margin-top: 25px;
     font-family: 'Roboto', sans-serif;
@@ -145,6 +149,28 @@ export default {
           color: #ccc;
         }
       }
+    }
+  }
+}
+
+.button-block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  //padding: 0 10px;
+  //margin-bottom: 10px;
+  button {
+    background: #38E07A;
+    border-radius: 0 30px 0 30px;
+    padding: 15px 40px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    span {
+      color: #121714;
+      font-size: 14px;
+      font-weight: 900;
     }
   }
 }

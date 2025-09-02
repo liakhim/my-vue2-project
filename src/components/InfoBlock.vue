@@ -158,8 +158,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  //padding: 0 10px;
-  //margin-bottom: 10px;
   button {
     background: #38E07A;
     border-radius: 0 30px 0 30px;

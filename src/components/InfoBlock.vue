@@ -196,11 +196,11 @@ export default {
   padding: 20px;
   position: relative;
   width: 100%;
-  height: 100%;
   color: #fff;
   flex-direction: column;
 
-  h2 {
+  h3 {
+    margin-top: 20px;
     font-family: 'Jem', sans-serif;
   }
 }
@@ -222,7 +222,7 @@ export default {
   animation: .4s stretching ease-in-out;
   width: 364px;
   max-width: 364px;
-  height: 580px;
+  height: 600px;
   .info-block-content {
     animation: ease-in-out 3s show-content;
   }

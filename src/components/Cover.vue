@@ -44,7 +44,7 @@
 
     </div>
     <div class="button-box">
-      <button style="width: 100%;">
+      <button class="start-button" style="width: 100%;">
         <span>Начать пользоваться</span>
       </button>
       <div class="info-block-wrapper" style="position:relative;">
@@ -214,12 +214,14 @@ export default {
   align-items: center;
   justify-content: center;
   width: 100%;
-  button {
+  .start-button {
     background: #38E07A;
-    border-radius: 50px;
+    border-radius: 0 30px;
     padding: 15px 40px;
     cursor: pointer;
     width: 100%;
+    border: 1px solid #237F45;
+    outline: none;
     span {
       color: #121714;
       font-size: 14px;

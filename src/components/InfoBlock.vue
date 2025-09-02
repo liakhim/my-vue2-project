@@ -182,7 +182,7 @@ export default {
   position: relative;
   background: #121714;
   color: #ffffff;
-  border-radius: 0 50px 0 50px;
+  border-radius: 50px;
   border: none;
   padding: 15px;
   width: 50px;

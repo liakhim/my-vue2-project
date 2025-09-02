@@ -1,14 +1,12 @@
 <template>
   <div class="info-block">
-    <div :class="{'open': infoBlockStateOpen, 'hide': !infoBlockStateOpen}" class="info-block-open-state">
+    <div :class="{'open': infoBlockStateOpen, 'hide': !infoBlockStateOpen}" :style="{'display': infoBlockStateOpen ? 'flex' : 'none'}" class="info-block-open-state">
       <div class="info-block-content">
         <h2>Lorem ipsum dolor sit amet.</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae commodi dolor earum eligendi, hic nostrum quisquam voluptatem. Impedit, quasi, repellendus?</p>
       </div>
     </div>
     <button @click="infoBlockStateOpen = !infoBlockStateOpen" class="info-block-button">
-<!--      <span v-if="!infoBlockStateOpen">?</span>-->
-<!--      <span v-else>x</span>-->
 
       <svg v-if="!infoBlockStateOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
         <path d="M3.00014 3.34452C4.26894 1.52193 5.88494 0.5 8.37994 0.5C11.0332 0.5 13.8652 2.57049 13.8652 5.3C13.8652 8.92447 9.94954 8.98019 9.94954 10.3196V10.5C9.94954 10.9142 9.61374 11.25 9.19934 11.25H6.93404C6.51974 11.25 6.18384 10.9142 6.18384 10.5V10.1941C6.18384 8.26198 7.64914 7.48955 8.75634 6.86894C9.70584 6.3368 10.2878 5.97482 10.2878 5.27007C10.2878 4.33783 9.09834 3.71911 8.13674 3.71911C6.91374 3.71911 6.33284 4.28372 5.54984 5.26442C5.29604 5.58235 4.83474 5.63986 4.51044 5.39402L3.16204 4.37191C2.84094 4.12852 2.77004 3.67515 3.00014 3.34452Z" fill="white"/>

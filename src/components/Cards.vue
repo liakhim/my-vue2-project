@@ -29,8 +29,6 @@ export default {
       setTimeout(() => {
         let sliceCard = this.cards.pop();
         this.cards.slice(this.cards.indexOf(sliceCard), 1)
-        console.log('sliceCard')
-        console.log(sliceCard)
         this.cards.unshift(sliceCard)
       }, 600)
       setTimeout(() => this.switchableCardId = null, 700)

@@ -200,11 +200,11 @@ export default {
   max-width: 364px;
   height: 580px;
   .info-block-content {
-    animation: ease-in-out 2s show-content;
+    animation: ease-in-out 3s show-content;
   }
 }
 .info-block-open-state.hide {
-  animation: .4s hide ease-in-out;
+  animation: .2s hide ease-in-out;
   .info-block-content {
     animation: 0.1s hide-content ease-in-out ;
     display: none;

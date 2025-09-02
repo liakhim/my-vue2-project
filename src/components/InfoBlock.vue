@@ -48,8 +48,10 @@ export default {
   width: 100%;
   height: 100%;
   color: #fff;
+  flex-direction: column;
+
   h2 {
-    font-family: Jem, sans-serif;
+    font-family: 'Jem', sans-serif;
   }
 }
 .info-block-open-state {
@@ -70,9 +72,16 @@ export default {
   animation: .4s stretching ease-in-out;
   width: 320px;
   height: 540px;
+  .info-block-content {
+    animation: ease-in-out 2s show-content;
+  }
 }
 .info-block-open-state.hide {
   animation: .4s hide ease-in-out;
+  .info-block-content {
+    animation: 0.1s hide-content ease-in-out ;
+    display: none;
+  }
 }
 @keyframes stretching {
   0%, 20% {
@@ -84,6 +93,23 @@ export default {
     width: 320px;
     height: 540px;
     display: flex;
+  }
+}
+@keyframes show-content {
+  0%, 20% {
+    display: none;
+  }
+  100% {
+    display: flex;
+  }
+}
+
+@keyframes hide-content {
+  0%, 20% {
+    display: none;
+  }
+  100% {
+    display: none;
   }
 }
 @keyframes hide {

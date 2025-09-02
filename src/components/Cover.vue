@@ -205,7 +205,7 @@ export default {
 }
 
 .button-box {
-  max-width: 400px;
+  max-width: 420px;
   position: relative;
   margin-top: 60px;
   margin-left: auto;
@@ -213,11 +213,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   button {
     background: #38E07A;
     border-radius: 50px;
     padding: 15px 40px;
     cursor: pointer;
+    width: 100%;
     span {
       color: #121714;
       font-size: 14px;

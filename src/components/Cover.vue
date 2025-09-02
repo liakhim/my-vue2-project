@@ -1,9 +1,5 @@
 <template>
   <div class="main-page">
-<!--    <div class="title">-->
-<!--      <h1>Сохраните воспоминания о том, как рос ваш самый преданный друг...</h1>-->
-<!--      <p>...а мы поможем это реализовать</p>-->
-<!--    </div>-->
     <div class="cards-wrapper">
       <div class="cards-box">
         <Cards :offset="offset" card-state-class="left-of-active" collection="cat" cards-length="6"/>
@@ -99,38 +95,6 @@ export default {
   max-height: 100vh;
 }
 
-.title {
-  h1 {
-    position: relative;
-    color: #fff;
-    font-size: 40px;
-    line-height: 40px;
-    max-width: 900px;
-    margin: 20px auto 5px;
-    font-family: Jem, sans-serif;
-    text-align: center;
-    @media (max-width: 690px) {
-      margin-top: 20px;
-      line-height: 30px;
-      font-size: 24px;
-      max-width: 90vw;
-    }
-  }
-
-  p {
-    text-align: center;
-    position: relative;
-    color: #fff;
-    font-size: 22px;
-    line-height: 22px;
-    margin-top: 20px;
-    font-family: Papyrus, sans-serif;
-    @media (max-width: 690px) {
-      font-size: 16px;
-      line-height: 18px;
-    }
-  }
-}
 .cards-wrapper {
   display: flex;
   justify-content: center;
@@ -224,7 +188,6 @@ export default {
   }
   .mini-slider-slide.active {
     border: 2px solid #38E07A;
-
     .mini-slider-slide-body {
       .icon {
         margin: 0 0 0 -2px;
@@ -276,8 +239,5 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-}
-a {
-  color: #42b983;
 }
 </style>

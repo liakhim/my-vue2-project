@@ -2,19 +2,61 @@
   <div class="info-block">
     <div :class="{'open': infoBlockStateOpen, 'hide': !infoBlockStateOpen}" :style="{'display': infoBlockStateOpen ? 'flex' : 'none'}" class="info-block-open-state">
       <div class="info-block-content">
-        <h3>Lorem ipsum dolor sit amet.</h3>
+        <h3>Как это работает?</h3>
         <div class="steps-block">
-          <div v-for="step in 4" :key="step" class="step">
+          <div class="step">
             <div class="step-marker">
-              <div class="step-marker-dot">{{step}}</div>
+              <div class="step-marker-dot"></div>
               <div class="step-marker-line"></div>
             </div>
             <div class="step-body">
               <div class="step-body-title">
-                <h4>Lorem ipsum dolor sit.</h4>
+                <h4>Вместе настраиваем частоту напоминаний</h4>
               </div>
               <div class="step-body-annotation">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing. </p>
+                <p>Можно установить напоминания "каждый день", "два раза в день", один раз в два дня" или "один раз в неделю"</p>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-marker">
+              <div class="step-marker-dot"></div>
+              <div class="step-marker-line"></div>
+            </div>
+            <div class="step-body">
+              <div class="step-body-title">
+                <h4>Загружаем фото после сообщения о напоминании</h4>
+              </div>
+              <div class="step-body-annotation">
+                <p>Мы сохраним фото и начнем создавать мини-альбом с воспоминанием как рос ваш любимец</p>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-marker">
+              <div class="step-marker-dot"></div>
+              <div class="step-marker-line"></div>
+            </div>
+            <div class="step-body">
+              <div class="step-body-title">
+                <h4>Можете запросить альбом в любое время</h4>
+              </div>
+              <div class="step-body-annotation">
+                <p>Например через три месяца с частотой фото один раз в неделю Вам будет доступен альбом из 12-14 фотографий</p>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-marker">
+              <div class="step-marker-dot"></div>
+<!--              <div class="step-marker-line"></div>-->
+            </div>
+            <div class="step-body">
+              <div class="step-body-title">
+                <h4>А можете не запрашивать - все фотографии будут доступны в галерее нашего бота</h4>
+              </div>
+              <div class="step-body-annotation">
+                <p>(если не будете ничего удалять)</p>
               </div>
             </div>
           </div>
@@ -57,7 +99,7 @@ export default {
 .steps-block {
 
   .step {
-    margin-top: 30px;
+    margin-top: 10px;
     font-family: 'Roboto', sans-serif;
     display: flex;
     align-items: flex-start;
@@ -74,6 +116,7 @@ export default {
         align-items: center;
         justify-content: center;
         z-index: 100;
+        margin-top: 6px;
         position: relative;
         color: #000
       }
@@ -81,7 +124,7 @@ export default {
         background: #38E07A;
         position: absolute;
         width: 2px;
-        height: 100px;
+        height: 110px;
         top: 0;
         left: 7px;
         z-index: 99;
@@ -91,14 +134,14 @@ export default {
       padding: 0 0 0 10px;
       &-title {
         h4 {
-          font-size: 18px;
+          font-size: 17px;
           color: #38E07A;
         }
       }
       &-annotation {
         margin-top: 6px;
         p {
-          font-size: 14px;
+          font-size: 13px;
           color: #ccc;
         }
       }

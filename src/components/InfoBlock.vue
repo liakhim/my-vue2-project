@@ -2,8 +2,23 @@
   <div class="info-block">
     <div :class="{'open': infoBlockStateOpen, 'hide': !infoBlockStateOpen}" :style="{'display': infoBlockStateOpen ? 'flex' : 'none'}" class="info-block-open-state">
       <div class="info-block-content">
-        <h2>Lorem ipsum dolor sit amet.</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae commodi dolor earum eligendi, hic nostrum quisquam voluptatem. Impedit, quasi, repellendus?</p>
+        <h3>Lorem ipsum dolor sit amet.</h3>
+        <div class="steps-block">
+          <div v-for="step in 4" :key="step" class="step">
+            <div class="step-marker">
+              <div class="step-marker-dot">{{step}}</div>
+              <div class="step-marker-line"></div>
+            </div>
+            <div class="step-body">
+              <div class="step-body-title">
+                <h4>Lorem ipsum dolor sit.</h4>
+              </div>
+              <div class="step-body-annotation">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing. </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <button @click="infoBlockStateOpen = !infoBlockStateOpen" class="info-block-button">
@@ -32,12 +47,65 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      infoBlockStateOpen: false
+      infoBlockStateOpen: true
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+
+.steps-block {
+
+  .step {
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    &-marker {
+      &-dot {
+        width: 16px;
+        height: 16px;
+        background: #38E07A;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #38E07A;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        position: relative;
+        color: #000
+      }
+      &-line {
+        background: #38E07A;
+        position: absolute;
+        width: 2px;
+        height: 100px;
+        top: 0;
+        left: 7px;
+        z-index: 99;
+      }
+    }
+    &-body {
+      padding: 0 0 0 10px;
+      &-title {
+        h4 {
+          font-size: 18px;
+          color: #38E07A;
+        }
+      }
+      &-annotation {
+        margin-top: 6px;
+        p {
+          font-size: 14px;
+          color: #ccc;
+        }
+      }
+    }
+  }
+}
+
 .info-block-open-state {
   position: relative;
 }

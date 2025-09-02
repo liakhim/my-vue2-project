@@ -47,7 +47,7 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      infoBlockStateOpen: true
+      infoBlockStateOpen: false
     }
   }
 }
@@ -153,8 +153,8 @@ export default {
 }
 .info-block-open-state.open {
   animation: .4s stretching ease-in-out;
-  width: 360px;
-  max-width: 360px;
+  width: 364px;
+  max-width: 364px;
   height: 540px;
   .info-block-content {
     animation: ease-in-out 2s show-content;

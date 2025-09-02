@@ -99,7 +99,7 @@ export default {
 .steps-block {
 
   .step {
-    margin-top: 10px;
+    margin-top: 25px;
     font-family: 'Roboto', sans-serif;
     display: flex;
     align-items: flex-start;
@@ -124,7 +124,7 @@ export default {
         background: #38E07A;
         position: absolute;
         width: 2px;
-        height: 110px;
+        height: 130px;
         top: 0;
         left: 7px;
         z-index: 99;

@@ -205,7 +205,7 @@ export default {
 }
 
 .button-box {
-  max-width: 420px;
+  max-width: 400px;
   position: relative;
   margin-top: 60px;
   margin-left: auto;

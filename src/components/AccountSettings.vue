@@ -190,7 +190,7 @@ export default {
       }
       p {
         color: #fff;
-        font-size: 18px;
+        font-size: 17px;
       }
     }
   }

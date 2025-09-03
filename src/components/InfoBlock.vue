@@ -35,7 +35,7 @@
           <div class="step">
             <div class="step-marker">
               <div class="step-marker-dot"></div>
-<!--              <div class="step-marker-line"></div>-->
+              <div class="step-marker-line"></div>
             </div>
             <div class="step-body">
               <div class="step-body-title">
@@ -43,6 +43,20 @@
               </div>
               <div class="step-body-annotation">
                 <p>Добавьте бота администратором в канал - тогда все Ваши подписчики тоже смогут следить за Вашим любимцем!</p>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-marker">
+              <div class="step-marker-dot"></div>
+<!--              <div class="step-marker-line"></div>-->
+            </div>
+            <div class="step-body">
+              <div class="step-body-title">
+                <h4>Все фотографии будут доступны в галерее нашего бота</h4>
+              </div>
+              <div class="step-body-annotation">
+                <p>(если не будете ничего удалять)</p>
               </div>
             </div>
           </div>

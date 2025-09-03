@@ -1,8 +1,8 @@
 <template>
   <div id="app" :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px', minHeight: '100vh' }">
-<!--    <div style="backdrop-filter: blur(10px)" class="background">-->
-<!--      <img src="./assets/front-puppy/back3.jpg" alt="">-->
-<!--    </div>-->
+    <div style="backdrop-filter: blur(10px)" class="background">
+      <img src="./assets/front-puppy/back3.jpg" alt="">
+    </div>
     <div style="position:relative;">
       <router-view></router-view>
     </div>

@@ -221,8 +221,8 @@ export default {
 }
 .info-block-open-state.open {
   animation: .2s stretching ease-in-out;
-  width: 362px;
-  max-width: 362px;
+  width: 361px;
+  max-width: 361px;
   height: 600px;
   .info-block-content {
     animation: ease-in-out 1s show-content;

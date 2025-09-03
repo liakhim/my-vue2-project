@@ -20,7 +20,7 @@
 <!--        </div>-->
 <!--      </div>-->
     </div>
-    <div style="display:flex;width: 100%;justify-content: center; align-items: flex-start">
+    <div style="display:flex;width: 100%;justify-content: center; align-items: flex-start; background: #00000020; backdrop-filter: blur(10px); padding: 30px; border-radius: 20px">
       <div class="list">
         <div class="list-item">
           <p>Каждые две недели</p>
@@ -88,7 +88,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .list {
-  margin-right: 36px;
   .list-item {
     margin: 5px 0;
     display: flex;

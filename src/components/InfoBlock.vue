@@ -273,7 +273,7 @@ export default {
   }
 }
 @keyframes hide {
-  0%, 20% {
+  0%, 70% {
     width: 320px;
     height: 540px;
     display: flex;

@@ -225,10 +225,10 @@ export default {
   max-width: 364px;
   height: 590px;
   .info-block-content {
-    animation: ease-in-out 2s show-content;
+    animation: ease-in-out 1s show-content;
   }
   .button-block {
-    animation: ease-in-out 2s show-content;
+    animation: ease-in-out 1s show-content;
   }
 }
 .info-block-open-state.hide {

@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="button-block">
+      <div v-if="infoBlockStateOpen" class="button-block">
         <button style="width: 100%;">
           <span>Начать настройку</span>
         </button>
@@ -219,18 +219,20 @@ export default {
   overflow: hidden;
 }
 .info-block-open-state.open {
-  animation: .4s stretching ease-in-out;
+  animation: .2s stretching ease-in-out;
   width: 364px;
   max-width: 364px;
   height: 560px;
   .info-block-content {
     animation: ease-in-out 3s show-content;
   }
+  .button-block {
+    animation: ease-in-out 3s show-content;
+  }
 }
 .info-block-open-state.hide {
   animation: .2s hide ease-in-out;
   .info-block-content {
-    // animation: 0.1s hide-content ease-in-out ;
     display: none;
   }
 }

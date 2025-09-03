@@ -212,7 +212,7 @@ export default {
   width: 0;
   height: 0;
   border-radius: 30px;
-  box-shadow: 0 0 10px #38E07A70;
+  // box-shadow: 0 0 10px #38E07A70;
   position: absolute;
   right: 0;
   bottom: 0;

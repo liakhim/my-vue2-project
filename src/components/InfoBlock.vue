@@ -25,24 +25,10 @@
             </div>
             <div class="step-body">
               <div class="step-body-title">
-                <h4>Загружаем фото после сообщения о напоминании</h4>
+                <h4>Загружаете фото после сообщения о напоминании</h4>
               </div>
               <div class="step-body-annotation">
                 <p>Мы сохраним фото и начнем создавать мини-альбом с воспоминанием. Бот предложит Вам добавить описание к фотографии - Вы можете описать фотографию сами или же мы сделаем это за Вас</p>
-              </div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-marker">
-              <div class="step-marker-dot"></div>
-              <div class="step-marker-line"></div>
-            </div>
-            <div class="step-body">
-              <div class="step-body-title">
-                <h4>Также вы можете включить Автопостинг</h4>
-              </div>
-              <div class="step-body-annotation">
-                <p>Добавьте бота администратором в канал и Мы будет автоматически публиковать посты - тогда все Ваши подписчики тоже смогут следить за Вашим любимцем!</p>
               </div>
             </div>
           </div>
@@ -53,10 +39,10 @@
             </div>
             <div class="step-body">
               <div class="step-body-title">
-                <h4>Все фотографии будут доступны в галерее нашего бота</h4>
+                <h4>Включите Автопостинг</h4>
               </div>
               <div class="step-body-annotation">
-                <p>(если не будете ничего удалять)</p>
+                <p>Добавьте бота администратором в канал - тогда все Ваши подписчики тоже смогут следить за Вашим любимцем!</p>
               </div>
             </div>
           </div>
@@ -222,7 +208,7 @@ export default {
   animation: .4s stretching ease-in-out;
   width: 364px;
   max-width: 364px;
-  height: 600px;
+  height: 560px;
   .info-block-content {
     animation: ease-in-out 3s show-content;
   }

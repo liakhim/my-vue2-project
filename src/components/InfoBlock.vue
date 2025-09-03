@@ -259,7 +259,7 @@ export default {
 
 @keyframes hide-content {
   0%, 20% {
-    display: none;
+    display: flex;
   }
   100% {
     display: none;

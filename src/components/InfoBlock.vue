@@ -252,9 +252,11 @@ export default {
 @keyframes show-content {
   0%, 20% {
     display: none;
+    opacity: 0;
   }
   100% {
     display: flex;
+    opacity: 1;
   }
 }
 

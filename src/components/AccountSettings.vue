@@ -20,8 +20,7 @@
 <!--        </div>-->
 <!--      </div>-->
     </div>
-    <div style="display:flex;
-align-items: flex-start">
+    <div style="display:flex;width: 100%;justify-content: center; align-items: flex-start">
       <div class="list">
         <div class="list-item">
           <p>Каждые две недели</p>

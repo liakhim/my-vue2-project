@@ -222,7 +222,7 @@ export default {
   animation: .2s stretching ease-in-out;
   width: 364px;
   max-width: 364px;
-  height: 560px;
+  height: 590px;
   .info-block-content {
     animation: ease-in-out 2s show-content;
   }

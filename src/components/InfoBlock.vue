@@ -160,6 +160,7 @@ export default {
   justify-content: flex-start;
   button {
     background: #38E07A;
+    border: 1px solid #237F45;
     border-radius: 0 30px 0 30px;
     padding: 15px 40px;
     cursor: pointer;

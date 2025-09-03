@@ -49,7 +49,7 @@
           <div class="step">
             <div class="step-marker">
               <div class="step-marker-dot"></div>
-<!--              <div class="step-marker-line"></div>-->
+              <div class="step-marker-line" style="display: none"></div>
             </div>
             <div class="step-body">
               <div class="step-body-title">
@@ -212,7 +212,6 @@ export default {
   width: 0;
   height: 0;
   border-radius: 30px;
-  // box-shadow: 0 0 10px #38E07A70;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -237,6 +236,7 @@ export default {
     display: none;
   }
 }
+
 @keyframes stretching {
   0%, 20% {
     width: 0;
@@ -249,6 +249,7 @@ export default {
     display: flex;
   }
 }
+
 @keyframes show-content {
   0%, 20% {
     display: none;
@@ -260,14 +261,6 @@ export default {
   }
 }
 
-@keyframes hide-content {
-  0%, 20% {
-    display: flex;
-  }
-  100% {
-    display: none;
-  }
-}
 @keyframes hide {
   0%, 20% {
     width: 320px;

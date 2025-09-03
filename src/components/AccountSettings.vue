@@ -39,31 +39,31 @@ align-items: flex-start">
           <p>Несколько раз в день</p>
         </div>
       </div>
-      <div class="vert-checker">
-        <div class="checker-wrapper">
-          <div class="checker-wrapper-wheel">
-            <div class="checker-wrapper-wheel-track-wrapper">
-              <div class="checker-wrapper-wheel-track">
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div class="vert-checker">-->
+<!--        <div class="checker-wrapper">-->
+<!--          <div class="checker-wrapper-wheel">-->
+<!--            <div class="checker-wrapper-wheel-track-wrapper">-->
+<!--              <div class="checker-wrapper-wheel-track">-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <button style="margin-top: 30px; padding: 10px" @click="turn()">Turn</button>
     <button style="margin-top: 30px; padding: 10px" @click="ret()">Ret</button>

@@ -226,12 +226,18 @@ export default {
   .info-block-content {
     animation: ease-in-out 3s show-content;
   }
+  .button-block {
+    animation: ease-in-out 3s show-content;
+  }
 }
 .info-block-open-state.hide {
   animation: .2s hide ease-in-out;
   .info-block-content {
-    animation: 0.1s hide-content ease-in-out ;
+    animation: 0.1s hide-content ease-in-out;
     display: none;
+  }
+  .button-block {
+    animation: 0.1s hide-content ease-in-out;
   }
 }
 @keyframes stretching {

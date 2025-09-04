@@ -24,7 +24,7 @@
 <!--      </div>-->
     </div>
     <div class="list-wrapper">
-      <div class="list" style="margin-right: 20px">
+      <div class="list" style="margin-right: 5px">
         <div class="list-item">
           <p>Каждые две недели</p>
         </div>
@@ -39,6 +39,23 @@
         </div>
         <div class="list-item">
           <p>Несколько раз в день</p>
+        </div>
+      </div>
+      <div class="list" style="margin-right: 5px">
+        <div class="list-item">
+          <p>07:00</p>
+        </div>
+        <div class="list-item">
+          <p>09:00</p>
+        </div>
+        <div class="list-item">
+          <p>11:00</p>
+        </div>
+        <div class="list-item">
+          <p>13:00</p>
+        </div>
+        <div class="list-item">
+          <p>15:00</p>
         </div>
       </div>
       <div class="list">
@@ -194,7 +211,7 @@ export default {
       }
       p {
         color: #fff;
-        font-size: 17px;
+        font-size: 14px;
       }
     }
   }

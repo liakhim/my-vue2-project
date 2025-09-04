@@ -194,7 +194,7 @@ export default {
         opacity: 1;
         border: 1px solid #38E07A;
         border-radius: 20px;
-        padding: 5px 14px;
+        padding: 5px 13px;
         p {
           color: #38E07A
         }

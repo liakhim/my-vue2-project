@@ -166,14 +166,15 @@ export default {
 .list-wrapper {
   display: flex;
   width: 90%;
-  margin: auto;
   justify-content: center;
   align-items: flex-start;
   background: linear-gradient(to bottom, #00000070, #ffffff02, #00000070);
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;
-  margin-top: -10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -20px;
   box-shadow: 0 0 10px #ffffff20;
   .list {
     .list-item {

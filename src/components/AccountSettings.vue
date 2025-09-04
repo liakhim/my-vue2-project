@@ -157,7 +157,7 @@ export default {
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;
-  margin-top: -30px;
+  margin-top: -10px;
   box-shadow: 0 0 10px #ffffff20;
   .list {
     .list-item {

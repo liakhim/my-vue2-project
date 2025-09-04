@@ -153,7 +153,7 @@ export default {
   margin: auto;
   justify-content: center;
   align-items: flex-start;
-  background: linear-gradient(to bottom, #000000, #ffffff02, #000000);
+  background: linear-gradient(to bottom, #00000070, #ffffff02, #00000070);
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;

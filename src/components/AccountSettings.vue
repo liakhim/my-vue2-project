@@ -212,6 +212,7 @@ export default {
       p {
         color: #fff;
         font-size: 14px;
+        white-space: none;
       }
     }
   }

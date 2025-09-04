@@ -24,7 +24,7 @@
 <!--      </div>-->
     </div>
     <div class="list-wrapper">
-      <div class="list" style="margin-right: 5px">
+      <div class="list" style="margin-right: 3px">
         <div class="list-item">
           <p>Каждые две недели</p>
         </div>
@@ -38,10 +38,10 @@
           <p>Два раза в день</p>
         </div>
         <div class="list-item">
-          <p>Несколько раз в день</p>
+          <p>Три раза в день</p>
         </div>
       </div>
-      <div class="list" style="margin-right: 5px">
+      <div class="list" style="margin-right: 3px">
         <div class="list-item">
           <p>07:00</p>
         </div>

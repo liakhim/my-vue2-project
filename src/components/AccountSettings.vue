@@ -128,9 +128,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #000;
-  padding: 24px 10px;
-  box-shadow: 0 0 10px #ffffff20;
+  background: linear-gradient(180deg, black 30%, transparent);
+  padding: 36px 10px 24px;
   .page-header-arrow {
     .back-button {
       width: 50px;

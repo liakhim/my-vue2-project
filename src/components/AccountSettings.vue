@@ -181,7 +181,6 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #00000050;
       backdrop-filter: blur(10px);
       &:nth-child(1) {
         opacity: 0.09;

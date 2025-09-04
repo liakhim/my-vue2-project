@@ -2,7 +2,7 @@
   <div class="main-page">
     <div class="cards-wrapper">
       <div class="cards-box">
-        <Cards :offset="offset" card-state-class="left-of-active" collection="cat" cards-l  ength="6"/>
+        <Cards :offset="offset" card-state-class="left-of-active" collection="cat" cards-length="6"/>
         <Cards :offset="offset" card-state-class="active" collection="chh" cards-length="5"/>
         <Cards :offset="offset" card-state-class="right-of-active" collection="front-puppy" cards-length="7"/>
       </div>

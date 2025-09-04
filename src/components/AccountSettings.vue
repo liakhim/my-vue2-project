@@ -153,7 +153,7 @@ export default {
   margin: auto;
   justify-content: center;
   align-items: flex-start;
-  background: #00000020;
+  background: linear-gradient(to bottom, #000000, #ffffff02, #000000);
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 20px;
@@ -169,9 +169,11 @@ export default {
       backdrop-filter: blur(10px);
       &:nth-child(1) {
         opacity: 0.09;
+        transform:perspective(300px) rotateX(40deg);
       }
       &:nth-child(2) {
         opacity: 0.2;
+        transform:perspective(300px) rotateX(20deg);
       }
       &:nth-child(3) {
         opacity: 1;
@@ -184,9 +186,11 @@ export default {
       }
       &:nth-child(4) {
         opacity: 0.2;
+        transform:perspective(300px) rotateX(-20deg);
       }
       &:nth-child(5) {
         opacity: 0.09;
+        transform:perspective(300px) rotateX(-40deg);
       }
       p {
         color: #fff;

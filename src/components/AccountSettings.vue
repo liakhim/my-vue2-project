@@ -211,7 +211,7 @@ export default {
       }
       p {
         color: #fff;
-        font-size: 14px;
+        font-size: 16px;
         white-space: none;
       }
     }

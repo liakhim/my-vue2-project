@@ -196,7 +196,7 @@ export default {
         opacity: 1;
         border: 1px solid #38E07A;
         border-radius: 20px;
-        padding: 5px 15px;
+        padding: 5px 14px;
         p {
           color: #38E07A
         }
@@ -211,7 +211,7 @@ export default {
       }
       p {
         color: #fff;
-        font-size: 16px;
+        font-size: 15px;
         white-space: none;
       }
     }

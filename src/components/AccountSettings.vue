@@ -1,8 +1,14 @@
 <template>
   <div class="settings-wrapper">
     <div class="page-header">
+      <div @click="$router.push('/')" class="page-header-arrow">
+        <img src="../assets/arr.svg" alt="">
+      </div>
       <div class="page-header-title">
         <h5>Настроим частоту напоминаний</h5>
+      </div>
+      <div class="page-header-arrow">
+
       </div>
     </div>
     <div class="photo-block">
@@ -140,6 +146,15 @@ export default {
       span {
         color: #fff;
       }
+    }
+  }
+  .page-header-arrow {
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 100%;
     }
   }
   .page-header-title {

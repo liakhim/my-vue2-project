@@ -30,44 +30,44 @@
 <!--      </div>-->
     </div>
 
-    <div class="scroll-list-wrapper">
+    <div class="scroll-list-wrapper" style="margin-top: 200px">
       <ScrollList/>
     </div>
-    <div class="list-wrapper">
-      <div class="list" style="margin-right: 5px">
-        <div class="list-item">
-          <p>Каждые две недели</p>
-        </div>
-        <div class="list-item">
-          <p>Каждую неделю</p>
-        </div>
-        <div class="list-item">
-          <p>Каждый день</p>
-        </div>
-        <div class="list-item">
-          <p>Два раза в день</p>
-        </div>
-        <div class="list-item">
-          <p>Три раза в день</p>
-        </div>
-      </div>
-      <div class="list" style="margin-right: 5px">
-        <div class="list-item">
-          <p>07:00</p>
-        </div>
-        <div class="list-item">
-          <p>09:00</p>
-        </div>
-        <div class="list-item">
-          <p>11:00</p>
-        </div>
-        <div class="list-item">
-          <p>13:00</p>
-        </div>
-        <div class="list-item">
-          <p>15:00</p>
-        </div>
-      </div>
+<!--    <div class="list-wrapper">-->
+<!--      <div class="list" style="margin-right: 5px">-->
+<!--        <div class="list-item">-->
+<!--          <p>Каждые две недели</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>Каждую неделю</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>Каждый день</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>Два раза в день</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>Три раза в день</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="list" style="margin-right: 5px">-->
+<!--        <div class="list-item">-->
+<!--          <p>07:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>09:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>11:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>13:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>15:00</p>-->
+<!--        </div>-->
+<!--      </div>-->
 <!--      <div class="list">-->
 <!--        <div class="list-item">-->
 <!--          <p>07:00</p>-->
@@ -112,7 +112,7 @@
 <!--          </div>-->
 <!--        </div>-->
 <!--      </div>-->
-    </div>
+<!--    </div>-->
   </div>
 </template>
 <script lang="ts">

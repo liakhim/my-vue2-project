@@ -1,6 +1,6 @@
 <template>
 <!--  v-touch:swipe.down="swipeHandler"-->
-  <div class="scroll-list" v-touch:start="startHandler" v-touch:end="endHandler">
+  <div class="scroll-list" v-touch:moving="movedHandler" v-touch:start="startHandler" v-touch:end="endHandler">
     <div class="scroll-list-track">
       <div v-for="(item, index) in items" :key="item + '_' + index" class="scroll-list-item" :style="{'transition': transitionCoefficient + 's', 'transform': 'translateY(' + offsetY + 'px)'}">{{item.label}}</div>
     </div>
@@ -215,6 +215,9 @@ export default {
     //     // this.items.unshift(lastElement)
     //   }
     // },
+    movedHandler(e) {
+      console.log(e)
+    },
     startHandler(e) {
       console.log('startHandler')
       console.log(e)

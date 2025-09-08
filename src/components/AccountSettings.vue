@@ -11,9 +11,9 @@
 
       </div>
     </div>
-    <div class="photo-block">
-      <img src="../assets/dog.png" alt="">
-    </div>
+<!--    <div class="photo-block">-->
+<!--      <img src="../assets/dog.png" alt="">-->
+<!--    </div>-->
     <div class="day-block">
 <!--      <div class="circle-menu">-->
 <!--        <div class="circle-menu-content">-->
@@ -28,6 +28,10 @@
 <!--          </div>-->
 <!--        </div>-->
 <!--      </div>-->
+    </div>
+
+    <div class="scroll-list-wrapper">
+      <ScrollList/>
     </div>
     <div class="list-wrapper">
       <div class="list" style="margin-right: 5px">
@@ -64,23 +68,23 @@
           <p>15:00</p>
         </div>
       </div>
-      <div class="list">
-        <div class="list-item">
-          <p>07:00</p>
-        </div>
-        <div class="list-item">
-          <p>09:00</p>
-        </div>
-        <div class="list-item">
-          <p>11:00</p>
-        </div>
-        <div class="list-item">
-          <p>13:00</p>
-        </div>
-        <div class="list-item">
-          <p>15:00</p>
-        </div>
-      </div>
+<!--      <div class="list">-->
+<!--        <div class="list-item">-->
+<!--          <p>07:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>09:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>11:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>13:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>15:00</p>-->
+<!--        </div>-->
+<!--      </div>-->
 
 
 <!--      <div class="vert-checker">-->
@@ -333,4 +337,5 @@ export default {
 }
 </style>
 <script setup lang="ts">
+import ScrollList from "@/components/ScrollList.vue";
 </script>

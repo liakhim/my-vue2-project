@@ -77,6 +77,66 @@ export default {
         {
           label: 'Два раза в день',
           value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
         }
       ]
     }
@@ -108,36 +168,36 @@ export default {
       console.log(this.endTouchY - this.startTouchY)
       let delta = this.endTouchY - this.startTouchY;
       if (delta > 0) {
-        if (delta < 50) {
+        if (delta < 100) {
           this.offsetStep = 40
+          this.offsetY += this.offsetStep
+          this.transitionCoefficient = 0.3
+        }
+        if (delta >= 100 && delta < 150) {
+          this.offsetStep = 160
           this.offsetY += this.offsetStep
           this.transitionCoefficient = 1
         }
-        if (delta >= 50 && delta < 100) {
-          this.offsetStep = 80
+        if (delta >= 150) {
+          this.offsetStep = 360
           this.offsetY += this.offsetStep
-          this.transitionCoefficient = 0.6
-        }
-        if (delta >= 100) {
-          this.offsetStep = 120
-          this.offsetY += this.offsetStep
-          this.transitionCoefficient = 0.1
+          this.transitionCoefficient = 1
         }
       } else {
-        if (delta > -50 && delta < 0) {
+        if (delta > -100 && delta < 0) {
           this.offsetStep = 40
+          this.offsetY -= this.offsetStep
+          this.transitionCoefficient = 0.3
+        }
+        if (delta > -150 && delta <= -100) {
+          this.offsetStep = 160
           this.offsetY -= this.offsetStep
           this.transitionCoefficient = 1
         }
-        if (delta > -100 && delta <= -50) {
-          this.offsetStep = 80
+        if (delta <= -150) {
+          this.offsetStep = 360
           this.offsetY -= this.offsetStep
-          this.transitionCoefficient = 0.6
-        }
-        if (delta <= -100) {
-          this.offsetStep = 120
-          this.offsetY -= this.offsetStep
-          this.transitionCoefficient = 0.1
+          this.transitionCoefficient = 1
         }
       }
 
@@ -151,13 +211,14 @@ export default {
 </script>
 <style scoped lang="scss">
 .scroll-list {
+  overflow: auto;
   overscroll-behavior: contain;
   width: 500px;
   height: 200px;
   border: 1px solid #fff;
   overflow: hidden;
   &-track {
-    margin-top: -400px;
+    margin-top: -800px;
   }
   &-item {
     height: 40px;

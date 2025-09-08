@@ -137,6 +137,66 @@ export default {
         {
           label: 'Два раза в день',
           value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
         }
       ]
     }
@@ -168,12 +228,12 @@ export default {
       console.log(this.endTouchY - this.startTouchY)
       let delta = this.endTouchY - this.startTouchY;
       if (delta > 0) {
-        if (delta < 100) {
+        if (delta < 75) {
           this.offsetStep = 40
           this.offsetY += this.offsetStep
           this.transitionCoefficient = 0.3
         }
-        if (delta >= 100 && delta < 150) {
+        if (delta >= 75 && delta < 150) {
           this.offsetStep = 160
           this.offsetY += this.offsetStep
           this.transitionCoefficient = 1
@@ -184,12 +244,12 @@ export default {
           this.transitionCoefficient = 1
         }
       } else {
-        if (delta > -100 && delta < 0) {
+        if (delta > -75 && delta < 0) {
           this.offsetStep = 40
           this.offsetY -= this.offsetStep
           this.transitionCoefficient = 0.3
         }
-        if (delta > -150 && delta <= -100) {
+        if (delta > -150 && delta <= -75) {
           this.offsetStep = 160
           this.offsetY -= this.offsetStep
           this.transitionCoefficient = 1
@@ -218,7 +278,7 @@ export default {
   border: 1px solid #fff;
   overflow: hidden;
   &-track {
-    margin-top: -800px;
+    margin-top: -1200px;
   }
   &-item {
     height: 40px;

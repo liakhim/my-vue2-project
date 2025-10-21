@@ -20,6 +20,16 @@ export default {
     }
   },
   mounted() {
+    document.addEventListener('DOMContentLoaded', function() {
+      const mainElement = document.getElementById('your-main-element');
+
+      mainElement.addEventListener('touchmove', function(e) {
+        // Разрешаем скролл только внутри scrollable элементов
+        if (!e.target.closest('.scrollable')) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+    });
     if (window.Telegram && window.Telegram.WebApp) {
       this.tg = window.Telegram.WebApp
 

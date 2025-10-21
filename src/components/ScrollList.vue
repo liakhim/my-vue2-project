@@ -224,6 +224,9 @@ export default {
         console.log('startHandler')
         console.log(e)
         this.startTouchY = e.changedTouches[0].pageY
+
+        // Вибрация при начале касания (опционально)
+        this.vibrate(10);
       }
     },
     endHandler(e) {
@@ -234,37 +237,49 @@ export default {
         console.log('delta')
         console.log(this.endTouchY - this.startTouchY)
         let delta = this.endTouchY - this.startTouchY;
+
+        // Вибрация в зависимости от силы скролла
+        if (Math.abs(delta) > 10) { // минимальный порог для вибрации
+          this.vibrate(15); // короткая вибрация для любого скролла
+        }
+
         if (delta > 0) {
           if (delta < 75) {
             this.offsetStep = 40
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 0.3
+            this.vibrate(20); // легкая вибрация
           }
           if (delta >= 75 && delta < 150) {
             this.offsetStep = 160
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 1
+            this.vibrate(30); // средняя вибрация
           }
           if (delta >= 150) {
             this.offsetStep = 360
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 1
+            this.vibrate(50); // сильная вибрация
           }
         } else {
           if (delta > -75 && delta < 0) {
             this.offsetStep = 40
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 0.3
+            this.vibrate(20); // легкая вибрация
           }
           if (delta > -150 && delta <= -75) {
             this.offsetStep = 160
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
+            this.vibrate(30); // средняя вибрация
           }
           if (delta <= -150) {
             this.offsetStep = 360
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
+            this.vibrate(50); // сильная вибрация
           }
         }
       }
@@ -273,6 +288,18 @@ export default {
       if (this.screenType === 'mobile') {
         console.log('tapHandler')
         console.log(e)
+        // Вибрация при тапе
+        this.vibrate(10);
+      }
+    },
+    // Метод для вибрации с проверкой поддержки
+    vibrate(duration = 50) {
+      if ("vibrate" in navigator) {
+        try {
+          navigator.vibrate(duration);
+        } catch (error) {
+          console.log("Ошибка вибрации:", error);
+        }
       }
     }
   },

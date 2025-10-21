@@ -17,6 +17,7 @@ export default {
       transitionCoefficient: 1,
       offsetY: 0,
       offsetStep: 20,
+      screenWidth: 0,
       items: [
         {
           label: 'Каждые две недели',
@@ -201,76 +202,87 @@ export default {
       ]
     }
   },
+  computed: {
+    screenType() {
+      if (this.screenWidth < 768) return 'mobile'
+      if (this.screenWidth < 1024) return 'tablet'
+      return 'desktop'
+    }
+  },
   methods: {
-    // swipeHandler(e) {
-    //   console.log(e)
-    //   if (e === 'bottom') {
-    //     this.offsetY += 20
-    //     // const lastElement = this.items.pop();
-    //     // this.items.unshift(lastElement)
-    //   }
-    //   if (e === 'top') {
-    //     this.offsetY -= 20
-    //     // const lastElement = this.items.pop();
-    //     // this.items.unshift(lastElement)
-    //   }
-    // },
+    handleResize() {
+      this.screenWidth = window.innerWidth
+    },
     movedHandler(e) {
-      console.log('movedHandler')
-      console.log(e.changedTouches[0].pageY)
+      if (this.screenType === 'mobile') {
+        console.log('movedHandler')
+        console.log(e.changedTouches[0].pageY)
+      }
     },
     startHandler(e) {
-      console.log('startHandler')
-      console.log(e)
-      this.startTouchY = e.changedTouches[0].pageY
+      if (this.screenType === 'mobile') {
+        console.log('startHandler')
+        console.log(e)
+        this.startTouchY = e.changedTouches[0].pageY
+      }
     },
     endHandler(e) {
-      console.log('endHandler')
-      console.log(e)
-      this.endTouchY = e.changedTouches[0].pageY
-      console.log('delta')
-      console.log(this.endTouchY - this.startTouchY)
-      let delta = this.endTouchY - this.startTouchY;
-      if (delta > 0) {
-        if (delta < 75) {
-          this.offsetStep = 40
-          this.offsetY += this.offsetStep
-          this.transitionCoefficient = 0.3
-        }
-        if (delta >= 75 && delta < 150) {
-          this.offsetStep = 160
-          this.offsetY += this.offsetStep
-          this.transitionCoefficient = 1
-        }
-        if (delta >= 150) {
-          this.offsetStep = 360
-          this.offsetY += this.offsetStep
-          this.transitionCoefficient = 1
-        }
-      } else {
-        if (delta > -75 && delta < 0) {
-          this.offsetStep = 40
-          this.offsetY -= this.offsetStep
-          this.transitionCoefficient = 0.3
-        }
-        if (delta > -150 && delta <= -75) {
-          this.offsetStep = 160
-          this.offsetY -= this.offsetStep
-          this.transitionCoefficient = 1
-        }
-        if (delta <= -150) {
-          this.offsetStep = 360
-          this.offsetY -= this.offsetStep
-          this.transitionCoefficient = 1
+      if (this.screenType === 'mobile') {
+        console.log('endHandler')
+        console.log(e)
+        this.endTouchY = e.changedTouches[0].pageY
+        console.log('delta')
+        console.log(this.endTouchY - this.startTouchY)
+        let delta = this.endTouchY - this.startTouchY;
+        if (delta > 0) {
+          if (delta < 75) {
+            this.offsetStep = 40
+            this.offsetY += this.offsetStep
+            this.transitionCoefficient = 0.3
+          }
+          if (delta >= 75 && delta < 150) {
+            this.offsetStep = 160
+            this.offsetY += this.offsetStep
+            this.transitionCoefficient = 1
+          }
+          if (delta >= 150) {
+            this.offsetStep = 360
+            this.offsetY += this.offsetStep
+            this.transitionCoefficient = 1
+          }
+        } else {
+          if (delta > -75 && delta < 0) {
+            this.offsetStep = 40
+            this.offsetY -= this.offsetStep
+            this.transitionCoefficient = 0.3
+          }
+          if (delta > -150 && delta <= -75) {
+            this.offsetStep = 160
+            this.offsetY -= this.offsetStep
+            this.transitionCoefficient = 1
+          }
+          if (delta <= -150) {
+            this.offsetStep = 360
+            this.offsetY -= this.offsetStep
+            this.transitionCoefficient = 1
+          }
         }
       }
-
     },
     tapHandler(e) {
-      console.log('tapHandler')
-      console.log(e)
+      if (this.screenType === 'mobile') {
+        console.log('tapHandler')
+        console.log(e)
+      }
     }
-  }
+  },
+  mounted() {
+    this.screenWidth = window.innerWidth
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+  },
 }
 </script>
 <style scoped lang="scss">

@@ -335,7 +335,7 @@ export default {
 .scroll-list {
   overflow: auto;
   overscroll-behavior: contain;
-  width: 500px;
+  width: 390px;
   height: 200px;
   border: 1px solid #fff;
   overflow: hidden;

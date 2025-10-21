@@ -220,7 +220,6 @@ export default {
       }
     },
     startHandler(e) {
-      navigator.vibrate(50)
       if (this.screenType === 'mobile') {
         console.log('startHandler')
         console.log(e)

@@ -198,6 +198,106 @@ export default {
         {
           label: 'Два раза в день',
           value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
         }
       ]
     }

@@ -244,38 +244,38 @@ export default {
         }
 
         if (delta > 0) {
-          if (delta < 75) {
+          if (delta < 100) {
             this.offsetStep = 40
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 0.3
             this.vibrate(20);
           }
-          if (delta >= 75 && delta < 150) {
+          if (delta >= 100 && delta < 200) {
             this.offsetStep = 160
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(30);
           }
-          if (delta >= 150) {
+          if (delta >= 200) {
             this.offsetStep = 360
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(50);
           }
         } else {
-          if (delta > -75 && delta < 0) {
+          if (delta > -100 && delta < 0) {
             this.offsetStep = 40
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 0.3
             this.vibrate(20);
           }
-          if (delta > -150 && delta <= -75) {
+          if (delta > -200 && delta <= -100) {
             this.offsetStep = 160
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(30);
           }
-          if (delta <= -150) {
+          if (delta <= -200) {
             this.offsetStep = 360
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1

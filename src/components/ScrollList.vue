@@ -267,6 +267,11 @@ export default {
             setTimeout(() => this.vibrate(20), 100);
             setTimeout(() => this.vibrate(20), 200);
             setTimeout(() => this.vibrate(20), 300);
+            setTimeout(() => this.vibrate(20), 400);
+            setTimeout(() => this.vibrate(20), 500);
+            setTimeout(() => this.vibrate(20), 600);
+            setTimeout(() => this.vibrate(20), 700);
+            setTimeout(() => this.vibrate(20), 800);
           }
         } else {
           if (delta > -100 && delta < 0) {
@@ -292,6 +297,11 @@ export default {
             setTimeout(() => this.vibrate(20), 100);
             setTimeout(() => this.vibrate(20), 200);
             setTimeout(() => this.vibrate(20), 300);
+            setTimeout(() => this.vibrate(20), 400);
+            setTimeout(() => this.vibrate(20), 500);
+            setTimeout(() => this.vibrate(20), 600);
+            setTimeout(() => this.vibrate(20), 700);
+            setTimeout(() => this.vibrate(20), 800);
           }
         }
       }

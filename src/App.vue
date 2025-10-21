@@ -20,6 +20,22 @@ export default {
     }
   },
   mounted() {
+    // Расширяем приложение на весь экран
+    const tg = window.Telegram.WebApp;
+
+    // Расширяем на весь экран
+    tg.expand();
+
+    // Можно попробовать скрыть кнопку закрытия
+    tg.disableClosingConfirmation(); // Не всегда работает
+
+    // Обработка события закрытия
+    tg.onEvent('viewportChanged', (data) => {
+      if (!data.is_expanded) {
+        // Если пользователь пытается свернуть, можно попробовать снова расширить
+        setTimeout(() => tg.expand(), 100);
+      }
+    });
     document.addEventListener('DOMContentLoaded', function() {
       const mainElement = document.getElementById('your-main-element');
 

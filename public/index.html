@@ -12,23 +12,5 @@
 <body>
 <div id="app"></div>
 <script src="/dist/main.js"></script>
-<script>
-    // Расширяем приложение на весь экран
-    const tg = window.Telegram.WebApp;
-
-    // Расширяем на весь экран
-    tg.expand();
-
-    // Можно попробовать скрыть кнопку закрытия
-    tg.disableClosingConfirmation(); // Не всегда работает
-
-    // Обработка события закрытия
-    tg.onEvent('viewportChanged', (data) => {
-        if (!data.is_expanded) {
-            // Если пользователь пытается свернуть, можно попробовать снова расширить
-            setTimeout(() => tg.expand(), 100);
-        }
-    });
-</script>
 </body>
 </html>

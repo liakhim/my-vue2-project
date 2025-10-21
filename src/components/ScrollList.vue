@@ -1,8 +1,22 @@
 <template>
 <!--  v-touch:swipe.down="swipeHandler"-->
   <div class="scroll-list" v-touch:moving="movedHandler" v-touch:start="startHandler" v-touch:end="endHandler">
+    <div class="active-item"></div>
     <div class="scroll-list-track">
-      <div v-for="(item, index) in items" :key="item + '_' + index" class="scroll-list-item" :style="{'transition': transitionCoefficient + 's', 'transform': 'translateY(' + offsetY + 'px)'}">{{item.label}}</div>
+      <div v-for="(item, index) in items"
+           :key="item + '_' + index"
+           :class="[
+               'scroll-list-item',
+               item.value + '_' + index,
+               (Math.abs(offsetY)/40 + 2) === index  ? 'active' : '',
+               (Math.abs(offsetY)/40 + 1) === index ? 'before_active' : '',
+               (Math.abs(offsetY)/40) === index ? 'before_before_active' : '',
+               (Math.abs(offsetY)/40 + 3) === index ? 'after_active' : '',
+               (Math.abs(offsetY)/40 + 4) === index ? 'after_after_active' : '',
+           ]"
+           :style="{'transition': transitionCoefficient + 's', 'transform': 'translateY(' + offsetY + 'px)'}">
+        <span class="scroll-list-item-content">{{item.label}}</span>
+      </div>
     </div>
     <span v-touch:tap="tapHandler">Tap</span>
   </div>
@@ -15,230 +29,10 @@ export default {
       startTouchY: null,
       endTouchY: null,
       transitionCoefficient: 1,
-      offsetY: 0,
+      offsetY: -200,
       offsetStep: 20,
       screenWidth: 0,
       items: [
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
-        {
-          label: 'Каждые две недели',
-          value: 'every_two_weeks'
-        },
-        {
-          label: 'Каждую неделю',
-          value: 'every_week'
-        },
-        {
-          label: 'Два раза в неделю',
-          value: 'two_times_in_week'
-        },
-        {
-          label: 'Каждый день',
-          value: 'every_day'
-        },
-        {
-          label: 'Два раза в день',
-          value: 'two_times_in_day'
-        },
         {
           label: 'Каждые две недели',
           value: 'every_two_weeks'
@@ -320,25 +114,16 @@ export default {
       }
     },
     startHandler(e) {
+      this.final = false;
       if (this.screenType === 'mobile') {
-        console.log('startHandler')
-        console.log(e)
         this.startTouchY = e.changedTouches[0].pageY
-
-        // Убираем вибрацию из startHandler или добавляем флаг
         this.hasUserInteracted = true;
       }
     },
     endHandler(e) {
       if (this.screenType === 'mobile') {
-        console.log('endHandler')
-        console.log(e)
         this.endTouchY = e.changedTouches[0].pageY
-        console.log('delta')
-        console.log(this.endTouchY - this.startTouchY)
         let delta = this.endTouchY - this.startTouchY;
-
-        // Вибрация только если было взаимодействие и для значительного скролла
         if (Math.abs(delta) > 10) {
           this.vibrate(15);
         }
@@ -457,12 +242,22 @@ export default {
 .scroll-list {
   overflow: auto;
   overscroll-behavior: contain;
-  width: 390px;
+  width: 220px;
   height: 200px;
-  border: 1px solid #fff;
+  // border: 1px solid #fff;
   overflow: hidden;
+  position: relative;
+  .active-item {
+    position: absolute;
+    top: 81px;
+    width: 90%;
+    margin-left: 5%;
+    height: 38px;
+    border: 2px solid #38E07A;
+    border-radius: 20px;
+  }
   &-track {
-    margin-top: -1200px;
+    // margin-top: -1200px;
   }
   &-item {
     height: 40px;
@@ -470,6 +265,61 @@ export default {
     display: flex;
     align-items: center;
     padding: 0 10px;
+    &.before_active {
+      opacity: 0.2;
+      transform: perspective(300px) rotateX(20deg);
+    }
+    &.before_before_active {
+      opacity: 0.09;
+      transform:perspective(300px) rotateX(40deg);
+    }
+    &.after_active {
+      opacity: 0.2;
+      transform:perspective(300px) rotateX(-20deg);
+    }
+    &.after_after_active {
+      opacity: 0.09;
+      transform:perspective(300px) rotateX(-40deg);
+    }
+    .scroll-list-item-content {
+      text-align: center;
+      width: 100%;
+    }
+    //&:nth-child(6) {
+    //  .scroll-list-item-content {
+    //    opacity: 0.09;
+    //    transform:perspective(300px) rotateX(40deg);
+    //  }
+    //}
+    //&:nth-child(7) {
+    //  .scroll-list-item-content {
+    //    opacity: 0.2;
+    //    transform:perspective(300px) rotateX(20deg);
+    //  }
+    //}
+    //&:nth-child(8) {
+    //  .scroll-list-item-content {
+    //    opacity: 1;
+    //    // border: 1px solid #38E07A;
+    //    border-radius: 20px;
+    //    padding: 5px 13px;
+    //  }
+    //  p {
+    //    color: #38E07A
+    //  }
+    //}
+    //&:nth-child(9) {
+    //  .scroll-list-item-content {
+    //    opacity: 0.2;
+    //    transform:perspective(300px) rotateX(-20deg);
+    //  }
+    //}
+    //&:nth-child(10) {
+    //  .scroll-list-item-content {
+    //    opacity: 0.09;
+    //    transform:perspective(300px) rotateX(-40deg);
+    //  }
+    //}
   }
 }
 </style>

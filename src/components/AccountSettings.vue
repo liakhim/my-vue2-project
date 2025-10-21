@@ -11,130 +11,63 @@
 
       </div>
     </div>
-<!--    <div class="photo-block">-->
-<!--      <img src="../assets/dog.png" alt="">-->
-<!--    </div>-->
-    <div class="day-block">
-<!--      <div class="circle-menu">-->
-<!--        <div class="circle-menu-content">-->
-<!--          <div class="item-row">-->
-<!--            <div class="circle-item"></div>-->
-<!--            <div class="circle-item"></div>-->
-<!--          </div>-->
-<!--          <div class="circle-menu-center-dot"></div>-->
-<!--          <div class="item-row">-->
-<!--            <div class="circle-item"></div>-->
-<!--            <div class="circle-item"></div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-    </div>
-
-    <div>
-      <label for="start">Start date:</label>
-
-      <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value="2018-07-22"
-          min="2018-01-01"
-          max="2018-12-31" />
-    </div>
-
-    <!-- Начально будет выбрано второе значение -->
-   <div>
-     <select name="select">
-       <!--Supplement an id here instead of using 'name'-->
-       <option value="value1">Значение 1</option>
-       <option value="value2" selected>Значение 2</option>
-       <option value="value3">Значение 3</option>
-     </select>
-   </div>
 
     <div class="scroll-list-wrapper" style="margin-top: 200px">
       <ScrollList/>
     </div>
-    <div class="list-wrapper">
-      <div class="list" style="margin-right: 5px">
-        <div class="list-item">
-          <p>Каждые две недели</p>
-        </div>
-        <div class="list-item">
-          <p>Каждую неделю</p>
-        </div>
-        <div class="list-item">
-          <p>Каждый день</p>
-        </div>
-        <div class="list-item">
-          <p>Два раза в день</p>
-        </div>
-        <div class="list-item">
-          <p>Три раза в день</p>
-        </div>
-      </div>
-      <div class="list" style="margin-right: 5px">
-        <div class="list-item">
-          <p>07:00</p>
-        </div>
-        <div class="list-item">
-          <p>09:00</p>
-        </div>
-        <div class="list-item">
-          <p>11:00</p>
-        </div>
-        <div class="list-item">
-          <p>13:00</p>
-        </div>
-        <div class="list-item">
-          <p>15:00</p>
-        </div>
-      </div>
-      <div class="list">
-        <div class="list-item">
-          <p>07:00</p>
-        </div>
-        <div class="list-item">
-          <p>09:00</p>
-        </div>
-        <div class="list-item">
-          <p>11:00</p>
-        </div>
-        <div class="list-item">
-          <p>13:00</p>
-        </div>
-        <div class="list-item">
-          <p>15:00</p>
-        </div>
-      </div>
-
-
-<!--      <div class="vert-checker">-->
-<!--        <div class="checker-wrapper">-->
-<!--          <div class="checker-wrapper-wheel">-->
-<!--            <div class="checker-wrapper-wheel-track-wrapper">-->
-<!--              <div class="checker-wrapper-wheel-track">-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--                <div :style="{'transform': 'translateY(' + tog + 'px)'}" class="checker-wrapper-wheel-item"></div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
+<!--    <div class="list-wrapper">-->
+<!--      <div class="list" style="margin-right: 5px">-->
+<!--        <div class="list-item">-->
+<!--          <p>Каждые две недели</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>Каждую неделю</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>Каждый день</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>Два раза в день</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>Три раза в день</p>-->
 <!--        </div>-->
 <!--      </div>-->
-    </div>
+<!--      <div class="list" style="margin-right: 5px">-->
+<!--        <div class="list-item">-->
+<!--          <p>07:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>09:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>11:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>13:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>15:00</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="list">-->
+<!--        <div class="list-item">-->
+<!--          <p>07:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>09:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>11:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>13:00</p>-->
+<!--        </div>-->
+<!--        <div class="list-item">-->
+<!--          <p>15:00</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 <script lang="ts">

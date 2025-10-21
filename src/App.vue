@@ -1,7 +1,7 @@
 <template>
   <div id="app" :style="{ paddingTop: safeAreaTop + 'px', paddingBottom: safeAreaBottom + 'px', minHeight: '100vh' }">
     <div class="background">
-<!--      <img src="./assets/front-puppy/back3.jpg" alt="">-->
+      <img src="./assets/front-puppy/back3.jpg" alt="">
     </div>
     <div style="position:relative;">
       <router-view></router-view>

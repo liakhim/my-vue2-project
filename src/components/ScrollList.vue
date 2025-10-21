@@ -254,13 +254,19 @@ export default {
             this.offsetStep = 160
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 1
-            this.vibrate(30);
+            this.vibrate(20);
+            this.vibrate(20);
+            this.vibrate(20);
+            this.vibrate(20);
           }
           if (delta >= 200) {
             this.offsetStep = 360
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 1
-            this.vibrate(50);
+            this.vibrate(20);
+            this.vibrate(20);
+            this.vibrate(20);
+            this.vibrate(20);
           }
         } else {
           if (delta > -100 && delta < 0) {
@@ -273,13 +279,19 @@ export default {
             this.offsetStep = 160
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
-            this.vibrate(30);
+            this.vibrate(20);
+            this.vibrate(20);
+            this.vibrate(20);
+            this.vibrate(20);
           }
           if (delta <= -200) {
             this.offsetStep = 360
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
-            this.vibrate(50);
+            this.vibrate(20);
+            this.vibrate(20);
+            this.vibrate(20);
+            this.vibrate(20);
           }
         }
       }

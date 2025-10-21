@@ -216,7 +216,8 @@ export default {
     //   }
     // },
     movedHandler(e) {
-      console.log(e)
+      console.log('movedHandler')
+      console.log(e.changedTouches[0].pageY)
     },
     startHandler(e) {
       console.log('startHandler')

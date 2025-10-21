@@ -30,23 +30,27 @@
 <!--      </div>-->
     </div>
 
-    <label for="start">Start date:</label>
+    <div>
+      <label for="start">Start date:</label>
 
-    <input
-        type="date"
-        id="start"
-        name="trip-start"
-        value="2018-07-22"
-        min="2018-01-01"
-        max="2018-12-31" />
+      <input
+          type="date"
+          id="start"
+          name="trip-start"
+          value="2018-07-22"
+          min="2018-01-01"
+          max="2018-12-31" />
+    </div>
 
     <!-- Начально будет выбрано второе значение -->
-    <select name="select">
-      <!--Supplement an id here instead of using 'name'-->
-      <option value="value1">Значение 1</option>
-      <option value="value2" selected>Значение 2</option>
-      <option value="value3">Значение 3</option>
-    </select>
+   <div>
+     <select name="select">
+       <!--Supplement an id here instead of using 'name'-->
+       <option value="value1">Значение 1</option>
+       <option value="value2" selected>Значение 2</option>
+       <option value="value3">Значение 3</option>
+     </select>
+   </div>
 
     <div class="scroll-list-wrapper" style="margin-top: 200px">
       <ScrollList/>

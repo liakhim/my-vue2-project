@@ -316,7 +316,7 @@ export default {
           console.log("Ошибка вибрации:", error);
         }
       }
-    }
+    },
     canVibrate() {
       // Проверяем поддержку вибрации и что пользователь уже взаимодействовал со страницей
       return "vibrate" in navigator && this.hasUserInteracted;

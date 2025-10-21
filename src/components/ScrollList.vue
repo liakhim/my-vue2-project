@@ -255,18 +255,18 @@ export default {
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(20);
-            this.vibrate(20);
-            this.vibrate(20);
-            this.vibrate(20);
+            setTimeout(() => this.vibrate(20), 100);
+            setTimeout(() => this.vibrate(20), 200);
+            setTimeout(() => this.vibrate(20), 300);
           }
           if (delta >= 200) {
             this.offsetStep = 360
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(20);
-            this.vibrate(20);
-            this.vibrate(20);
-            this.vibrate(20);
+            setTimeout(() => this.vibrate(20), 100);
+            setTimeout(() => this.vibrate(20), 200);
+            setTimeout(() => this.vibrate(20), 300);
           }
         } else {
           if (delta > -100 && delta < 0) {
@@ -280,18 +280,18 @@ export default {
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(20);
-            this.vibrate(20);
-            this.vibrate(20);
-            this.vibrate(20);
+            setTimeout(() => this.vibrate(20), 100);
+            setTimeout(() => this.vibrate(20), 200);
+            setTimeout(() => this.vibrate(20), 300);
           }
           if (delta <= -200) {
             this.offsetStep = 360
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(20);
-            this.vibrate(20);
-            this.vibrate(20);
-            this.vibrate(20);
+            setTimeout(() => this.vibrate(20), 100);
+            setTimeout(() => this.vibrate(20), 200);
+            setTimeout(() => this.vibrate(20), 300);
           }
         }
       }

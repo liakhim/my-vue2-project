@@ -227,6 +227,7 @@ export default {
       }
     },
     endHandler(e) {
+      navigator.vibrate(50)
       if (this.screenType === 'mobile') {
         console.log('endHandler')
         console.log(e)

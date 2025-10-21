@@ -20,55 +20,8 @@ export default {
     }
   },
   mounted() {
-    // Расширяем приложение на весь экран
-    const tg = window.Telegram.WebApp;
-
-    // Расширяем на весь экран
-    tg.expand();
-
-    // Можно попробовать скрыть кнопку закрытия
-    tg.disableClosingConfirmation(); // Не всегда работает
-
-    // Обработка события закрытия
-    tg.onEvent('viewportChanged', (data) => {
-      if (!data.is_expanded) {
-        // Если пользователь пытается свернуть, можно попробовать снова расширить
-        setTimeout(() => tg.expand(), 100);
-      }
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-      const mainElement = document.getElementById('your-main-element');
-
-      mainElement.addEventListener('touchmove', function(e) {
-        // Разрешаем скролл только внутри scrollable элементов
-        if (!e.target.closest('.scrollable')) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-    });
     if (window.Telegram && window.Telegram.WebApp) {
-      this.tg = window.Telegram.WebApp
-
-      // Сразу разворачиваем fullscreen
-      this.tg.expand()
-      this.tg.isExpanded = true
-
-      // Забираем safe area
-      this.safeAreaTop = this.tg.viewportInsetTop
-      this.safeAreaBottom = this.tg.viewportInsetBottom
-
-      // Слушаем изменения viewport и повторно разворачиваем
-      this.tg.onEvent('viewportChanged', () => {
-        this.safeAreaTop = this.tg.viewportInsetTop
-        this.safeAreaBottom = this.tg.viewportInsetBottom
-
-        this.tg.expand()
-        this.tg.isExpanded = true
-      })
-
-      // Скрываем кнопки Telegram
-      this.tg.MainButton?.hide()
-      this.tg.BackButton?.hide()
+      window.Telegram.WebApp.disableVerticalSwipes();
     }
   }
 }

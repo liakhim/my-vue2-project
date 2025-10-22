@@ -1,96 +1,103 @@
 <template>
-<!--  v-touch:swipe.down="swipeHandler"-->
-  <div class="scroll-list" v-touch:moving="movedHandler" v-touch:start="startHandler" v-touch:end="endHandler">
-    <div class="active-item"></div>
-    <div class="scroll-list-track">
-      <div v-for="(item, index) in items"
-           :key="item + '_' + index"
-           :class="[
-               'scroll-list-item',
-               (Math.abs(offsetY)/40 + 2) === index + 2 ? ('before_before_active ' + '_' + offsetY) : '',
-               (Math.abs(offsetY)/40 + 3) === index + 2 ? 'before_active' : '',
-               (Math.abs(offsetY)/40 + 4) === index + 2 ? 'active ' : '',
-               (Math.abs(offsetY)/40 + 5) === index + 2 ? 'after_active' : '',
-               (Math.abs(offsetY)/40 + 6) === index + 2 ? 'after_after_active' : '',
-           ]"
-           :style="{'transition': transitionCoefficient + 's', 'transform': 'translateY(' + offsetY + 'px)'}">
-        <span class="scroll-list-item-content">{{item.label}}</span>
-      </div>
-    </div>
-    <span v-touch:tap="tapHandler">Tap</span>
-  </div>
+  <div style="border: 1px solid red"></div>
 </template>
 <script lang="ts">
 export default {
-  name: 'ScrollList',
+  name: 'IosScroll',
   data() {
     return {
       startTouchY: null,
       endTouchY: null,
-      transitionCoefficient: 1,
-      offsetY: -200,
-      offsetStep: 20,
-      screenWidth: 0,
       items: [
         {
+          order: 0,
           label: 'Каждые две недели',
-          value: 'every_two_weeks'
+          value: 'every_two_weeks',
+          status: null
         },
         {
+          order: 1,
           label: 'Каждую неделю',
-          value: 'every_week'
+          value: 'every_week',
+          status: null
         },
         {
+          order: 2,
           label: 'Два раза в неделю',
-          value: 'two_times_in_week'
+          value: 'two_times_in_week',
+          status: null
         },
         {
+          order: 3,
           label: 'Каждый день',
-          value: 'every_day'
+          value: 'every_day',
+          status: null
         },
         {
+          order: 4,
           label: 'Два раза в день',
-          value: 'two_times_in_day'
+          value: 'two_times_in_day',
+          status: null
         },
         {
+          order: 5,
           label: 'Каждые две недели',
-          value: 'every_two_weeks'
+          value: 'every_two_weeks',
+          status: 'before_before_active'
         },
         {
+          order: 6,
           label: 'Каждую неделю',
-          value: 'every_week'
+          value: 'every_week',
+          status: 'before_active'
         },
         {
+          order: 7,
           label: 'Два раза в неделю',
-          value: 'two_times_in_week'
+          value: 'two_times_in_week',
+          status: 'active'
         },
         {
+          order: 8,
           label: 'Каждый день',
-          value: 'every_day'
+          value: 'every_day',
+          status: 'after_active'
         },
         {
+          order: 9,
           label: 'Два раза в день',
-          value: 'two_times_in_day'
+          value: 'two_times_in_day',
+          status: 'after_after_active'
         },
         {
+          order: 10,
           label: 'Каждые две недели',
-          value: 'every_two_weeks'
+          value: 'every_two_weeks',
+          status: null
         },
         {
+          order: 11,
           label: 'Каждую неделю',
-          value: 'every_week'
+          value: 'every_week',
+          status: null
         },
         {
+          order: 12,
           label: 'Два раза в неделю',
-          value: 'two_times_in_week'
+          value: 'two_times_in_week',
+          status: null
         },
         {
+          order: 13,
           label: 'Каждый день',
-          value: 'every_day'
+          value: 'every_day',
+          status: null
         },
         {
+          order: 14,
           label: 'Два раза в день',
-          value: 'two_times_in_day'
+          value: 'two_times_in_day',
+          status: null
         }
       ]
     }
@@ -129,24 +136,15 @@ export default {
 
         if (delta > 0) {
           if (delta < 100) {
-            this.offsetStep = 40
-            this.offsetY += this.offsetStep
-            this.transitionCoefficient = 0.3
             this.vibrate(20);
           }
           if (delta >= 100 && delta < 200) {
-            this.offsetStep = 160
-            this.offsetY += this.offsetStep
-            this.transitionCoefficient = 1
             this.vibrate(20);
             setTimeout(() => this.vibrate(20), 100);
             setTimeout(() => this.vibrate(20), 200);
             setTimeout(() => this.vibrate(20), 300);
           }
           if (delta >= 200) {
-            this.offsetStep = 360
-            this.offsetY += this.offsetStep
-            this.transitionCoefficient = 1
             this.vibrate(20);
             setTimeout(() => this.vibrate(20), 100);
             setTimeout(() => this.vibrate(20), 200);
@@ -159,14 +157,10 @@ export default {
           }
         } else {
           if (delta > -100 && delta < 0) {
-            this.offsetStep = 40
-            this.offsetY -= this.offsetStep
             this.transitionCoefficient = 0.3
             this.vibrate(20);
           }
           if (delta > -200 && delta <= -100) {
-            this.offsetStep = 160
-            this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(20);
             setTimeout(() => this.vibrate(20), 100);
@@ -174,8 +168,6 @@ export default {
             setTimeout(() => this.vibrate(20), 300);
           }
           if (delta <= -200) {
-            this.offsetStep = 360
-            this.offsetY -= this.offsetStep
             this.transitionCoefficient = 1
             this.vibrate(20);
             setTimeout(() => this.vibrate(20), 100);
@@ -238,91 +230,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.scroll-list {
-  overflow: auto;
-  overscroll-behavior: contain;
-  width: 220px;
-  height: 200px;
-  // border: 1px solid #fff;
-  overflow: hidden;
-  position: relative;
-  .active-item {
-    position: absolute;
-    top: 81px;
-    width: 90%;
-    margin-left: 5%;
-    height: 38px;
-    border: 2px solid #38E07A;
-    border-radius: 20px;
-  }
-  &-track {
-    // margin-top: -1200px;
-  }
-  &-item {
-    height: 40px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    opacity: 0.09;
-    &.active {
-      opacity: 1;
-    }
-    &.before_active {
-      opacity: 0.2;
-      transform: perspective(300px) rotateX(20deg);
-    }
-    &.before_before_active {
-      opacity: 0.09;
-      transform:perspective(300px) rotateX(40deg);
-    }
-    &.after_active {
-      opacity: 0.2;
-      transform:perspective(300px) rotateX(-20deg);
-    }
-    &.after_after_active {
-      opacity: 0.09;
-      transform:perspective(300px) rotateX(-40deg);
-    }
-    .scroll-list-item-content {
-      text-align: center;
-      width: 100%;
-    }
-    //&:nth-child(6) {
-    //  .scroll-list-item-content {
-    //    opacity: 0.09;
-    //    transform:perspective(300px) rotateX(40deg);
-    //  }
-    //}
-    //&:nth-child(7) {
-    //  .scroll-list-item-content {
-    //    opacity: 0.2;
-    //    transform:perspective(300px) rotateX(20deg);
-    //  }
-    //}
-    //&:nth-child(8) {
-    //  .scroll-list-item-content {
-    //    opacity: 1;
-    //    // border: 1px solid #38E07A;
-    //    border-radius: 20px;
-    //    padding: 5px 13px;
-    //  }
-    //  p {
-    //    color: #38E07A
-    //  }
-    //}
-    //&:nth-child(9) {
-    //  .scroll-list-item-content {
-    //    opacity: 0.2;
-    //    transform:perspective(300px) rotateX(-20deg);
-    //  }
-    //}
-    //&:nth-child(10) {
-    //  .scroll-list-item-content {
-    //    opacity: 0.09;
-    //    transform:perspective(300px) rotateX(-40deg);
-    //  }
-    //}
-  }
-}
+
 </style>

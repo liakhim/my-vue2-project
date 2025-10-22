@@ -126,21 +126,17 @@ export default {
         if (Math.abs(delta) > 10) {
           this.vibrate(15);
         }
-
-        if (delta > 0) {
-          if (delta < 100 && delta > 0) {
-            this.offsetStep = 40
-            this.offsetY += this.offsetStep
-            this.transitionCoefficient = 0.3
-            this.vibrate(20);
-          }
-        } else {
-          if (delta > -100 && delta < 0) {
-            this.offsetStep = 40
-            this.offsetY -= this.offsetStep
-            this.transitionCoefficient = 0.3
-            this.vibrate(20);
-          }
+        if (delta > 0 && this.offsetY >= -280 && this.offsetY <= 280) {
+          this.offsetStep = 40
+          this.offsetY += this.offsetStep
+          this.transitionCoefficient = 0.3
+          this.vibrate(20);
+        }
+        if (delta < 0 && this.offsetY >= -280 && this.offsetY <= 280) {
+          this.offsetStep = 40
+          this.offsetY -= this.offsetStep
+          this.transitionCoefficient = 0.3
+          this.vibrate(20);
         }
       }
     },

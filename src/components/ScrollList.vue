@@ -7,11 +7,11 @@
            :key="item + '_' + index"
            :class="[
                'scroll-list-item',
-               (Math.abs(offsetY)/40 + 2) === index + 2 ? ('before_before_active ' + '_' + offsetY) : '',
-               (Math.abs(offsetY)/40 + 3) === index + 2 ? 'before_active' : '',
-               (Math.abs(offsetY)/40 + 4) === index + 2 ? 'active ' : '',
-               (Math.abs(offsetY)/40 + 5) === index + 2 ? 'after_active' : '',
-               (Math.abs(offsetY)/40 + 6) === index + 2 ? 'after_after_active' : '',
+               -(offsetY/40) + 5 === index ? ('before_before_active ' + '_' + offsetY) : '',
+               -(offsetY/40) + 6 === index ? 'before_active' : '',
+               -(offsetY/40) + 7 === index ? 'active ' : '',
+               -(offsetY/40) + 8 === index ? 'after_active' : '',
+               -(offsetY/40) + 9 === index ? 'after_after_active' : '',
            ]"
            :style="{'transition': transitionCoefficient + 's', 'transform': 'translateY(' + offsetY + 'px)'}">
         <span class="scroll-list-item-content">{{item.label}}</span>
@@ -28,7 +28,7 @@ export default {
       startTouchY: null,
       endTouchY: null,
       transitionCoefficient: 1,
-      offsetY: -200,
+      offsetY: 0,
       offsetStep: 20,
       screenWidth: 0,
       items: [
@@ -128,34 +128,11 @@ export default {
         }
 
         if (delta > 0) {
-          if (delta < 100) {
+          if (delta < 100 && delta > 0) {
             this.offsetStep = 40
             this.offsetY += this.offsetStep
             this.transitionCoefficient = 0.3
             this.vibrate(20);
-          }
-          if (delta >= 100 && delta < 200) {
-            this.offsetStep = 160
-            this.offsetY += this.offsetStep
-            this.transitionCoefficient = 1
-            this.vibrate(20);
-            setTimeout(() => this.vibrate(20), 100);
-            setTimeout(() => this.vibrate(20), 200);
-            setTimeout(() => this.vibrate(20), 300);
-          }
-          if (delta >= 200) {
-            this.offsetStep = 360
-            this.offsetY += this.offsetStep
-            this.transitionCoefficient = 1
-            this.vibrate(20);
-            setTimeout(() => this.vibrate(20), 100);
-            setTimeout(() => this.vibrate(20), 200);
-            setTimeout(() => this.vibrate(20), 300);
-            setTimeout(() => this.vibrate(20), 400);
-            setTimeout(() => this.vibrate(20), 500);
-            setTimeout(() => this.vibrate(20), 600);
-            setTimeout(() => this.vibrate(20), 700);
-            setTimeout(() => this.vibrate(20), 800);
           }
         } else {
           if (delta > -100 && delta < 0) {
@@ -163,29 +140,6 @@ export default {
             this.offsetY -= this.offsetStep
             this.transitionCoefficient = 0.3
             this.vibrate(20);
-          }
-          if (delta > -200 && delta <= -100) {
-            this.offsetStep = 160
-            this.offsetY -= this.offsetStep
-            this.transitionCoefficient = 1
-            this.vibrate(20);
-            setTimeout(() => this.vibrate(20), 100);
-            setTimeout(() => this.vibrate(20), 200);
-            setTimeout(() => this.vibrate(20), 300);
-          }
-          if (delta <= -200) {
-            this.offsetStep = 360
-            this.offsetY -= this.offsetStep
-            this.transitionCoefficient = 1
-            this.vibrate(20);
-            setTimeout(() => this.vibrate(20), 100);
-            setTimeout(() => this.vibrate(20), 200);
-            setTimeout(() => this.vibrate(20), 300);
-            setTimeout(() => this.vibrate(20), 400);
-            setTimeout(() => this.vibrate(20), 500);
-            setTimeout(() => this.vibrate(20), 600);
-            setTimeout(() => this.vibrate(20), 700);
-            setTimeout(() => this.vibrate(20), 800);
           }
         }
       }
@@ -243,12 +197,15 @@ export default {
   overscroll-behavior: contain;
   width: 220px;
   height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   // border: 1px solid #fff;
   overflow: hidden;
   position: relative;
   .active-item {
     position: absolute;
-    top: 81px;
+    top: 73px;
     width: 90%;
     margin-left: 5%;
     height: 38px;
@@ -288,41 +245,6 @@ export default {
       text-align: center;
       width: 100%;
     }
-    //&:nth-child(6) {
-    //  .scroll-list-item-content {
-    //    opacity: 0.09;
-    //    transform:perspective(300px) rotateX(40deg);
-    //  }
-    //}
-    //&:nth-child(7) {
-    //  .scroll-list-item-content {
-    //    opacity: 0.2;
-    //    transform:perspective(300px) rotateX(20deg);
-    //  }
-    //}
-    //&:nth-child(8) {
-    //  .scroll-list-item-content {
-    //    opacity: 1;
-    //    // border: 1px solid #38E07A;
-    //    border-radius: 20px;
-    //    padding: 5px 13px;
-    //  }
-    //  p {
-    //    color: #38E07A
-    //  }
-    //}
-    //&:nth-child(9) {
-    //  .scroll-list-item-content {
-    //    opacity: 0.2;
-    //    transform:perspective(300px) rotateX(-20deg);
-    //  }
-    //}
-    //&:nth-child(10) {
-    //  .scroll-list-item-content {
-    //    opacity: 0.09;
-    //    transform:perspective(300px) rotateX(-40deg);
-    //  }
-    //}
   }
 }
 </style>

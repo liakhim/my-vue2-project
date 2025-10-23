@@ -7,9 +7,7 @@
       <div class="page-header-title">
         <h5>Настроим частоту напоминаний</h5>
       </div>
-      <div class="page-header-arrow">
-
-      </div>
+      <div class="page-header-arrow"></div>
     </div>
 
     <div class="scroll-list-wrapper">
@@ -21,17 +19,17 @@
     <div class="scroll-list-wrapper">
       <div style="display: flex">
         <ScrollList
-            :items="day_first_time_items"/>
+            :items="day_time_items"/>
         <ScrollList
-            :items="first_time_items"/>
+            :items="time_items"/>
       </div>
     </div>
     <div class="scroll-list-wrapper" v-if="period_active_item.value === 'two_times_in_week'">
       <div style="display: flex">
         <ScrollList
-            :items="day_second_time_items"/>
+            :items="day_time_items"/>
         <ScrollList
-            :items="second_time_items"
+            :items="time_items"
         />
       </div>
     </div>
@@ -189,7 +187,7 @@ export default {
         label: 'Два раза в неделю',
         value: 'two_times_in_week'
       },
-      day_first_time_items: [
+      day_time_items: [
         {
           label: 'Понедельник',
           value: 'monday'
@@ -331,149 +329,7 @@ export default {
           value: 'sunday'
         }
       ],
-      day_second_time_items: [
-        {
-          label: 'Понедельник',
-          value: 'monday'
-        },
-        {
-          label: 'Вторник',
-          value: 'tuesday'
-        },
-        {
-          label: 'Среда',
-          value: 'wednesday'
-        },
-        {
-          label: 'Четверг',
-          value: 'thursday'
-        },
-        {
-          label: 'Пятница',
-          value: 'friday'
-        },
-        {
-          label: 'Суббота',
-          value: 'saturday'
-        },
-        {
-          label: 'Воскресение',
-          value: 'sunday'
-        },
-        {
-          label: 'Понедельник',
-          value: 'monday'
-        },
-        {
-          label: 'Вторник',
-          value: 'tuesday'
-        },
-        {
-          label: 'Среда',
-          value: 'wednesday'
-        },
-        {
-          label: 'Четверг',
-          value: 'thursday'
-        },
-        {
-          label: 'Пятница',
-          value: 'friday'
-        },
-        {
-          label: 'Суббота',
-          value: 'saturday'
-        },
-        {
-          label: 'Воскресение',
-          value: 'sunday'
-        },
-        {
-          label: 'Понедельник',
-          value: 'monday'
-        },
-        {
-          label: 'Вторник',
-          value: 'tuesday'
-        },
-        {
-          label: 'Среда',
-          value: 'wednesday'
-        },
-        {
-          label: 'Четверг',
-          value: 'thursday'
-        },
-        {
-          label: 'Пятница',
-          value: 'friday'
-        },
-        {
-          label: 'Суббота',
-          value: 'saturday'
-        },
-        {
-          label: 'Воскресение',
-          value: 'sunday'
-        },
-        {
-          label: 'Понедельник',
-          value: 'monday'
-        },
-        {
-          label: 'Вторник',
-          value: 'tuesday'
-        },
-        {
-          label: 'Среда',
-          value: 'wednesday'
-        },
-        {
-          label: 'Четверг',
-          value: 'thursday'
-        },
-        {
-          label: 'Пятница',
-          value: 'friday'
-        },
-        {
-          label: 'Суббота',
-          value: 'saturday'
-        },
-        {
-          label: 'Воскресение',
-          value: 'sunday'
-        },
-        {
-          label: 'Понедельник',
-          value: 'monday'
-        },
-        {
-          label: 'Вторник',
-          value: 'tuesday'
-        },
-        {
-          label: 'Среда',
-          value: 'wednesday'
-        },
-        {
-          label: 'Четверг',
-          value: 'thursday'
-        },
-        {
-          label: 'Пятница',
-          value: 'friday'
-        },
-        {
-          label: 'Суббота',
-          value: 'saturday'
-        },
-        {
-          label: 'Воскресение',
-          value: 'sunday'
-        }
-      ],
-      first_time_items: [
+      time_items: [
         {
           label: '06:30',
           value: 6.5
@@ -614,149 +470,7 @@ export default {
           label: '23:30',
           value: 23.5
         }
-      ],
-      second_time_items: [
-        {
-          label: '06:30',
-          value: 6.5
-        },
-        {
-          label: '07:00',
-          value: 7
-        },
-        {
-          label: '07:30',
-          value: 7.5
-        },
-        {
-          label: '08:00',
-          value: 8
-        },
-        {
-          label: '08:30',
-          value: 8.5
-        },
-        {
-          label: '09:00',
-          value: 9
-        },
-        {
-          label: '09:30',
-          value: 9.5
-        },
-        {
-          label: '10:00',
-          value: 10
-        },
-        {
-          label: '10:30',
-          value: 10.5
-        },
-        {
-          label: '11:00',
-          value: 11
-        },
-        {
-          label: '11:30',
-          value: 11.5
-        },
-        {
-          label: '12:00',
-          value: 12
-        },
-        {
-          label: '12:30',
-          value: 12.5
-        },
-        {
-          label: '13:00',
-          value: 13
-        },
-        {
-          label: '13:30',
-          value: 13.5
-        },
-        {
-          label: '14:00',
-          value: 14
-        },
-        {
-          label: '14:30',
-          value: 14.5
-        },
-        {
-          label: '15:00',
-          value: 15
-        },
-        {
-          label: '15:30',
-          value: 15.5
-        },
-        {
-          label: '16:00',
-          value: 16
-        },
-        {
-          label: '16:30',
-          value: 16.5
-        },
-        {
-          label: '17:00',
-          value: 17
-        },
-        {
-          label: '17:30',
-          value: 17.5
-        },
-        {
-          label: '18:00',
-          value: 18
-        },
-        {
-          label: '18:30',
-          value: 18.5
-        },
-        {
-          label: '19:00',
-          value: 19
-        },
-        {
-          label: '19:30',
-          value: 19.5
-        },
-        {
-          label: '20:00',
-          value: 20
-        },
-        {
-          label: '20:30',
-          value: 20.5
-        },
-        {
-          label: '21:00',
-          value: 21
-        },
-        {
-          label: '21:30',
-          value: 21.5
-        },
-        {
-          label: '22:00',
-          value: 22
-        },
-        {
-          label: '22:30',
-          value: 22.5
-        },
-        {
-          label: '23:00',
-          value: 23
-        },
-        {
-          label: '23:30',
-          value: 23.5
-        }
-      ],
+      ]
     }
   },
   methods: {
@@ -823,7 +537,7 @@ export default {
   justify-content: center;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4392156863), rgba(255, 255, 255, 0.0078431373), rgba(0, 0, 0, 0.4392156863));
   backdrop-filter: blur(10px);
-  padding: 30px;
+  padding: 5px;
   border-radius: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -852,7 +566,7 @@ export default {
       backdrop-filter: blur(10px);
       &:nth-child(1) {
         opacity: 0.09;
-        transform:perspective(300px) rotateX(40deg);
+        transform:perspective(300px) rotateX(50deg);
       }
       &:nth-child(2) {
         opacity: 0.2;

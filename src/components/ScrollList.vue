@@ -7,11 +7,13 @@
            :key="item + '_' + index"
            :class="[
                'scroll-list-item',
+               -(offsetY/40) + 14 === index ? ('before_before_before_active ' + '_' + offsetY) : '',
                -(offsetY/40) + 15 === index ? ('before_before_active ' + '_' + offsetY) : '',
                -(offsetY/40) + 16 === index ? 'before_active' : '',
-               -(offsetY/40) + 17 === index ? 'active ' : '',
+               -(offsetY/40) + 17 === index ? 'active' : '',
                -(offsetY/40) + 18 === index ? 'after_active' : '',
                -(offsetY/40) + 19 === index ? 'after_after_active' : '',
+               -(offsetY/40) + 20 === index ? 'after_after_after_active' : '',
            ]"
            :style="{'transition': transitionCoefficient + 's', 'transform': 'translateY(' + offsetY + 'px)'}">
         <span class="scroll-list-item-content">{{item.label}}</span>
@@ -136,14 +138,12 @@ export default {
 </script>
 <style scoped lang="scss">
 .scroll-list {
-  overflow: auto;
   overscroll-behavior: contain;
   width: auto;
   height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // border: 1px solid #fff;
   overflow: hidden;
   position: relative;
   .active-item {
@@ -155,38 +155,66 @@ export default {
     border: 2px solid #38E07A;
     border-radius: 20px;
   }
-  &-track {
-    // margin-top: -1200px;
-  }
   &-item {
     height: 40px;
     color: #fff;
     display: flex;
     align-items: center;
-    opacity: 0.09;
-    padding: 0 20px;
+    text-align: center;
+    padding: 0 30px;
+    justify-content: center;
+    .scroll-list-item-content {
+      opacity: 0.09;
+      text-align: center;
+    }
     &.active {
       opacity: 1;
     }
-    &.before_active {
-      opacity: 0.2;
-      transform: perspective(300px) rotateX(20deg);
+    &.before_before_before_active {
+      .scroll-list-item-content {
+        opacity: 0.09;
+        transform:perspective(300px) rotateX(60deg);
+      }
     }
     &.before_before_active {
-      opacity: 0.09;
-      transform:perspective(300px) rotateX(40deg);
+      .scroll-list-item-content {
+        opacity: 0.09;
+        transform:perspective(300px) rotateX(40deg);
+      }
+    }
+    &.before_active {
+      .scroll-list-item-content {
+        opacity: 0.2;
+        transform: perspective(300px) rotateX(20deg);
+      }
+    }
+    &.active {
+      .scroll-list-item-content {
+        opacity: 1;
+      }
     }
     &.after_active {
-      opacity: 0.2;
-      transform:perspective(300px) rotateX(-20deg);
+      .scroll-list-item-content {
+        opacity: 0.2;
+        transform:perspective(300px) rotateX(-20deg);
+      }
     }
     &.after_after_active {
-      opacity: 0.09;
-      transform:perspective(300px) rotateX(-40deg);
+      .scroll-list-item-content {
+        opacity: 0.09;
+        transform:perspective(300px) rotateX(-40deg);
+      }
+    }
+    &.after_after_after_active {
+      .scroll-list-item-content {
+        opacity: 0.09;
+        transform:perspective(300px) rotateX(-60deg);
+      }
     }
     .scroll-list-item-content {
-      text-align: center;
-      width: 100%;
+      .scroll-list-item-content {
+        width: 100%;
+      }
     }
   }
 }

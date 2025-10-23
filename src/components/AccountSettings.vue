@@ -21,15 +21,15 @@
     <div class="scroll-list-wrapper">
       <div style="display: flex">
         <ScrollList
-            :items="day_items"/>
+            :items="day_first_time_items"/>
         <ScrollList
             :items="first_time_items"/>
       </div>
     </div>
-    <div class="scroll-list-wrapper">
+    <div class="scroll-list-wrapper" v-if="period_active_item.value === 'two_times_in_week'">
       <div style="display: flex">
         <ScrollList
-            :items="day_items"/>
+            :items="day_second_time_items"/>
         <ScrollList
             :items="second_time_items"
         />
@@ -189,7 +189,149 @@ export default {
         label: 'Два раза в неделю',
         value: 'two_times_in_week'
       },
-      day_items: [
+      day_first_time_items: [
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        },
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        },
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        },
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        },
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        }
+      ],
+      day_second_time_items: [
         {
           label: 'Понедельник',
           value: 'monday'

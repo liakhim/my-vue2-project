@@ -97,32 +97,32 @@ export default {
       infoBlockStateOpen: false
     }
   },
-  vibrate(duration = 50) {
-    // Для Telegram Web App используем их API
-    if (window.Telegram?.WebApp?.HapticFeedback) {
-      try {
-        // В Telegram используем встроенные методы вибрации
-        if (duration <= 20) {
-          window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-        } else if (duration <= 40) {
-          window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
-        } else {
-          window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
-        }
-      } catch (error) {
-        console.log("Ошибка вибрации Telegram:", error);
-      }
-    }
-    // Для обычного браузера с проверкой взаимодействия
-    else if ("vibrate" in navigator && this.hasUserInteracted) {
-      try {
-        navigator.vibrate(duration);
-      } catch (error) {
-        console.log("Ошибка вибрации:", error);
-      }
-    }
-  },
   methods: {
+    vibrate(duration = 50) {
+      // Для Telegram Web App используем их API
+      if (window.Telegram?.WebApp?.HapticFeedback) {
+        try {
+          // В Telegram используем встроенные методы вибрации
+          if (duration <= 20) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+          } else if (duration <= 40) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+          } else {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+          }
+        } catch (error) {
+          console.log("Ошибка вибрации Telegram:", error);
+        }
+      }
+      // Для обычного браузера с проверкой взаимодействия
+      else if ("vibrate" in navigator && this.hasUserInteracted) {
+        try {
+          navigator.vibrate(duration);
+        } catch (error) {
+          console.log("Ошибка вибрации:", error);
+        }
+      }
+    },
     goToRouteWithVibration(route) {
       this.vibrate(30);
       this.$router.push(route);

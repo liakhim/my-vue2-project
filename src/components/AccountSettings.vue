@@ -621,7 +621,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 0 0 20px 0;
+  padding: 0 0 60px 0;
 }
 .circle-menu {
   margin: auto;

@@ -44,7 +44,7 @@
 
     </div>
     <div class="button-box">
-      <button @click="$router.push('/settings')" class="start-button" style="width: 100%;">
+      <button @click="goToRouteWithVibration('/settings')" class="start-button" style="width: 100%;">
         <span>Начать пользоваться</span>
       </button>
       <div class="info-block-wrapper" style="position:relative;">
@@ -77,6 +77,35 @@ export default {
       if (collection === 2) {
         this.offset = 650
       }
+    },
+    vibrate(duration = 50) {
+      // Для Telegram Web App используем их API
+      if (window.Telegram?.WebApp?.HapticFeedback) {
+        try {
+          // В Telegram используем встроенные методы вибрации
+          if (duration <= 20) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+          } else if (duration <= 40) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+          } else {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+          }
+        } catch (error) {
+          console.log("Ошибка вибрации Telegram:", error);
+        }
+      }
+      // Для обычного браузера с проверкой взаимодействия
+      else if ("vibrate" in navigator && this.hasUserInteracted) {
+        try {
+          navigator.vibrate(duration);
+        } catch (error) {
+          console.log("Ошибка вибрации:", error);
+        }
+      }
+    },
+    goToRouteWithVibration(route) {
+      this.$router.push(route);
+      this.vibrate(20);
     }
   }
 }

@@ -10,27 +10,31 @@
       <div class="page-header-arrow"></div>
     </div>
 
-    <div class="scroll-list-wrapper">
-      <ScrollList
-          :items="period_items"
-          @set-active-item="setPeriodActiveItem($event)"
-      />
-    </div>
-    <div class="scroll-list-wrapper">
-      <div style="display: flex">
+    <div style="margin-top: auto">
+      <div class="scroll-list-wrapper">
         <ScrollList
-            :items="day_time_items"/>
-        <ScrollList
-            :items="time_items"/>
-      </div>
-    </div>
-    <div class="scroll-list-wrapper" v-if="period_active_item.value === 'two_times_in_week'">
-      <div style="display: flex">
-        <ScrollList
-            :items="day_time_items"/>
-        <ScrollList
-            :items="time_items"
+            :size="'size-m'"
+            :items="period_items"
+            @set-active-item="schedule.period = $event"
         />
+      </div>
+
+      <div class="scroll-list-wrapper">
+        <div style="display: flex">
+          <ScrollList
+              :size="'size-s'"
+              :items="day_time_items"/>
+          <ScrollList
+              :size="'size-s'"
+              :items="time_items"/>
+          <ScrollList
+              :size="'size-s'"
+              :items="day_time_items"/>
+          <ScrollList
+              :size="'size-s'"
+              :items="time_items"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -186,6 +190,13 @@ export default {
       period_active_item: {
         label: 'Два раза в неделю',
         value: 'two_times_in_week'
+      },
+      schedule: {
+        period: '',
+        first_day: '',
+        first_time: '',
+        second_day: '',
+        second_time: ''
       },
       day_time_items: [
         {
@@ -470,7 +481,7 @@ export default {
           label: '23:30',
           value: 23.5
         }
-      ]
+      ],
     }
   },
   methods: {
@@ -607,6 +618,10 @@ export default {
   margin-left: auto;
   margin-right: auto;
   max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0 0 20px 0;
 }
 .circle-menu {
   margin: auto;

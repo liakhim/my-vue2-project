@@ -1,5 +1,6 @@
 <template>
 <!--  v-touch:swipe.down="swipeHandler"-->
+<div :class="size">
   <div class="scroll-list" :class="{'disabled-scroll-list': disabled}" v-touch:moving="movedHandler" v-touch:start="startHandler" v-touch:end="endHandler">
     <div class="active-item"></div>
     <div class="scroll-list-track">
@@ -7,20 +8,21 @@
            :key="item + '_' + index"
            :class="[
                'scroll-list-item',
-               -(offsetY/40) + 14 === index ? ('before_before_before_active ' + '_' + offsetY) : '',
-               -(offsetY/40) + 15 === index ? ('before_before_active ' + '_' + offsetY) : '',
-               -(offsetY/40) + 16 === index ? 'before_active' : '',
-               -(offsetY/40) + 17 === index ? 'active' : '',
-               -(offsetY/40) + 18 === index ? 'after_active' : '',
-               -(offsetY/40) + 19 === index ? 'after_after_active' : '',
-               -(offsetY/40) + 20 === index ? 'after_after_after_active' : '',
+               -(offsetY/itemHeight) + 14 === index ? ('before_before_before_active ' + '_' + offsetY) : '',
+               -(offsetY/itemHeight) + 15 === index ? ('before_before_active ' + '_' + offsetY) : '',
+               -(offsetY/itemHeight) + 16 === index ? 'before_active' : '',
+               -(offsetY/itemHeight) + 17 === index ? 'active' : '',
+               -(offsetY/itemHeight) + 18 === index ? 'after_active' : '',
+               -(offsetY/itemHeight) + 19 === index ? 'after_after_active' : '',
+               -(offsetY/itemHeight) + 20 === index ? 'after_after_after_active' : '',
            ]"
            :style="{'transition': transitionCoefficient + 's', 'transform': 'translateY(' + offsetY + 'px)'}">
         <span class="scroll-list-item-content">{{item.label}}</span>
       </div>
     </div>
-    <span v-touch:tap="tapHandler">Tap</span>
+<!--    <span v-touch:tap="tapHandler">Tap</span>-->
   </div>
+</div>
 </template>
 <script lang="ts">
 export default {
@@ -32,10 +34,11 @@ export default {
       transitionCoefficient: 1,
       offsetY: 0,
       offsetStep: 20,
-      screenWidth: 0
+      screenWidth: 0,
+      itemHeight: 40
     }
   },
-  props: ['items', 'disabled'],
+  props: ['size', 'items', 'disabled'],
   computed: {
     screenType() {
       if (this.screenWidth < 768) return 'mobile'
@@ -43,7 +46,7 @@ export default {
       return 'desktop'
     },
     active_item() {
-      return this.items.find((v, index) => index === -(this.offsetY/40) + 17)
+      return this.items.find((v, index) => index === -(this.offsetY/this.itemHeight ) + 17)
     }
   },
   watch: {
@@ -75,14 +78,14 @@ export default {
         if (Math.abs(delta) > 10) {
           this.vibrate(15);
         }
-        if (delta > 0 && this.offsetY >= -680 && this.offsetY < 680) {
-          this.offsetStep = 40
+        if (delta > 0 && this.offsetY >= -17 * this.itemHeight && this.offsetY < 17 * this.itemHeight) {
+          this.offsetStep = this.itemHeight
           this.offsetY += this.offsetStep
           this.transitionCoefficient = 0.3
           this.vibrate(20);
         }
-        if (delta < 0 && this.offsetY > -680 && this.offsetY <= 680) {
-          this.offsetStep = 40
+        if (delta < 0 && this.offsetY > -17 * this.itemHeight  && this.offsetY <= 17 * this.itemHeight ) {
+          this.offsetStep = this.itemHeight
           this.offsetY -= this.offsetStep
           this.transitionCoefficient = 0.3
           this.vibrate(20);
@@ -128,6 +131,7 @@ export default {
     }
   },
   mounted() {
+    this.itemHeight = this.size === 'size-s' ? 20 : 40
     this.screenWidth = window.innerWidth
     window.addEventListener('resize', this.handleResize)
   },
@@ -137,89 +141,179 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.scroll-list {
-  overscroll-behavior: contain;
-  width: auto;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-  .active-item {
-    position: absolute;
-    top: 71px;
-    width: 90%;
-    margin-left: 5%;
-    height: 38px;
-    border: 2px solid #38E07A;
-    border-radius: 20px;
-  }
-  &-item {
-    height: 40px;
-    color: #fff;
+.size-m {
+  .scroll-list {
+    overscroll-behavior: contain;
+    width: auto;
+    height: 200px;
     display: flex;
-    align-items: center;
-    text-align: center;
-    padding: 0 30px;
+    flex-direction: column;
     justify-content: center;
-    .scroll-list-item-content {
-      opacity: 0.09;
+    overflow: hidden;
+    position: relative;
+    .active-item {
+      position: absolute;
+      top: 81px;
+      width: 90%;
+      margin-left: 5%;
+      height: 38px;
+      border: 2px solid #38E07A;
+      border-radius: 20px;
+    }
+    &-item {
+      height: 40px;
+      color: #fff;
+      display: flex;
+      align-items: center;
       text-align: center;
-    }
-    &.active {
-      opacity: 1;
-    }
-    &.before_before_before_active {
+      padding: 0 30px;
+      justify-content: center;
       .scroll-list-item-content {
         opacity: 0.09;
-        transform:perspective(300px) rotateX(60deg);
+        text-align: center;
       }
-    }
-    &.before_before_active {
-      .scroll-list-item-content {
-        opacity: 0.09;
-        transform:perspective(300px) rotateX(40deg);
-      }
-    }
-    &.before_active {
-      .scroll-list-item-content {
-        opacity: 0.2;
-        transform: perspective(300px) rotateX(20deg);
-      }
-    }
-    &.active {
-      .scroll-list-item-content {
+      &.active {
         opacity: 1;
       }
-    }
-    &.after_active {
-      .scroll-list-item-content {
-        opacity: 0.2;
-        transform:perspective(300px) rotateX(-20deg);
+      &.before_before_before_active {
+        .scroll-list-item-content {
+          opacity: 0.09;
+          transform:perspective(300px) rotateX(60deg);
+        }
       }
-    }
-    &.after_after_active {
-      .scroll-list-item-content {
-        opacity: 0.09;
-        transform:perspective(300px) rotateX(-40deg);
+      &.before_before_active {
+        .scroll-list-item-content {
+          opacity: 0.09;
+          transform:perspective(300px) rotateX(40deg);
+        }
       }
-    }
-    &.after_after_after_active {
-      .scroll-list-item-content {
-        opacity: 0.09;
-        transform:perspective(300px) rotateX(-60deg);
+      &.before_active {
+        .scroll-list-item-content {
+          opacity: 0.2;
+          transform: perspective(300px) rotateX(20deg);
+        }
       }
-    }
-    .scroll-list-item-content {
+      &.active {
+        .scroll-list-item-content {
+          opacity: 1;
+        }
+      }
+      &.after_active {
+        .scroll-list-item-content {
+          opacity: 0.2;
+          transform:perspective(300px) rotateX(-20deg);
+        }
+      }
+      &.after_after_active {
+        .scroll-list-item-content {
+          opacity: 0.09;
+          transform:perspective(300px) rotateX(-40deg);
+        }
+      }
+      &.after_after_after_active {
+        .scroll-list-item-content {
+          opacity: 0.09;
+          transform:perspective(300px) rotateX(-60deg);
+        }
+      }
       .scroll-list-item-content {
-        width: 100%;
+        .scroll-list-item-content {
+          width: 100%;
+        }
       }
     }
   }
+  .scroll-list.disabled-scroll-list {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
 }
-.scroll-list.disabled-scroll-list {
-  opacity: 0.2;
-  cursor: not-allowed;
+.size-s {
+  .scroll-list {
+    overscroll-behavior: contain;
+    width: auto;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    .active-item {
+      position: absolute;
+      top: 40px;
+      width: 90%;
+      margin-left: 5%;
+      height: 19px;
+      border: 1px solid #38E07A;
+      border-radius: 20px;
+    }
+    &-item {
+      height: 20px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 0 12px;
+      justify-content: center;
+      .scroll-list-item-content {
+        opacity: 0.09;
+        text-align: center;
+        font-size: 12px;
+      }
+      &.active {
+        opacity: 1;
+      }
+      &.before_before_before_active {
+        .scroll-list-item-content {
+          opacity: 0.09;
+          transform:perspective(300px) rotateX(60deg);
+        }
+      }
+      &.before_before_active {
+        .scroll-list-item-content {
+          opacity: 0.09;
+          transform:perspective(300px) rotateX(40deg);
+        }
+      }
+      &.before_active {
+        .scroll-list-item-content {
+          opacity: 0.2;
+          transform: perspective(300px) rotateX(20deg);
+        }
+      }
+      &.active {
+        .scroll-list-item-content {
+          opacity: 1;
+        }
+      }
+      &.after_active {
+        .scroll-list-item-content {
+          opacity: 0.2;
+          transform:perspective(300px) rotateX(-20deg);
+        }
+      }
+      &.after_after_active {
+        .scroll-list-item-content {
+          opacity: 0.09;
+          transform:perspective(300px) rotateX(-40deg);
+        }
+      }
+      &.after_after_after_active {
+        .scroll-list-item-content {
+          opacity: 0.09;
+          transform:perspective(300px) rotateX(-60deg);
+        }
+      }
+      .scroll-list-item-content {
+        .scroll-list-item-content {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .scroll-list.disabled-scroll-list {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
 }
 </style>

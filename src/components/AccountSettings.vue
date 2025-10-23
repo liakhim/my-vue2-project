@@ -537,65 +537,12 @@ export default {
   justify-content: center;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4392156863), rgba(255, 255, 255, 0.0078431373), rgba(0, 0, 0, 0.4392156863));
   backdrop-filter: blur(10px);
-  padding: 5px;
+  padding: 1px 5px;
   border-radius: 20px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10px;
+  margin-top: 5px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1254901961);
-}
-.list-wrapper {
-  display: flex;
-  width: 90%;
-  justify-content: center;
-  align-items: flex-start;
-  background: linear-gradient(to bottom, #00000070, #ffffff02, #00000070);
-  backdrop-filter: blur(10px);
-  padding: 30px;
-  border-radius: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -20px;
-  box-shadow: 0 0 10px #ffffff20;
-  .list {
-    .list-item {
-      margin: 5px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(10px);
-      &:nth-child(1) {
-        opacity: 0.09;
-        transform:perspective(300px) rotateX(50deg);
-      }
-      &:nth-child(2) {
-        opacity: 0.2;
-        transform:perspective(300px) rotateX(20deg);
-      }
-      &:nth-child(3) {
-        opacity: 1;
-        border: 1px solid #38E07A;
-        border-radius: 20px;
-        padding: 5px 13px;
-        p {
-          color: #38E07A
-        }
-      }
-      &:nth-child(4) {
-        opacity: 0.2;
-        transform:perspective(300px) rotateX(-20deg);
-      }
-      &:nth-child(5) {
-        opacity: 0.09;
-        transform:perspective(300px) rotateX(-40deg);
-      }
-      p {
-        color: #fff;
-        font-size: 15px;
-        white-space: none;
-      }
-    }
-  }
 }
 
 .vert-checker {

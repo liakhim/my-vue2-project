@@ -17,12 +17,16 @@
           :items="period_items"
           @set-active-item="setPeriodActiveItem($event)"
       />
+    </div>
+    <div class="scroll-list-wrapper">
       <div style="display: flex">
         <ScrollList
             :items="day_items"/>
         <ScrollList
             :items="first_time_items"/>
       </div>
+    </div>
+    <div class="scroll-list-wrapper">
       <div style="display: flex">
         <ScrollList
             :items="day_items"/>
@@ -672,7 +676,17 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px
+  gap: 1px;
+  width: 90%;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4392156863), rgba(255, 255, 255, 0.0078431373), rgba(0, 0, 0, 0.4392156863));
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1254901961);
 }
 .list-wrapper {
   display: flex;

@@ -138,14 +138,14 @@ export default {
       padding: 0 0 0 10px;
       &-title {
         h4 {
-          font-size: 17px;
+          font-size: 16px;
           color: #38E07A;
         }
       }
       &-annotation {
         margin-top: 6px;
         p {
-          font-size: 13px;
+          font-size: 12px;
           color: #ccc;
         }
       }

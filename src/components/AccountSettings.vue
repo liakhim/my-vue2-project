@@ -12,10 +12,24 @@
       </div>
     </div>
 
-    <div class="scroll-list-wrapper" style="margin-top: 200px">
-      <ScrollList :items="period_items"/>
-      <ScrollList :items="first_time_items"/>
-      <ScrollList :items="second_time_items"/>
+    <div class="scroll-list-wrapper">
+      <ScrollList
+          :items="period_items"
+          @set-active-item="setPeriodActiveItem($event)"
+      />
+      <div style="display: flex">
+        <ScrollList
+            :items="day_items"/>
+        <ScrollList
+            :items="first_time_items"/>
+      </div>
+      <div style="display: flex">
+        <ScrollList
+            :items="day_items"/>
+        <ScrollList
+            :items="second_time_items"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -165,6 +179,152 @@ export default {
         {
           label: 'Два раза в день',
           value: 'two_times_in_day'
+        }
+      ],
+      period_active_item: {
+        label: 'Два раза в неделю',
+        value: 'two_times_in_week'
+      },
+      day_items: [
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        },
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        },
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        },
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
+        },
+        {
+          label: 'Понедельник',
+          value: 'monday'
+        },
+        {
+          label: 'Вторник',
+          value: 'tuesday'
+        },
+        {
+          label: 'Среда',
+          value: 'wednesday'
+        },
+        {
+          label: 'Четверг',
+          value: 'thursday'
+        },
+        {
+          label: 'Пятница',
+          value: 'friday'
+        },
+        {
+          label: 'Суббота',
+          value: 'saturday'
+        },
+        {
+          label: 'Воскресение',
+          value: 'sunday'
         }
       ],
       first_time_items: [
@@ -454,11 +614,8 @@ export default {
     }
   },
   methods: {
-    turn() {
-      this.tog = this.tog + 56
-    },
-    ret() {
-      this.tog = this.tog - 56
+    setPeriodActiveItem(event) {
+      this.period_active_item = event
     }
   }
 }
@@ -513,8 +670,9 @@ export default {
 }
 .scroll-list-wrapper {
   display: flex;
-  justify-content: center;
-  gap: 8px
+  flex-direction: column;
+  align-items: center;
+  gap: 1px
 }
 .list-wrapper {
   display: flex;

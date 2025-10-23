@@ -1,6 +1,6 @@
 <template>
 <!--  v-touch:swipe.down="swipeHandler"-->
-  <div class="scroll-list" v-touch:moving="movedHandler" v-touch:start="startHandler" v-touch:end="endHandler">
+  <div class="scroll-list" :class="{'disabled-scroll-list': disabled}" v-touch:moving="movedHandler" v-touch:start="startHandler" v-touch:end="endHandler">
     <div class="active-item"></div>
     <div class="scroll-list-track">
       <div v-for="(item, index) in items"
@@ -33,12 +33,20 @@ export default {
       screenWidth: 0
     }
   },
-  props: ['items'],
+  props: ['items', 'disabled'],
   computed: {
     screenType() {
       if (this.screenWidth < 768) return 'mobile'
       if (this.screenWidth < 1024) return 'tablet'
       return 'desktop'
+    },
+    active_item() {
+      return this.items.find((v, index) => index === -(this.offsetY/40) + 17)
+    }
+  },
+  watch: {
+    active_item(v) {
+      this.$emit('set-active-item', v)
     }
   },
   methods: {
@@ -181,5 +189,9 @@ export default {
       width: 100%;
     }
   }
+}
+.scroll-list.disabled-scroll-list {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 </style>

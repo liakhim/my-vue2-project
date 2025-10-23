@@ -124,8 +124,8 @@ export default {
   },
   methods: {
     goToRouteWithVibration(route) {
+      this.vibrate(30);
       this.$router.push(route);
-      this.vibrate(20);
     }
   }
 }

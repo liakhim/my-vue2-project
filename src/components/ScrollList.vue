@@ -240,7 +240,7 @@ export default {
     position: relative;
     .active-item {
       position: absolute;
-      top: 40px;
+      top: 41px;
       width: 90%;
       margin-left: 5%;
       height: 19px;

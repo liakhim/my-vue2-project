@@ -13,10 +13,9 @@
     </div>
 
     <div class="scroll-list-wrapper" style="margin-top: 200px">
-      <ScrollList/>
-    </div>
-    <div class="scroll-list-wrapper">
-      <IosScroll/>
+      <ScrollList :items="period_items"/>
+      <ScrollList :items="first_time_items"/>
+      <ScrollList :items="second_time_items"/>
     </div>
   </div>
 </template>
@@ -25,7 +24,433 @@ export default {
   name: 'AccountSettings',
   data() {
     return {
-      tog: false
+      tog: false,
+      period_items: [
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        },
+        {
+          label: 'Каждые две недели',
+          value: 'every_two_weeks'
+        },
+        {
+          label: 'Каждую неделю',
+          value: 'every_week'
+        },
+        {
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week'
+        },
+        {
+          label: 'Каждый день',
+          value: 'every_day'
+        },
+        {
+          label: 'Два раза в день',
+          value: 'two_times_in_day'
+        }
+      ],
+      first_time_items: [
+        {
+          label: '06:30',
+          value: 6.5
+        },
+        {
+          label: '07:00',
+          value: 7
+        },
+        {
+          label: '07:30',
+          value: 7.5
+        },
+        {
+          label: '08:00',
+          value: 8
+        },
+        {
+          label: '08:30',
+          value: 8.5
+        },
+        {
+          label: '09:00',
+          value: 9
+        },
+        {
+          label: '09:30',
+          value: 9.5
+        },
+        {
+          label: '10:00',
+          value: 10
+        },
+        {
+          label: '10:30',
+          value: 10.5
+        },
+        {
+          label: '11:00',
+          value: 11
+        },
+        {
+          label: '11:30',
+          value: 11.5
+        },
+        {
+          label: '12:00',
+          value: 12
+        },
+        {
+          label: '12:30',
+          value: 12.5
+        },
+        {
+          label: '13:00',
+          value: 13
+        },
+        {
+          label: '13:30',
+          value: 13.5
+        },
+        {
+          label: '14:00',
+          value: 14
+        },
+        {
+          label: '14:30',
+          value: 14.5
+        },
+        {
+          label: '15:00',
+          value: 15
+        },
+        {
+          label: '15:30',
+          value: 15.5
+        },
+        {
+          label: '16:00',
+          value: 16
+        },
+        {
+          label: '16:30',
+          value: 16.5
+        },
+        {
+          label: '17:00',
+          value: 17
+        },
+        {
+          label: '17:30',
+          value: 17.5
+        },
+        {
+          label: '18:00',
+          value: 18
+        },
+        {
+          label: '18:30',
+          value: 18.5
+        },
+        {
+          label: '19:00',
+          value: 19
+        },
+        {
+          label: '19:30',
+          value: 19.5
+        },
+        {
+          label: '20:00',
+          value: 20
+        },
+        {
+          label: '20:30',
+          value: 20.5
+        },
+        {
+          label: '21:00',
+          value: 21
+        },
+        {
+          label: '21:30',
+          value: 21.5
+        },
+        {
+          label: '22:00',
+          value: 22
+        },
+        {
+          label: '22:30',
+          value: 22.5
+        },
+        {
+          label: '23:00',
+          value: 23
+        },
+        {
+          label: '23:30',
+          value: 23.5
+        }
+      ],
+      second_time_items: [
+        {
+          label: '06:30',
+          value: 6.5
+        },
+        {
+          label: '07:00',
+          value: 7
+        },
+        {
+          label: '07:30',
+          value: 7.5
+        },
+        {
+          label: '08:00',
+          value: 8
+        },
+        {
+          label: '08:30',
+          value: 8.5
+        },
+        {
+          label: '09:00',
+          value: 9
+        },
+        {
+          label: '09:30',
+          value: 9.5
+        },
+        {
+          label: '10:00',
+          value: 10
+        },
+        {
+          label: '10:30',
+          value: 10.5
+        },
+        {
+          label: '11:00',
+          value: 11
+        },
+        {
+          label: '11:30',
+          value: 11.5
+        },
+        {
+          label: '12:00',
+          value: 12
+        },
+        {
+          label: '12:30',
+          value: 12.5
+        },
+        {
+          label: '13:00',
+          value: 13
+        },
+        {
+          label: '13:30',
+          value: 13.5
+        },
+        {
+          label: '14:00',
+          value: 14
+        },
+        {
+          label: '14:30',
+          value: 14.5
+        },
+        {
+          label: '15:00',
+          value: 15
+        },
+        {
+          label: '15:30',
+          value: 15.5
+        },
+        {
+          label: '16:00',
+          value: 16
+        },
+        {
+          label: '16:30',
+          value: 16.5
+        },
+        {
+          label: '17:00',
+          value: 17
+        },
+        {
+          label: '17:30',
+          value: 17.5
+        },
+        {
+          label: '18:00',
+          value: 18
+        },
+        {
+          label: '18:30',
+          value: 18.5
+        },
+        {
+          label: '19:00',
+          value: 19
+        },
+        {
+          label: '19:30',
+          value: 19.5
+        },
+        {
+          label: '20:00',
+          value: 20
+        },
+        {
+          label: '20:30',
+          value: 20.5
+        },
+        {
+          label: '21:00',
+          value: 21
+        },
+        {
+          label: '21:30',
+          value: 21.5
+        },
+        {
+          label: '22:00',
+          value: 22
+        },
+        {
+          label: '22:30',
+          value: 22.5
+        },
+        {
+          label: '23:00',
+          value: 23
+        },
+        {
+          label: '23:30',
+          value: 23.5
+        }
+      ],
     }
   },
   methods: {
@@ -86,7 +511,11 @@ export default {
     width: 100%;
   }
 }
-
+.scroll-list-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px
+}
 .list-wrapper {
   display: flex;
   width: 90%;
@@ -243,5 +672,4 @@ export default {
 </style>
 <script setup lang="ts">
 import ScrollList from "@/components/ScrollList.vue";
-import IosScroll from "@/components/IosScroll.vue";
 </script>

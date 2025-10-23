@@ -98,6 +98,66 @@ export default {
           label: 'Два раза в день',
           value: 'two_times_in_day',
           status: null
+        },
+        {
+          order: 15,
+          label: 'Каждые две недели',
+          value: 'every_two_weeks',
+          status: null
+        },
+        {
+          order: 16,
+          label: 'Каждую неделю',
+          value: 'every_week',
+          status: null
+        },
+        {
+          order: 17,
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week',
+          status: null
+        },
+        {
+          order: 18,
+          label: 'Каждый день',
+          value: 'every_day',
+          status: null
+        },
+        {
+          order: 19,
+          label: 'Два раза в день',
+          value: 'two_times_in_day',
+          status: null
+        },
+        {
+          order: 20,
+          label: 'Каждые две недели',
+          value: 'every_two_weeks',
+          status: null
+        },
+        {
+          order: 21,
+          label: 'Каждую неделю',
+          value: 'every_week',
+          status: null
+        },
+        {
+          order: 22,
+          label: 'Два раза в неделю',
+          value: 'two_times_in_week',
+          status: null
+        },
+        {
+          order: 23,
+          label: 'Каждый день',
+          value: 'every_day',
+          status: null
+        },
+        {
+          order: 24,
+          label: 'Два раза в день',
+          value: 'two_times_in_day',
+          status: null
         }
       ]
     }

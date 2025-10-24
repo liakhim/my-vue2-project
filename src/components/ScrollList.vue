@@ -185,6 +185,7 @@ export default {
       justify-content: center;
       .scroll-list-item-content {
         opacity: 0.09;
+        transition: 0.6s;
         text-align: center;
       }
       &.active {

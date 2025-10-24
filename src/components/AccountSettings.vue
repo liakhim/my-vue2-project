@@ -17,7 +17,9 @@
             :items="period_items"
             @set-active-item="period = $event.value"
         />
-        <div style="display: flex; flex-direction: column">
+      </div>
+      <div class="scroll-list-wrapper">
+        <div style="display: flex;">
           <div style="display: flex">
             <ScrollList
                 v-if="period === 'every_two_weeks' || period === 'every_week' || period === 'two_times_in_week'"
@@ -584,11 +586,11 @@ export default {
 }
 .scroll-list-wrapper {
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   gap: 1px;
   width: 90%;
+  justify-content: center;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4392156863), rgba(255, 255, 255, 0.0078431373), rgba(0, 0, 0, 0.4392156863));
   backdrop-filter: blur(10px);
   padding: 1px 5px;

@@ -11,44 +11,56 @@
     </div>
 
     <div style="margin-top: auto">
-      <div class="scroll-list-wrapper">
+      <div v-if="step===1" class="scroll-list-wrapper">
         <ScrollList
             :size="'size-m'"
             :items="period_items"
             @set-active-item="period = $event.value"
         />
       </div>
-      <div class="scroll-list-wrapper">
+      <div v-if="step===2" class="scroll-list-wrapper">
         <div style="display: flex;">
-          <div style="display: flex">
+          <div style="display: flex; align-items: center">
+            <div class="delimiter">
+              <span style="color: #fff; margin: 0 5px">в</span>
+            </div>
             <ScrollList
                 v-if="period === 'every_two_weeks' || period === 'every_week' || period === 'two_times_in_week'"
-                :size="'size-s'"
+                :size="period === 'two_times_in_week' ? 'size-s' : 'size-m'"
                 :items="day_time_items"
                 @set-active-item="first_day = $event.value"
             />
             <ScrollList
-                :size="'size-s'"
+                :size="period === 'two_times_in_week' ? 'size-s' : 'size-m'"
                 :items="time_items"
                 @set-active-item="first_time = $event.value"
             />
           </div>
-          <div style="display: flex">
+          <div style="display: flex; align-items: center">
             <ScrollList
                 v-if="period === 'two_times_in_week'"
-                :size="'size-s'"
+                :size="period === 'two_times_in_week' ? 'size-s' : 'size-m'"
                 :items="day_time_items"
                 @set-active-item="second_day = $event.value"
             />
+            <div class="delimiter">
+              <span style="color: #fff; margin: 0 5px">и</span>
+            </div>
             <ScrollList
                 v-if="period === 'two_times_in_day' || period === 'two_times_in_week'"
-                :size="'size-s'"
+                :size="period === 'two_times_in_week' ? 'size-s' : 'size-m'"
                 :items="time_items"
                 @set-active-item="second_time = $event.value"
             />
           </div>
         </div>
       </div>
+    </div>
+    <div class="button-block">
+      <button @click="step++" type="button">
+        <span v-if="step===1">Настроить время</span>
+        <span v-if="step===2">Готово</span>
+      </button>
     </div>
   </div>
 </template>
@@ -58,6 +70,7 @@ export default {
   data() {
     return {
       tog: false,
+      step: 1,
       period_items: [
         {
           label: 'Каждые две недели',
@@ -701,6 +714,27 @@ export default {
       width: 150px;
       height: 150px;
       box-shadow: 0 0 10px #38E07A;
+    }
+  }
+}
+.button-block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  button {
+    background: #38E07A;
+    border: 1px solid #237F45;
+    border-radius: 20px;
+    padding: 15px 40px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 350px;
+    span {
+      color: #000;
+      font-size: 16px;
+      font-weight: 500;
     }
   }
 }

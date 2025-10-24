@@ -68,7 +68,7 @@ export default {
           value: 'every_week'
         },
         {
-          label: 'Два раза в неделю',
+          label: 'Дважды в неделю',
           value: 'two_times_in_week'
         },
         {
@@ -76,7 +76,7 @@ export default {
           value: 'every_day'
         },
         {
-          label: 'Два раза в день',
+          label: 'Дважды в день',
           value: 'two_times_in_day'
         },
         {
@@ -88,7 +88,7 @@ export default {
           value: 'every_week'
         },
         {
-          label: 'Два раза в неделю',
+          label: 'Дважды в неделю',
           value: 'two_times_in_week'
         },
         {
@@ -96,7 +96,7 @@ export default {
           value: 'every_day'
         },
         {
-          label: 'Два раза в день',
+          label: 'Дважды в день',
           value: 'two_times_in_day'
         },
         {
@@ -108,7 +108,7 @@ export default {
           value: 'every_week'
         },
         {
-          label: 'Два раза в неделю',
+          label: 'Дважды в неделю',
           value: 'two_times_in_week'
         },
         {
@@ -116,7 +116,7 @@ export default {
           value: 'every_day'
         },
         {
-          label: 'Два раза в день',
+          label: 'Дважды в день',
           value: 'two_times_in_day'
         },
         {
@@ -128,7 +128,7 @@ export default {
           value: 'every_week'
         },
         {
-          label: 'Два раза в неделю',
+          label: 'Дважды в неделю',
           value: 'two_times_in_week'
         },
         {
@@ -136,7 +136,7 @@ export default {
           value: 'every_day'
         },
         {
-          label: 'Два раза в день',
+          label: 'Дважды в день',
           value: 'two_times_in_day'
         },
         {
@@ -148,7 +148,7 @@ export default {
           value: 'every_week'
         },
         {
-          label: 'Два раза в неделю',
+          label: 'Дважды в неделю',
           value: 'two_times_in_week'
         },
         {
@@ -156,7 +156,7 @@ export default {
           value: 'every_day'
         },
         {
-          label: 'Два раза в день',
+          label: 'Дважды в день',
           value: 'two_times_in_day'
         },
         {
@@ -168,7 +168,7 @@ export default {
           value: 'every_week'
         },
         {
-          label: 'Два раза в неделю',
+          label: 'Дважды в неделю',
           value: 'two_times_in_week'
         },
         {
@@ -176,7 +176,7 @@ export default {
           value: 'every_day'
         },
         {
-          label: 'Два раза в день',
+          label: 'Дважды в день',
           value: 'two_times_in_day'
         },
         {
@@ -188,7 +188,7 @@ export default {
           value: 'every_week'
         },
         {
-          label: 'Два раза в неделю',
+          label: 'Дважды в неделю',
           value: 'two_times_in_week'
         },
         {
@@ -196,9 +196,9 @@ export default {
           value: 'every_day'
         },
         {
-          label: 'Два раза в день',
+          label: 'Дважды в день',
           value: 'two_times_in_day'
-        }
+        },
       ],
       period: 'two_times_in_week',
       first_day: '',
@@ -586,11 +586,11 @@ export default {
 }
 .scroll-list-wrapper {
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
   align-items: center;
   gap: 1px;
   width: 90%;
-  justify-content: center;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4392156863), rgba(255, 255, 255, 0.0078431373), rgba(0, 0, 0, 0.4392156863));
   backdrop-filter: blur(10px);
   padding: 1px 5px;

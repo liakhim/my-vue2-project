@@ -269,7 +269,7 @@ export default {
       display: flex;
       align-items: center;
       text-align: center;
-      padding: 0 12px;
+      padding: 0 15px;
       justify-content: center;
       .scroll-list-item-content {
         opacity: 0.09;

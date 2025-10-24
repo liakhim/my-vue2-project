@@ -15,25 +15,36 @@
         <ScrollList
             :size="'size-m'"
             :items="period_items"
-            @set-active-item="schedule.period = $event"
+            @set-active-item="period = $event.value"
         />
-      </div>
-
-      <div class="scroll-list-wrapper">
-        <div style="display: flex">
-          <ScrollList
-              :size="'size-s'"
-              :items="day_time_items"/>
-          <ScrollList
-              :size="'size-s'"
-              :items="time_items"/>
-          <ScrollList
-              :size="'size-s'"
-              :items="day_time_items"/>
-          <ScrollList
-              :size="'size-s'"
-              :items="time_items"
-          />
+        <div style="display: flex; flex-direction: column">
+          <div style="display: flex">
+            <ScrollList
+                v-if="period === 'every_two_weeks' || period === 'every_week' || period === 'two_times_in_week'"
+                :size="'size-s'"
+                :items="day_time_items"
+                @set-active-item="first_day = $event.value"
+            />
+            <ScrollList
+                :size="'size-s'"
+                :items="time_items"
+                @set-active-item="first_time = $event.value"
+            />
+          </div>
+          <div style="display: flex">
+            <ScrollList
+                v-if="period === 'two_times_in_week'"
+                :size="'size-s'"
+                :items="day_time_items"
+                @set-active-item="second_day = $event.value"
+            />
+            <ScrollList
+                v-if="period === 'two_times_in_day' || period === 'two_times_in_week'"
+                :size="'size-s'"
+                :items="time_items"
+                @set-active-item="second_time = $event.value"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -187,17 +198,11 @@ export default {
           value: 'two_times_in_day'
         }
       ],
-      period_active_item: {
-        label: 'Два раза в неделю',
-        value: 'two_times_in_week'
-      },
-      schedule: {
-        period: '',
-        first_day: '',
-        first_time: '',
-        second_day: '',
-        second_time: ''
-      },
+      period: 'two_times_in_week',
+      first_day: '',
+      first_time: '',
+      second_day: '',
+      second_time: '',
       day_time_items: [
         {
           label: 'Понедельник',
@@ -485,8 +490,46 @@ export default {
     }
   },
   methods: {
-    setPeriodActiveItem(event) {
-      this.period_active_item = event
+    schedule() {
+      let obj = {};
+      if (this.period === 'every_two_weeks') {
+        obj = {
+          period: 'every_two_weeks',
+          first_day: this.first_day,
+          first_time: this.first_time
+        }
+      }
+      if (this.period === 'every_week') {
+        obj = {
+          period: 'every_week',
+          first_day: this.first_day,
+          first_time: this.first_time
+        }
+      }
+      if (this.period === 'two_times_in_week') {
+        obj = {
+          period: 'two_times_in_week',
+          first_day: this.first_day,
+          first_time: this.first_time,
+          second_day: this.second_day,
+          second_time: this.second_time
+        }
+      }
+      if (this.period === 'every_day') {
+        obj = {
+          period: 'every_day',
+          first_time: this.first_time
+        }
+      }
+      if (this.period === 'two_times_in_day') {
+        obj = {
+          period: 'two_times_in_day',
+          first_time: this.first_time,
+          second_time: this.second_time
+        }
+      }
+      console.log(obj)
+      return obj;
     }
   }
 }
@@ -541,11 +584,11 @@ export default {
 }
 .scroll-list-wrapper {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
   gap: 1px;
   width: 90%;
-  justify-content: center;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4392156863), rgba(255, 255, 255, 0.0078431373), rgba(0, 0, 0, 0.4392156863));
   backdrop-filter: blur(10px);
   padding: 1px 5px;

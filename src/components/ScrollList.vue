@@ -1,7 +1,12 @@
 <template>
 <!--  v-touch:swipe.down="swipeHandler"-->
 <div :class="size">
-  <div class="scroll-list" :class="{'disabled-scroll-list': disabled}" v-touch:moving="movedHandler" v-touch:start="startHandler" v-touch:end="endHandler">
+  <div class="scroll-list"
+       :class="{'disabled-scroll-list': disabled}"
+       @wheel="scrollHandler"
+       v-touch:moving="movedHandler"
+       v-touch:start="startHandler"
+       v-touch:end="endHandler">
     <div class="active-item"></div>
     <div class="scroll-list-track">
       <div v-for="(item, index) in items"
@@ -58,7 +63,17 @@ export default {
     handleResize() {
       this.screenWidth = window.innerWidth
     },
-    movedHandler(e) {
+    scrollHandler(e) {
+      this.offsetStep = this.itemHeight
+      this.transitionCoefficient = 0.4
+      if (e.deltaY < 0 && this.offsetY > -17 * this.itemHeight && this.offsetY <= 17 * this.itemHeight) {
+        this.offsetY += this.offsetStep
+      }
+      if (e.deltaY > 0 && this.offsetY > -17 * this.itemHeight && this.offsetY <= 17 * this.itemHeight) {
+        this.offsetY -= this.offsetStep
+      }
+    },
+     movedHandler(e) {
       if (this.screenType === 'mobile') {
         console.log('movedHandler')
         console.log(e.changedTouches[0].pageY)
@@ -84,7 +99,7 @@ export default {
           this.transitionCoefficient = 0.3
           this.vibrate(20);
         }
-        if (delta < 0 && this.offsetY > -17 * this.itemHeight  && this.offsetY <= 17 * this.itemHeight ) {
+        if (delta < 0 && this.offsetY > -17 * this.itemHeight && this.offsetY <= 17 * this.itemHeight ) {
           this.offsetStep = this.itemHeight
           this.offsetY -= this.offsetStep
           this.transitionCoefficient = 0.3
